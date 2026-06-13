@@ -1,0 +1,9 @@
+{
+  "den": { "name": "Đen", "hex": "#1a1a1a", "priceAdjust": 0, "imageUrl": "" },
+  "trang": { "name": "Trắng", "hex": "#ffffff", "priceAdjust": 0, "imageUrl": "" },
+  "hong-nhat": { "name": "Hồng nhạt", "hex": "#ffb6c1", "priceAdjust": 0, "imageUrl": "" },
+  "nau-da-dam": { "name": "Nâu da đậm", "hex": "#5c4033", "priceAdjust": 50000, "imageUrl": "" },
+  "nau-da-nhat": { "name": "Nâu da nhạt", "hex": "#d2b48c", "priceAdjust": 0, "imageUrl": "" },
+  "trang-be": { "name": "Trắng be", "hex": "#f5f5dc", "priceAdjust": 0, "imageUrl": "" },
+  "vang-pastel": { "name": "Vàng pastel", "hex": "#fdfd96", "priceAdjust": 0, "imageUrl": "" }
+}

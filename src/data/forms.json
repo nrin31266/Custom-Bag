@@ -1,0 +1,51 @@
+{
+  "tote": {
+    "name": "Túi Tote",
+    "icon": "ShoppingBag",
+    "basePrice": 1890000,
+    "imageUrl": "",
+    "homeImageUrl": ""
+  },
+  "shoulder": {
+    "name": "Túi Shoulder",
+    "icon": "Briefcase",
+    "basePrice": 2690000,
+    "imageUrl": "",
+    "homeImageUrl": ""
+  },
+  "crossbody": {
+    "name": "Túi Crossbody",
+    "icon": "Cross",
+    "basePrice": 1990000,
+    "imageUrl": "",
+    "homeImageUrl": ""
+  },
+  "mini": {
+    "name": "Túi Mini",
+    "icon": "Smartphone",
+    "basePrice": 1290000,
+    "imageUrl": "",
+    "homeImageUrl": ""
+  },
+  "bucket": {
+    "name": "Túi Bucket",
+    "icon": "Bucket",
+    "basePrice": 1590000,
+    "imageUrl": "",
+    "homeImageUrl": ""
+  },
+  "clutch": {
+    "name": "Túi Clutch",
+    "icon": "Clapperboard",
+    "basePrice": 990000,
+    "imageUrl": "",
+    "homeImageUrl": ""
+  },
+  "handbag": {
+    "name": "Túi Handbag",
+    "icon": "Handbag",
+    "basePrice": 2390000,
+    "imageUrl": "",
+    "homeImageUrl": ""
+  }
+}
