@@ -1,51 +1,1136 @@
 {
   "tote": {
     "name": "Túi Tote",
+    "shortName": "Tote",
     "icon": "ShoppingBag",
     "basePrice": 1890000,
-    "imageUrl": "",
-    "homeImageUrl": ""
+    "description": "Form rộng, tiện đi học, đi làm và mang nhiều đồ mỗi ngày.",
+    "imageUrl": "https://picsum.photos/seed/form-tote/500/500",
+    "homeImageUrl": "https://picsum.photos/seed/form-tote-home/500/500",
+    "subOptions": [
+      {
+        "id": "tote-pebble",
+        "name": "Da Pebble mềm",
+        "materialKey": "da-pebble",
+        "description": "Vân nổi nhẹ, ít lộ xước, hợp dùng hằng ngày",
+        "basePrice": 2190000,
+        "imageUrl": "https://picsum.photos/seed/sub-tote-pebble/500/500",
+        "colors": [
+          {
+            "id": "cream",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-tote-pebble-cream/500/500"
+          },
+          {
+            "id": "caramel",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-tote-pebble-caramel/500/500"
+          },
+          {
+            "id": "espresso",
+            "priceAdjust": 80000,
+            "imageUrl": "https://picsum.photos/seed/col-tote-pebble-espresso/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-tote-pebble-black/500/500"
+          },
+          {
+            "id": "rose",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-tote-pebble-rose/500/500"
+          }
+        ]
+      },
+      {
+        "id": "tote-canvas",
+        "name": "Canvas dày",
+        "materialKey": "canvas",
+        "description": "Nhẹ, trẻ trung, hợp phối casual và đi chơi cuối tuần",
+        "basePrice": 1590000,
+        "imageUrl": "https://picsum.photos/seed/sub-tote-canvas/500/500",
+        "colors": [
+          {
+            "id": "natural",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-tote-canvas-natural/500/500"
+          },
+          {
+            "id": "olive",
+            "priceAdjust": 30000,
+            "imageUrl": ""
+          },
+          {
+            "id": "navy",
+            "priceAdjust": 30000,
+            "imageUrl": "https://picsum.photos/seed/col-tote-canvas-navy/500/500"
+          },
+          {
+            "id": "brick",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-tote-canvas-brick/500/500"
+          }
+        ]
+      },
+      {
+        "id": "tote-nylon",
+        "name": "Nylon chống nước",
+        "materialKey": "nylon",
+        "description": "Dễ lau, nhẹ và bền khi đi mưa hoặc du lịch",
+        "basePrice": 1490000,
+        "imageUrl": "https://picsum.photos/seed/sub-tote-nylon/500/500",
+        "colors": [
+          {
+            "id": "charcoal",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-tote-nylon-charcoal/500/500"
+          },
+          {
+            "id": "sand",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-tote-nylon-sand/500/500"
+          },
+          {
+            "id": "sage",
+            "priceAdjust": 30000,
+            "imageUrl": "https://picsum.photos/seed/col-tote-nylon-sage/500/500"
+          },
+          {
+            "id": "butter",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-tote-nylon-butter/500/500"
+          }
+        ]
+      },
+      {
+        "id": "tote-pu",
+        "name": "Da PU mịn",
+        "materialKey": "da-pu",
+        "description": "Bề mặt mịn, màu lên sáng, giá dễ chịu",
+        "basePrice": 1390000,
+        "imageUrl": "https://picsum.photos/seed/sub-tote-pu/500/500",
+        "colors": [
+          {
+            "id": "milk-tea",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-tote-pu-milk-tea/500/500"
+          },
+          {
+            "id": "matcha",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-tote-pu-matcha/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-tote-pu-black/500/500"
+          },
+          {
+            "id": "baby-blue",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-tote-pu-baby-blue/500/500"
+          }
+        ]
+      }
+    ]
   },
   "shoulder": {
     "name": "Túi Shoulder",
+    "shortName": "Shoulder",
     "icon": "Briefcase",
     "basePrice": 2690000,
-    "imageUrl": "",
-    "homeImageUrl": ""
+    "description": "Dáng đeo vai nữ tính, gọn và sang cho đi làm hoặc hẹn hò.",
+    "imageUrl": "https://picsum.photos/seed/form-shoulder/500/500",
+    "homeImageUrl": "https://picsum.photos/seed/form-shoulder-home/500/500",
+    "subOptions": [
+      {
+        "id": "shoulder-pebble",
+        "name": "Da Pebble cao cấp",
+        "materialKey": "da-pebble",
+        "description": "Bản bán chạy, vân da mềm và đứng form vừa phải",
+        "basePrice": 2690000,
+        "imageUrl": "",
+        "colors": [
+          {
+            "id": "trang-be",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-pebble-trang-be/500/500"
+          },
+          {
+            "id": "nau-latte",
+            "priceAdjust": 50000,
+            "imageUrl": ""
+          },
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-pebble-black/500/500"
+          },
+          {
+            "id": "hong-phan",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-pebble-hong-phan/500/500"
+          },
+          {
+            "id": "xanh-khoi",
+            "priceAdjust": 90000,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-pebble-xanh-khoi/500/500"
+          }
+        ]
+      },
+      {
+        "id": "shoulder-saffiano",
+        "name": "Da Saffiano",
+        "materialKey": "da-saffiano",
+        "description": "Vân chéo sang, cứng cáp hơn và chống xước tốt",
+        "basePrice": 2990000,
+        "imageUrl": "https://picsum.photos/seed/sub-shoulder-saffiano/500/500",
+        "colors": [
+          {
+            "id": "black-gold",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-saffiano-black-gold/500/500"
+          },
+          {
+            "id": "wine",
+            "priceAdjust": 120000,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-saffiano-wine/500/500"
+          },
+          {
+            "id": "ivory",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-saffiano-ivory/500/500"
+          },
+          {
+            "id": "taupe",
+            "priceAdjust": 90000,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-saffiano-taupe/500/500"
+          }
+        ]
+      },
+      {
+        "id": "shoulder-suede",
+        "name": "Da lộn mềm",
+        "materialKey": "da-lon",
+        "description": "Chất lỳ, mềm mại, hợp phong cách vintage",
+        "basePrice": 2490000,
+        "imageUrl": "https://picsum.photos/seed/sub-shoulder-suede/500/500",
+        "colors": [
+          {
+            "id": "mocha",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-suede-mocha/500/500"
+          },
+          {
+            "id": "cocoa",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-suede-cocoa/500/500"
+          },
+          {
+            "id": "dusty-pink",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-suede-dusty-pink/500/500"
+          },
+          {
+            "id": "taupe",
+            "priceAdjust": 80000,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-suede-taupe/500/500"
+          }
+        ]
+      },
+      {
+        "id": "shoulder-pu",
+        "name": "Da PU thanh lịch",
+        "materialKey": "da-pu",
+        "description": "Mịn màng, màu lên đẹp, giá tốt cho người mới bắt đầu",
+        "basePrice": 1990000,
+        "imageUrl": "https://picsum.photos/seed/sub-shoulder-pu/500/500",
+        "colors": [
+          {
+            "id": "cream",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-pu-cream/500/500"
+          },
+          {
+            "id": "nau-latte",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-pu-nau-latte/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-pu-black/500/500"
+          },
+          {
+            "id": "wine",
+            "priceAdjust": 90000,
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-pu-wine/500/500"
+          }
+        ]
+      }
+    ]
   },
   "crossbody": {
     "name": "Túi Crossbody",
+    "shortName": "Crossbody",
     "icon": "Cross",
     "basePrice": 1990000,
-    "imageUrl": "",
-    "homeImageUrl": ""
+    "description": "Đeo chéo linh hoạt, gọn người và dễ dùng cả ngày.",
+    "imageUrl": "https://picsum.photos/seed/form-crossbody/500/500",
+    "homeImageUrl": "https://picsum.photos/seed/form-crossbody-home/500/500",
+    "subOptions": [
+      {
+        "id": "crossbody-pu",
+        "name": "Da PU mịn",
+        "materialKey": "da-pu",
+        "description": "Giá dễ chịu, dễ vệ sinh, màu lên sáng",
+        "basePrice": 1590000,
+        "imageUrl": "https://picsum.photos/seed/sub-crossbody-pu/500/500",
+        "colors": [
+          {
+            "id": "milk-tea",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-pu-milk-tea/500/500"
+          },
+          {
+            "id": "matcha",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-pu-matcha/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-pu-black/500/500"
+          },
+          {
+            "id": "baby-blue",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-pu-baby-blue/500/500"
+          }
+        ]
+      },
+      {
+        "id": "crossbody-pebble",
+        "name": "Da Pebble",
+        "materialKey": "da-pebble",
+        "description": "Bền hơn, form đầm và hợp dùng lâu dài",
+        "basePrice": 2090000,
+        "imageUrl": "https://picsum.photos/seed/sub-crossbody-pebble/500/500",
+        "colors": [
+          {
+            "id": "tan",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-pebble-tan/500/500"
+          },
+          {
+            "id": "dark-brown",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-pebble-dark-brown/500/500"
+          },
+          {
+            "id": "cream",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-pebble-cream/500/500"
+          },
+          {
+            "id": "cherry",
+            "priceAdjust": 90000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-pebble-cherry/500/500"
+          }
+        ]
+      },
+      {
+        "id": "crossbody-saffiano",
+        "name": "Da Saffiano chống xước",
+        "materialKey": "da-saffiano",
+        "description": "Cứng cáp, vân chéo sang, bền và chống xước hiệu quả",
+        "basePrice": 2390000,
+        "imageUrl": "https://picsum.photos/seed/sub-crossbody-saffiano/500/500",
+        "colors": [
+          {
+            "id": "black-gold",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-saffiano-black-gold/500/500"
+          },
+          {
+            "id": "wine",
+            "priceAdjust": 120000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-saffiano-wine/500/500"
+          },
+          {
+            "id": "ivory",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-saffiano-ivory/500/500"
+          },
+          {
+            "id": "navy",
+            "priceAdjust": 80000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-saffiano-navy/500/500"
+          }
+        ]
+      },
+      {
+        "id": "crossbody-canvas",
+        "name": "Canvas trẻ trung",
+        "materialKey": "canvas",
+        "description": "Nhẹ nhàng, năng động, hợp outfit casual",
+        "basePrice": 1490000,
+        "imageUrl": "https://picsum.photos/seed/sub-crossbody-canvas/500/500",
+        "colors": [
+          {
+            "id": "natural",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-canvas-natural/500/500"
+          },
+          {
+            "id": "olive",
+            "priceAdjust": 30000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-canvas-olive/500/500"
+          },
+          {
+            "id": "denim",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-canvas-denim/500/500"
+          },
+          {
+            "id": "brick",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-crossbody-canvas-brick/500/500"
+          }
+        ]
+      }
+    ]
   },
   "mini": {
     "name": "Túi Mini",
+    "shortName": "Mini",
     "icon": "Smartphone",
     "basePrice": 1290000,
-    "imageUrl": "",
-    "homeImageUrl": ""
+    "description": "Nhỏ xinh, hợp đi tiệc nhẹ hoặc mang điện thoại son ví.",
+    "imageUrl": "https://picsum.photos/seed/form-mini/500/500",
+    "homeImageUrl": "https://picsum.photos/seed/form-mini-home/500/500",
+    "subOptions": [
+      {
+        "id": "mini-pearl-pu",
+        "name": "PU ánh ngọc",
+        "materialKey": "da-pu",
+        "description": "Bề mặt bóng nhẹ, lên màu pastel đẹp",
+        "basePrice": 1290000,
+        "imageUrl": "https://picsum.photos/seed/sub-mini-pearl-pu/500/500",
+        "colors": [
+          {
+            "id": "pearl",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-mini-pearl-pu-pearl/500/500"
+          },
+          {
+            "id": "pastel-yellow",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-mini-pearl-pu-pastel-yellow/500/500"
+          },
+          {
+            "id": "lilac",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-mini-pearl-pu-lilac/500/500"
+          },
+          {
+            "id": "rose-pink",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-mini-pearl-pu-rose-pink/500/500"
+          }
+        ]
+      },
+      {
+        "id": "mini-saffiano",
+        "name": "Da Saffiano mini",
+        "materialKey": "da-saffiano",
+        "description": "Nhỏ nhưng đứng form, hợp phong cách sang",
+        "basePrice": 1690000,
+        "imageUrl": "https://picsum.photos/seed/sub-mini-saffiano/500/500",
+        "colors": [
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-mini-saffiano-black/500/500"
+          },
+          {
+            "id": "cream",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-mini-saffiano-cream/500/500"
+          },
+          {
+            "id": "ruby",
+            "priceAdjust": 100000,
+            "imageUrl": "https://picsum.photos/seed/col-mini-saffiano-ruby/500/500"
+          }
+        ]
+      },
+      {
+        "id": "mini-pebble",
+        "name": "Da Pebble nhỏ gọn",
+        "materialKey": "da-pebble",
+        "description": "Vân da mềm, bền đẹp, phong cách hằng ngày",
+        "basePrice": 1490000,
+        "imageUrl": "https://picsum.photos/seed/sub-mini-pebble/500/500",
+        "colors": [
+          {
+            "id": "caramel",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-mini-pebble-caramel/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-mini-pebble-black/500/500"
+          },
+          {
+            "id": "dusty-pink",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-mini-pebble-dusty-pink/500/500"
+          },
+          {
+            "id": "milk-tea",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-mini-pebble-milk-tea/500/500"
+          }
+        ]
+      },
+      {
+        "id": "mini-suede",
+        "name": "Da lộn xinh xắn",
+        "materialKey": "da-lon",
+        "description": "Bề mặt nhung ấm áp, tone màu vintage",
+        "basePrice": 1490000,
+        "imageUrl": "https://picsum.photos/seed/sub-mini-suede/500/500",
+        "colors": [
+          {
+            "id": "mocha",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-mini-suede-mocha/500/500"
+          },
+          {
+            "id": "cocoa",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-mini-suede-cocoa/500/500"
+          },
+          {
+            "id": "dusty-pink",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-mini-suede-dusty-pink/500/500"
+          },
+          {
+            "id": "camel",
+            "priceAdjust": 30000,
+            "imageUrl": "https://picsum.photos/seed/col-mini-suede-camel/500/500"
+          }
+        ]
+      }
+    ]
   },
   "bucket": {
     "name": "Túi Bucket",
+    "shortName": "Bucket",
     "icon": "Bucket",
     "basePrice": 1590000,
-    "imageUrl": "",
-    "homeImageUrl": ""
+    "description": "Dáng rút dây cá tính, chứa đồ tốt nhưng vẫn mềm mại.",
+    "imageUrl": "https://picsum.photos/seed/form-bucket/500/500",
+    "homeImageUrl": "https://picsum.photos/seed/form-bucket-home/500/500",
+    "subOptions": [
+      {
+        "id": "bucket-suede",
+        "name": "Da lộn vintage",
+        "materialKey": "da-lon",
+        "description": "Mềm, bụi nhẹ, hợp tone nâu và outfit vintage",
+        "basePrice": 1790000,
+        "imageUrl": "https://picsum.photos/seed/sub-bucket-suede/500/500",
+        "colors": [
+          {
+            "id": "camel",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-suede-camel/500/500"
+          },
+          {
+            "id": "coffee",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-suede-coffee/500/500"
+          },
+          {
+            "id": "moss",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-suede-moss/500/500"
+          },
+          {
+            "id": "cocoa",
+            "priceAdjust": 80000,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-suede-cocoa/500/500"
+          }
+        ]
+      },
+      {
+        "id": "bucket-canvas",
+        "name": "Canvas phối da",
+        "materialKey": "canvas",
+        "description": "Trẻ trung, nhẹ và dễ phối",
+        "basePrice": 1490000,
+        "imageUrl": "https://picsum.photos/seed/sub-bucket-canvas/500/500",
+        "colors": [
+          {
+            "id": "natural",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-canvas-natural/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 30000,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-canvas-black/500/500"
+          },
+          {
+            "id": "denim",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-canvas-denim/500/500"
+          }
+        ]
+      },
+      {
+        "id": "bucket-pebble",
+        "name": "Da Pebble rút dây",
+        "materialKey": "da-pebble",
+        "description": "Vân da Pebble mềm, dáng bucket năng động",
+        "basePrice": 1990000,
+        "imageUrl": "https://picsum.photos/seed/sub-bucket-pebble/500/500",
+        "colors": [
+          {
+            "id": "tan",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-pebble-tan/500/500"
+          },
+          {
+            "id": "dark-brown",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-pebble-dark-brown/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-pebble-black/500/500"
+          },
+          {
+            "id": "olive",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-pebble-olive/500/500"
+          }
+        ]
+      },
+      {
+        "id": "bucket-nylon",
+        "name": "Nylon nhẹ",
+        "materialKey": "nylon",
+        "description": "Siêu nhẹ tiện dụng, chống nước, hợp du lịch",
+        "basePrice": 1390000,
+        "imageUrl": "https://picsum.photos/seed/sub-bucket-nylon/500/500",
+        "colors": [
+          {
+            "id": "charcoal",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-nylon-charcoal/500/500"
+          },
+          {
+            "id": "sand",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-nylon-sand/500/500"
+          },
+          {
+            "id": "sage",
+            "priceAdjust": 30000,
+            "imageUrl": "https://picsum.photos/seed/col-bucket-nylon-sage/500/500"
+          }
+        ]
+      }
+    ]
   },
   "clutch": {
     "name": "Túi Clutch",
+    "shortName": "Clutch",
     "icon": "Clapperboard",
     "basePrice": 990000,
-    "imageUrl": "",
-    "homeImageUrl": ""
+    "description": "Dáng cầm tay gọn, hợp đi tiệc và phối váy.",
+    "imageUrl": "https://picsum.photos/seed/form-clutch/500/500",
+    "homeImageUrl": "https://picsum.photos/seed/form-clutch-home/500/500",
+    "subOptions": [
+      {
+        "id": "clutch-satin",
+        "name": "Satin tiệc",
+        "materialKey": "canvas",
+        "description": "Bóng nhẹ, mềm và hợp ánh đèn buổi tối",
+        "basePrice": 1190000,
+        "imageUrl": "https://picsum.photos/seed/sub-clutch-satin/500/500",
+        "colors": [
+          {
+            "id": "champagne",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-satin-champagne/500/500"
+          },
+          {
+            "id": "midnight",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-satin-midnight/500/500"
+          },
+          {
+            "id": "silver",
+            "priceAdjust": 100000,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-satin-silver/500/500"
+          }
+        ]
+      },
+      {
+        "id": "clutch-saffiano",
+        "name": "Da Saffiano",
+        "materialKey": "da-saffiano",
+        "description": "Cứng cáp, sang và giữ form tốt",
+        "basePrice": 1490000,
+        "imageUrl": "https://picsum.photos/seed/sub-clutch-saffiano/500/500",
+        "colors": [
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-saffiano-black/500/500"
+          },
+          {
+            "id": "burgundy",
+            "priceAdjust": 90000,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-saffiano-burgundy/500/500"
+          },
+          {
+            "id": "ivory",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-saffiano-ivory/500/500"
+          },
+          {
+            "id": "cream-gold",
+            "priceAdjust": 80000,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-saffiano-cream-gold/500/500"
+          }
+        ]
+      },
+      {
+        "id": "clutch-pu",
+        "name": "PU ánh kim",
+        "materialKey": "da-pu",
+        "description": "Bề mặt bóng nhẹ, màu lên rực rỡ, giá tốt",
+        "basePrice": 990000,
+        "imageUrl": "https://picsum.photos/seed/sub-clutch-pu/500/500",
+        "colors": [
+          {
+            "id": "silver",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-pu-silver/500/500"
+          },
+          {
+            "id": "black-gold",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-pu-black-gold/500/500"
+          },
+          {
+            "id": "wine",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-pu-wine/500/500"
+          }
+        ]
+      },
+      {
+        "id": "clutch-pebble",
+        "name": "Da Pebble dạ tiệc",
+        "materialKey": "da-pebble",
+        "description": "Vân Pebble thanh lịch, phong cách sang trọng",
+        "basePrice": 1390000,
+        "imageUrl": "https://picsum.photos/seed/sub-clutch-pebble/500/500",
+        "colors": [
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-pebble-black/500/500"
+          },
+          {
+            "id": "ivory",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-pebble-ivory/500/500"
+          },
+          {
+            "id": "taupe",
+            "priceAdjust": 90000,
+            "imageUrl": "https://picsum.photos/seed/col-clutch-pebble-taupe/500/500"
+          }
+        ]
+      }
+    ]
   },
   "handbag": {
     "name": "Túi Handbag",
+    "shortName": "Handbag",
     "icon": "Handbag",
     "basePrice": 2390000,
-    "imageUrl": "",
-    "homeImageUrl": ""
+    "description": "Dáng xách tay chỉn chu, hợp công sở và sự kiện.",
+    "imageUrl": "https://picsum.photos/seed/form-handbag/500/500",
+    "homeImageUrl": "https://picsum.photos/seed/form-handbag-home/500/500",
+    "subOptions": [
+      {
+        "id": "handbag-saffiano",
+        "name": "Da Saffiano structured",
+        "materialKey": "da-saffiano",
+        "description": "Đứng form, bề mặt vân chéo sang trọng",
+        "basePrice": 2890000,
+        "imageUrl": "https://picsum.photos/seed/sub-handbag-saffiano/500/500",
+        "colors": [
+          {
+            "id": "cream-gold",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-saffiano-cream-gold/500/500"
+          },
+          {
+            "id": "black-gold",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-saffiano-black-gold/500/500"
+          },
+          {
+            "id": "taupe",
+            "priceAdjust": 90000,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-saffiano-taupe/500/500"
+          },
+          {
+            "id": "forest",
+            "priceAdjust": 120000,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-saffiano-forest/500/500"
+          }
+        ]
+      },
+      {
+        "id": "handbag-pebble",
+        "name": "Da Pebble mềm",
+        "materialKey": "da-pebble",
+        "description": "Mềm hơn, dùng hằng ngày thoải mái hơn",
+        "basePrice": 2490000,
+        "imageUrl": "https://picsum.photos/seed/sub-handbag-pebble/500/500",
+        "colors": [
+          {
+            "id": "latte",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-pebble-latte/500/500"
+          },
+          {
+            "id": "almond",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-pebble-almond/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-pebble-black/500/500"
+          },
+          {
+            "id": "navy",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-pebble-navy/500/500"
+          }
+        ]
+      },
+      {
+        "id": "handbag-suede",
+        "name": "Da lộn công sở",
+        "materialKey": "da-lon",
+        "description": "Sang trọng ấm áp, tone màu trầm tinh tế",
+        "basePrice": 2690000,
+        "imageUrl": "https://picsum.photos/seed/sub-handbag-suede/500/500",
+        "colors": [
+          {
+            "id": "mocha",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-suede-mocha/500/500"
+          },
+          {
+            "id": "cocoa",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-suede-cocoa/500/500"
+          },
+          {
+            "id": "taupe",
+            "priceAdjust": 90000,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-suede-taupe/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 30000,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-suede-black/500/500"
+          }
+        ]
+      },
+      {
+        "id": "handbag-pu",
+        "name": "Da PU công sở",
+        "materialKey": "da-pu",
+        "description": "Mịn đẹp thanh lịch, giá hợp lý cho dân văn phòng",
+        "basePrice": 1790000,
+        "imageUrl": "https://picsum.photos/seed/sub-handbag-pu/500/500",
+        "colors": [
+          {
+            "id": "cream",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-pu-cream/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-pu-black/500/500"
+          },
+          {
+            "id": "latte",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-handbag-pu-latte/500/500"
+          }
+        ]
+      }
+    ]
+  },
+  "hobo": {
+    "name": "Túi Hobo",
+    "shortName": "Hobo",
+    "icon": "Moon",
+    "basePrice": 2190000,
+    "description": "Dáng mềm ôm vai, thoải mái và thời trang.",
+    "imageUrl": "https://picsum.photos/seed/form-hobo/500/500",
+    "homeImageUrl": "https://picsum.photos/seed/form-hobo-home/500/500",
+    "subOptions": [
+      {
+        "id": "hobo-pebble",
+        "name": "Da Pebble rũ",
+        "materialKey": "da-pebble",
+        "description": "Rũ nhẹ, mềm tay, tạo dáng tự nhiên",
+        "basePrice": 2290000,
+        "imageUrl": "https://picsum.photos/seed/sub-hobo-pebble/500/500",
+        "colors": [
+          {
+            "id": "cream",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-pebble-cream/500/500"
+          },
+          {
+            "id": "chocolate",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-pebble-chocolate/500/500"
+          },
+          {
+            "id": "clay",
+            "priceAdjust": 90000,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-pebble-clay/500/500"
+          },
+          {
+            "id": "tan",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-pebble-tan/500/500"
+          }
+        ]
+      },
+      {
+        "id": "hobo-nylon",
+        "name": "Nylon mềm",
+        "materialKey": "nylon",
+        "description": "Siêu nhẹ, hợp đi chơi và du lịch",
+        "basePrice": 1690000,
+        "imageUrl": "https://picsum.photos/seed/sub-hobo-nylon/500/500",
+        "colors": [
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-nylon-black/500/500"
+          },
+          {
+            "id": "silver-gray",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-nylon-silver-gray/500/500"
+          },
+          {
+            "id": "lavender-gray",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-nylon-lavender-gray/500/500"
+          }
+        ]
+      },
+      {
+        "id": "hobo-suede",
+        "name": "Da lộn rũ",
+        "materialKey": "da-lon",
+        "description": "Mềm như nhung, phong cách bohemian",
+        "basePrice": 2090000,
+        "imageUrl": "https://picsum.photos/seed/sub-hobo-suede/500/500",
+        "colors": [
+          {
+            "id": "mocha",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-suede-mocha/500/500"
+          },
+          {
+            "id": "camel",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-suede-camel/500/500"
+          },
+          {
+            "id": "cocoa",
+            "priceAdjust": 80000,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-suede-cocoa/500/500"
+          }
+        ]
+      },
+      {
+        "id": "hobo-canvas",
+        "name": "Canvas phối da",
+        "materialKey": "canvas",
+        "description": "Trẻ trung, nhẹ, hợp dạo phố",
+        "basePrice": 1590000,
+        "imageUrl": "https://picsum.photos/seed/sub-hobo-canvas/500/500",
+        "colors": [
+          {
+            "id": "natural",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-canvas-natural/500/500"
+          },
+          {
+            "id": "olive",
+            "priceAdjust": 30000,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-canvas-olive/500/500"
+          },
+          {
+            "id": "denim",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-hobo-canvas-denim/500/500"
+          }
+        ]
+      }
+    ]
+  },
+  "backpack": {
+    "name": "Balo Mini",
+    "shortName": "Backpack",
+    "icon": "Backpack",
+    "basePrice": 1890000,
+    "description": "Balo nhỏ tiện đi học, du lịch ngắn ngày hoặc dạo phố.",
+    "imageUrl": "https://picsum.photos/seed/form-backpack/500/500",
+    "homeImageUrl": "https://picsum.photos/seed/form-backpack-home/500/500",
+    "subOptions": [
+      {
+        "id": "backpack-nylon",
+        "name": "Nylon chống nước",
+        "materialKey": "nylon",
+        "description": "Nhẹ, nhiều ngăn và dễ vệ sinh",
+        "basePrice": 1890000,
+        "imageUrl": "https://picsum.photos/seed/sub-backpack-nylon/500/500",
+        "colors": [
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-nylon-black/500/500"
+          },
+          {
+            "id": "cream",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-nylon-cream/500/500"
+          },
+          {
+            "id": "dusty-blue",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-nylon-dusty-blue/500/500"
+          },
+          {
+            "id": "charcoal",
+            "priceAdjust": 30000,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-nylon-charcoal/500/500"
+          }
+        ]
+      },
+      {
+        "id": "backpack-canvas",
+        "name": "Canvas phối da",
+        "materialKey": "canvas",
+        "description": "Cứng cáp, trẻ trung, hợp đi học",
+        "basePrice": 1790000,
+        "imageUrl": "https://picsum.photos/seed/sub-backpack-canvas/500/500",
+        "colors": [
+          {
+            "id": "natural",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-canvas-natural/500/500"
+          },
+          {
+            "id": "olive",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-canvas-olive/500/500"
+          },
+          {
+            "id": "brick",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-canvas-brick/500/500"
+          },
+          {
+            "id": "navy",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-canvas-navy/500/500"
+          }
+        ]
+      },
+      {
+        "id": "backpack-pu",
+        "name": "Da PU học sinh",
+        "materialKey": "da-pu",
+        "description": "Mịn đẹp, dễ vệ sinh, giá học sinh",
+        "basePrice": 1490000,
+        "imageUrl": "https://picsum.photos/seed/sub-backpack-pu/500/500",
+        "colors": [
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-pu-black/500/500"
+          },
+          {
+            "id": "cream",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-pu-cream/500/500"
+          },
+          {
+            "id": "matcha",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-pu-matcha/500/500"
+          }
+        ]
+      },
+      {
+        "id": "backpack-pebble",
+        "name": "Da Pebble cao cấp",
+        "materialKey": "da-pebble",
+        "description": "Bền bỉ, chống xước, hợp dùng lâu dài",
+        "basePrice": 2190000,
+        "imageUrl": "https://picsum.photos/seed/sub-backpack-pebble/500/500",
+        "colors": [
+          {
+            "id": "tan",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-pebble-tan/500/500"
+          },
+          {
+            "id": "dark-brown",
+            "priceAdjust": 50000,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-pebble-dark-brown/500/500"
+          },
+          {
+            "id": "black",
+            "priceAdjust": 0,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-pebble-black/500/500"
+          },
+          {
+            "id": "navy",
+            "priceAdjust": 70000,
+            "imageUrl": "https://picsum.photos/seed/col-backpack-pebble-navy/500/500"
+          }
+        ]
+      }
+    ]
   }
 }

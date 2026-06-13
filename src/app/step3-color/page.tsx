@@ -1,12 +1,20 @@
 "use client";
 
 import { useAtom } from "jotai";
+import { useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import colors from "@/data/colors.json";
 import { Button } from "@/components/ui/Button";
+import { ProductImage } from "@/components/ui/ProductImage";
 import { StepIndicator } from "@/components/ui/StepIndicator";
 import { useStepNavigation } from "@/hooks/useStepNavigation";
 import { calculateBagPrice, cn, formatPrice } from "@/lib/utils";
+import {
+  getColorOptions,
+  getProduct,
+  getSubOption,
+  isColorValidForSelection,
+  resolveColorData,
+} from "@/lib/productCatalog";
 import {
   colorAtom,
   designDataAtom,
@@ -21,6 +29,18 @@ export default function Step3ColorPage() {
   const [form] = useAtom(formTypeAtom);
   const [material] = useAtom(materialAtom);
   const [, setDesignData] = useAtom(designDataAtom);
+  const product = getProduct(form);
+  const subOption = getSubOption(form, material);
+  const colorOptions = getColorOptions(form, material);
+
+  useEffect(() => {
+    if (isColorValidForSelection(form, material, color)) return;
+    const fallback = colorOptions[0];
+    if (!fallback) return;
+
+    setColor(fallback.id);
+    setDesignData(EMPTY_DESIGN_DATA);
+  }, [color, colorOptions, form, material, setColor, setDesignData]);
 
   const selectColor = (key: string) => {
     setColor(key);
@@ -30,66 +50,90 @@ export default function Step3ColorPage() {
   return (
     <main>
       <StepIndicator currentStep={navigation.currentStep} />
-      <section className="custom-flow-screen mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <section className="custom-flow-screen mx-auto max-w-[1600px] px-4 py-8 sm:px-6">
         <div className="mb-8 text-center">
           <h1 className="font-serif text-3xl font-bold uppercase sm:text-4xl">
-            Chọn màu sắc
+            Chọn màu cho túi
           </h1>
-          <p className="mt-3 text-[#4a392f]">Chọn màu sắc bạn yêu thích</p>
+          <p className="mt-3 text-[#4a392f]">
+            Bảng màu cho phiên bản chất liệu đã chọn — chạm vào màu bạn thích để xem trước
+          </p>
         </div>
 
-        <div>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 xl:grid-cols-4">
-              {Object.entries(colors).map(([key, item]) => {
-            const selected = color === key;
-            return (
-              <button
-                key={key}
-                type="button"
-                onClick={() => selectColor(key)}
-                className={cn(
-                  "flex flex-col items-center gap-4 rounded-xl border border-transparent p-4 transition duration-300 hover:-translate-y-1 hover:bg-[#fffdfb] hover:shadow-lg",
-                  selected &&
-                    "border-[#432719] bg-[#fffdfb] shadow-[0_14px_34px_rgba(67,39,25,0.16)]",
-                )}
-              >
-                <span
-                  className={cn(
-                    "grid size-32 place-items-center rounded-full border border-[#d8c9bc] shadow-[inset_0_18px_28px_rgba(255,255,255,.38),inset_0_-18px_26px_rgba(67,39,25,.18),0_16px_28px_rgba(67,39,25,.14)] transition sm:size-36",
-                    selected &&
-                      "ring-4 ring-[#c6a43f] ring-offset-4 ring-offset-[#fbf8f5]",
-                  )}
-                  style={{
-                    backgroundColor: item.hex,
-                    backgroundImage:
-                      item.imageUrl
-                        ? `radial-gradient(circle at 30% 22%, rgba(255,255,255,.62), transparent 28%), radial-gradient(circle at 70% 78%, rgba(0,0,0,.2), transparent 34%), url(${item.imageUrl})`
-                        : "radial-gradient(circle at 30% 22%, rgba(255,255,255,.62), transparent 28%), radial-gradient(circle at 70% 78%, rgba(0,0,0,.2), transparent 34%), repeating-linear-gradient(45deg, rgba(255,255,255,.2) 0 1px, transparent 1px 7px), radial-gradient(rgba(0,0,0,0.16) 1px, transparent 1px)",
-                    backgroundSize: item.imageUrl ? "100% 100%, 100% 100%, cover" : "100% 100%, 100% 100%, 8px 8px, 7px 7px",
-                    backgroundPosition: "center",
-                  }}
-                />
-                <span className="font-serif text-xl">{item.name}</span>
-                <span className="rounded-full bg-[#f7f1eb] px-3 py-2 text-sm font-semibold text-[#432719]">
-                  {item.priceAdjust > 0 ? `+${formatPrice(item.priceAdjust)}` : "Không phụ thu"}
-                </span>
-                <span className="text-sm font-bold text-[#7d4f2d]">
-                  Túi: {formatPrice(calculateBagPrice(form, material, key))}
-                </span>
-              </button>
-            );
-              })}
+        <div className="grid gap-8 lg:grid-cols-[480px_1fr]">
+          {/* Left: large product preview */}
+          <div className="lg:sticky lg:top-24 lg:h-fit">
+            <ProductImage
+              form={form}
+              material={material}
+              color={color}
+              className="aspect-square w-full rounded-2xl border border-[#e7ded6] shadow-[0_20px_55px_rgba(67,39,25,0.14)]"
+              priority
+            />
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <Button variant="secondary" onClick={navigation.goBack}>
-              <ArrowLeft size={22} />
-              Quay lại
-            </Button>
-            <Button onClick={navigation.goNext}>
-              Tiếp theo
-              <ArrowRight size={22} />
-            </Button>
+          {/* Right: color selection grid */}
+          <div>
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {colorOptions.map((item) => {
+                const key = item.id;
+                const selected = color === key;
+                const colorData = resolveColorData(key);
+                const displayName = colorData?.name ?? key;
+                const displayHex = colorData?.hex ?? "#888";
+
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => selectColor(key)}
+                    className={cn(
+                      "flex flex-col items-center gap-4 rounded-xl border border-transparent p-4 transition duration-300 hover:-translate-y-1 hover:bg-[#fffdfb] hover:shadow-lg",
+                      selected &&
+                        "border-[#432719] bg-[#fffdfb] shadow-[0_14px_34px_rgba(67,39,25,0.16)]",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "relative grid size-32 place-items-center overflow-hidden rounded-full border border-[#d8c9bc] shadow-[inset_0_6px_12px_rgba(255,255,255,.22),inset_0_-8px_12px_rgba(0,0,0,.06),0_4px_12px_rgba(67,39,25,.04)] transition sm:size-36",
+                        selected &&
+                          "ring-4 ring-[#c6a43f] ring-offset-4 ring-offset-[#fbf8f5]",
+                      )}
+                      style={{
+                        backgroundColor: displayHex,
+                      }}
+                    >
+                      <span
+                        className="absolute inset-0 rounded-full"
+                        style={{
+                          backgroundImage:
+                            "radial-gradient(circle at 35% 28%, rgba(255,255,255,.3), transparent 30%), radial-gradient(circle at 65% 72%, rgba(0,0,0,.08), transparent 34%), repeating-linear-gradient(45deg, rgba(255,255,255,.12) 0 1px, transparent 1px 5px), radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px)",
+                          backgroundSize: "100% 100%, 100% 100%, 5px 5px, 5px 5px",
+                        }}
+                      />
+                    </span>
+                    <span className="font-serif text-xl">{displayName}</span>
+                    <span className="rounded-full bg-[#f7f1eb] px-3 py-2 text-sm font-semibold text-[#432719]">
+                      {item.priceAdjust > 0 ? `+${formatPrice(item.priceAdjust)}` : "Giá gốc"}
+                    </span>
+                    <span className="text-sm font-bold text-[#7d4f2d]">
+                      Túi: {formatPrice(calculateBagPrice(form, material, key))}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Button variant="secondary" onClick={navigation.goBack}>
+                <ArrowLeft size={22} />
+                Quay lại
+              </Button>
+              <Button onClick={navigation.goNext}>
+                Trang trí thêm
+                <ArrowRight size={22} />
+              </Button>
+            </div>
           </div>
         </div>
       </section>

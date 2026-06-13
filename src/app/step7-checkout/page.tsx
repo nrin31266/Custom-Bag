@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/Button";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { StepIndicator } from "@/components/ui/StepIndicator";
 import { useStepNavigation } from "@/hooks/useStepNavigation";
-import { createCartItem, getCartItemsTotal } from "@/lib/cartUtils";
+import { createCartItem, getCartItemsTotal, stripHeavyDesignData } from "@/lib/cartUtils";
 import { EMAIL_REGEX, PHONE_REGEX } from "@/lib/constants";
 import {
   calculateBagPrice,
@@ -60,7 +60,7 @@ type CheckoutForm = {
 const paymentOptions = [
   {
     value: "card",
-    title: "Thanh toán bằng thẻ",
+    title: "Đặt hàng ngay bằng thẻ",
     description: "Visa, MasterCard, JCB, ATM nội địa",
     icon: CreditCard,
   },
@@ -72,8 +72,8 @@ const paymentOptions = [
   },
   {
     value: "cod",
-    title: "Thanh toán khi nhận hàng (COD)",
-    description: "Thanh toán bằng tiền mặt khi nhận hàng",
+    title: "Đặt hàng ngay khi nhận hàng (COD)",
+    description: "Đặt hàng ngay bằng tiền mặt khi nhận hàng",
     icon: Banknote,
   },
 ];
@@ -252,7 +252,7 @@ export default function Step7CheckoutPage() {
         color,
         giftBox,
       },
-      items: checkoutItems,
+      items: checkoutItems.map(stripHeavyDesignData),
       design: designData,
       pricing: {
         bagPrice,
@@ -264,7 +264,13 @@ export default function Step7CheckoutPage() {
     };
 
     try {
-      window.localStorage.setItem("lenth_order_latest", JSON.stringify(localOrder));
+      window.localStorage.setItem("lenth_order_latest", JSON.stringify({
+        id: orderId,
+        total,
+        status: "saved",
+        createdAt,
+        itemCount: checkoutItems.length,
+      }));
 
       setLastOrder({
         id: orderId,
@@ -276,7 +282,7 @@ export default function Step7CheckoutPage() {
         [
           {
             id: orderId,
-            items: checkoutItems,
+            items: checkoutItems.map(stripHeavyDesignData),
             customer: normalizedCustomer,
             paymentMethod,
             total,
@@ -307,10 +313,10 @@ export default function Step7CheckoutPage() {
       >
         <div className="mb-7 text-center">
           <h1 className="font-serif text-3xl font-bold uppercase sm:text-4xl">
-            Thanh toán
+            Đặt hàng ngay
           </h1>
           <p className="mt-3 text-[#4a392f]">
-            Vui lòng kiểm tra thông tin và chọn phương thức thanh toán
+            Điền thông tin nhận hàng và chọn cách thanh toán bạn muốn
           </p>
         </div>
 
@@ -535,7 +541,7 @@ export default function Step7CheckoutPage() {
                 </div>
                 <div className="mt-2 text-sm text-[#4a392f]">
                   {cartItems.length > 0
-                    ? "Thanh toán toàn bộ giỏ hàng"
+                    ? "Đặt hàng ngay toàn bộ giỏ hàng"
                     : `${getDisplayName("material", material)} - ${getDisplayName("color", color)}`}
                 </div>
                 <div className="mt-2 text-sm text-[#4a392f]">
@@ -643,7 +649,7 @@ export default function Step7CheckoutPage() {
             Quay lại
           </Button>
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Đang xác nhận..." : "Hoàn tất đơn hàng"}
+            {isSubmitting ? "Đang xác nhận..." : "Đặt hàng ngay"}
             <ArrowRight size={22} />
           </Button>
         </div>

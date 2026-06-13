@@ -34,3 +34,15 @@ export function createCartItem({
 export function getCartItemsTotal(items: CartItem[]) {
   return items.reduce((sum, item) => sum + item.total, 0);
 }
+
+/** Strip heavy fields (canvasJSON, previewDataUrl) before localStorage serialization */
+export function stripHeavyDesignData(item: CartItem): CartItem {
+  return {
+    ...item,
+    designData: {
+      ...item.designData,
+      canvasJSON: null,
+      previewDataUrl: null,
+    },
+  };
+}

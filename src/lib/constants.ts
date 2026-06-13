@@ -42,8 +42,8 @@ export const PHONE_REGEX = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const CANVAS_DEFAULT_CONFIG = {
-  width: 700,
-  height: 450,
+  width: 900,
+  height: 600,
   backgroundColor: "#e8e5e1",
   defaultText: {
     fontFamily: "Arial",

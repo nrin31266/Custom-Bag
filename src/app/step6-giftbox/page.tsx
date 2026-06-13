@@ -69,7 +69,7 @@ export default function Step6GiftBoxPage() {
   return (
     <main>
       <StepIndicator currentStep={navigation.currentStep} />
-      <section className="custom-flow-screen mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <section className="custom-flow-screen mx-auto max-w-[1600px] px-4 py-8 sm:px-6">
         <div className="mb-7 text-center">
           <h1 className="font-serif text-3xl font-bold uppercase sm:text-4xl">
             Thêm box quà

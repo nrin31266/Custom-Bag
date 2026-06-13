@@ -12,7 +12,7 @@ export default function Step4DesignPage() {
   return (
     <main>
       <StepIndicator currentStep={navigation.currentStep} />
-      <section className="custom-flow-screen mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <section className="custom-flow-screen mx-auto max-w-[1600px] px-4 py-8 sm:px-6">
         <CanvasEditor />
         <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Button variant="secondary" onClick={navigation.goBack}>

@@ -35,6 +35,8 @@ button {
   color: #28180f;
 }
 
+/* ─── Animations ─── */
+
 .animate-fade-up {
   animation: fade-up 0.65s ease both;
 }
@@ -42,6 +44,44 @@ button {
 .animate-float {
   animation: float 5.5s ease-in-out infinite;
 }
+
+.animate-pulse-glow {
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s ease both;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.6s ease both;
+}
+
+.animate-sparkle {
+  animation: sparkle 1.8s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2.5s linear infinite;
+  background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.35) 42%, transparent 64%);
+  background-size: 200% 100%;
+}
+
+.animate-enter-stagger > * {
+  animation: fade-up 0.55s ease both;
+}
+
+.animate-enter-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.animate-enter-stagger > *:nth-child(2) { animation-delay: 80ms; }
+.animate-enter-stagger > *:nth-child(3) { animation-delay: 160ms; }
+.animate-enter-stagger > *:nth-child(4) { animation-delay: 240ms; }
+.animate-enter-stagger > *:nth-child(5) { animation-delay: 320ms; }
+.animate-enter-stagger > *:nth-child(6) { animation-delay: 400ms; }
+.animate-enter-stagger > *:nth-child(7) { animation-delay: 480ms; }
+.animate-enter-stagger > *:nth-child(8) { animation-delay: 560ms; }
+.animate-enter-stagger > *:nth-child(9) { animation-delay: 640ms; }
+
+/* ─── Backgrounds ─── */
 
 .hero-sheen {
   position: relative;
@@ -64,6 +104,53 @@ button {
   pointer-events: none;
   position: absolute;
   transform: translateX(-70%);
+}
+
+.hero-sheen-success {
+  position: relative;
+  background:
+    radial-gradient(circle at 25% 15%, rgba(198, 164, 63, 0.25), transparent 32%),
+    radial-gradient(circle at 80% 30%, rgba(67, 39, 25, 0.1), transparent 26%),
+    radial-gradient(circle at 50% 70%, rgba(217, 185, 167, 0.2), transparent 30%),
+    linear-gradient(160deg, #fbf8f5 0%, #f7efe7 40%, #fef9f0 100%);
+}
+
+.sparkle-dot {
+  animation: sparkle-float 3s ease-in-out infinite;
+  background: #c6a43f;
+  border-radius: 50%;
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.sparkle-dot:nth-child(1) { width: 6px; height: 6px; top: 12%; left: 18%; animation-delay: 0s; }
+.sparkle-dot:nth-child(2) { width: 4px; height: 4px; top: 8%; left: 55%; animation-delay: 0.6s; }
+.sparkle-dot:nth-child(3) { width: 5px; height: 5px; top: 22%; left: 82%; animation-delay: 1.2s; }
+.sparkle-dot:nth-child(4) { width: 3px; height: 3px; top: 45%; left: 12%; animation-delay: 1.8s; }
+.sparkle-dot:nth-child(5) { width: 5px; height: 5px; top: 60%; left: 88%; animation-delay: 2.4s; }
+.sparkle-dot:nth-child(6) { width: 4px; height: 4px; top: 78%; left: 22%; animation-delay: 0.3s; }
+.sparkle-dot:nth-child(7) { width: 6px; height: 6px; top: 85%; left: 68%; animation-delay: 1.5s; }
+
+.card-shine {
+  overflow: hidden;
+  position: relative;
+}
+
+.card-shine::before {
+  background: linear-gradient(110deg, transparent, rgba(255,255,255,0.45), transparent);
+  content: "";
+  height: 100%;
+  left: -100%;
+  position: absolute;
+  top: 0;
+  transform: skewX(-15deg);
+  width: 60%;
+  z-index: 1;
+}
+
+.card-shine:hover::before {
+  animation: card-shine 0.7s ease forwards;
 }
 
 .custom-flow-screen {
@@ -95,36 +182,56 @@ button {
   will-change: transform;
 }
 
+/* ─── Keyframes ─── */
+
 @keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-14px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
 }
 
 @keyframes sheen {
-  0%,
-  35% {
-    transform: translateX(-70%);
-  }
-  70%,
-  100% {
-    transform: translateX(70%);
-  }
+  0%, 35%  { transform: translateX(-70%); }
+  70%, 100% { transform: translateX(70%); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(198, 164, 63, 0.4); }
+  50%      { box-shadow: 0 0 0 18px rgba(198, 164, 63, 0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  50%      { opacity: 0.9; transform: scale(3); }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+@keyframes card-shine {
+  from { left: -100%; }
+  to   { left: 100%; }
+}
+
+@keyframes sparkle-float {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(1); }
+  50%      { opacity: 0.85; transform: translateY(-12px) scale(1.6); }
 }
 
 @media (prefers-reduced-motion: reduce) {

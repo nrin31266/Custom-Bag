@@ -9,6 +9,7 @@ import { SiteHeader } from "@/components/ui/SiteHeader";
 import { Button } from "@/components/ui/Button";
 import { createCartItem, getCartItemsTotal } from "@/lib/cartUtils";
 import { cn, formatPrice, getDisplayName } from "@/lib/utils";
+import { getColorName, getSubOption } from "@/lib/productCatalog";
 import {
   canceledOrdersAtom,
   cartItemsAtom,
@@ -186,8 +187,8 @@ export default function CartPage() {
                               {getDisplayName("form", item.form)}
                             </h2>
                             <p className="mt-2 text-[#5c473a]">
-                              {getDisplayName("material", item.material)} -{" "}
-                              {getDisplayName("color", item.color)}
+                              {getSubOption(item.form, item.material).name} -{" "}
+                              {getColorName(item.color)}
                             </p>
                           </div>
                           <span className="rounded-full bg-[#f4eee8] px-4 py-2 font-bold">

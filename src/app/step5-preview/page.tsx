@@ -36,9 +36,9 @@ export default function Step5PreviewPage() {
       <section className="custom-flow-screen mx-auto max-w-7xl px-4 py-8 sm:px-6">
         <div className="mb-7 text-center">
           <h1 className="font-serif text-3xl font-bold uppercase sm:text-4xl">
-            Xem lại thành phẩm
+            Xem trước thành phẩm của bạn
           </h1>
-          <p className="mt-3 text-[#4a392f]">Kiểm tra lại thiết kế của bạn</p>
+          <p className="mt-3 text-[#4a392f]">Đây là chiếc túi bạn vừa thiết kế — ưng thì qua bước tiếp nha</p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
@@ -193,7 +193,7 @@ export default function Step5PreviewPage() {
             </Link>
             <Button onClick={navigation.goNext}>
               <Gift size={22} />
-              Chọn box quà
+              Chọn hộp quà xinh
               <ArrowRight size={22} />
             </Button>
           </div>

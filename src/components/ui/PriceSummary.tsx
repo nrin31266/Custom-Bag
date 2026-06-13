@@ -3,6 +3,7 @@
 import { ProductImage } from "@/components/ui/ProductImage";
 import { cn, formatPrice, getDisplayName, getPriceBreakdown } from "@/lib/utils";
 import type { DesignData } from "@/stores/customizationStore";
+import { getColorName, getSubOption } from "@/lib/productCatalog";
 
 type PriceSummaryProps = {
   form: string;
@@ -24,6 +25,7 @@ export function PriceSummary({
   className,
 }: PriceSummaryProps) {
   const breakdown = getPriceBreakdown(form, material, color, giftBox, designData);
+  const subOption = getSubOption(form, material);
   const rows = [
     { label: "Giá form gốc", value: breakdown.basePrice },
     { label: "Điều chỉnh chất liệu", value: breakdown.materialDelta, signed: true },
@@ -56,7 +58,7 @@ export function PriceSummary({
           {getDisplayName("form", form)}
         </h2>
         <p className="mt-2 text-sm text-[#5c473a]">
-          {getDisplayName("material", material)} - {getDisplayName("color", color)}
+          {subOption.name} - {getColorName(color)}
         </p>
       </div>
 

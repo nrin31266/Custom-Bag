@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { href: "/", label: "Trang chủ" },
   { href: "/step1-form?fresh=1", activeHref: "/step1-form", label: "Custom túi" },
+  { href: "/materials", label: "Chất liệu" },
+  { href: "/colors", label: "Màu sắc" },
   { href: "/guide", label: "Cách hoạt động" },
   { href: "/about", label: "Về Lenth" },
 ];

@@ -9,6 +9,14 @@ import type {
   DesignPricing,
   DesignText,
 } from "@/stores/customizationStore";
+import {
+  findColorOptionById,
+  findSubOptionById,
+  getColorOption,
+  getProduct,
+  getSubOption,
+  resolveColorData,
+} from "@/lib/productCatalog";
 
 type FormKey = keyof typeof forms;
 type MaterialKey = keyof typeof materials;
@@ -29,14 +37,13 @@ export const calculateTotal = (
   hasGiftBox: boolean,
   designData?: DesignData,
 ): number => {
-  const formItem = forms[form as FormKey] ?? forms.shoulder;
-  const materialItem = materials[material as MaterialKey] ?? materials["da-pebble"];
-  const colorItem = colors[color as ColorKey] ?? colors["trang-be"];
+  const subOption = getSubOption(form, material);
+  const colorOption = getColorOption(form, material, color);
   const giftBoxFee = hasGiftBox ? prices.giftBoxFee : 0;
 
   return (
-    formItem.basePrice * materialItem.priceMultiplier +
-    colorItem.priceAdjust +
+    subOption.basePrice +
+    colorOption.priceAdjust +
     calculateCustomizationFee(designData).total +
     giftBoxFee +
     prices.shippingFee
@@ -48,11 +55,10 @@ export const calculateBagPrice = (
   material: string,
   color: string,
 ): number => {
-  const formItem = forms[form as FormKey] ?? forms.shoulder;
-  const materialItem = materials[material as MaterialKey] ?? materials["da-pebble"];
-  const colorItem = colors[color as ColorKey] ?? colors["trang-be"];
+  const subOption = getSubOption(form, material);
+  const colorOption = getColorOption(form, material, color);
 
-  return formItem.basePrice * materialItem.priceMultiplier + colorItem.priceAdjust;
+  return subOption.basePrice + colorOption.priceAdjust;
 };
 
 export const getPriceBreakdown = (
@@ -62,19 +68,18 @@ export const getPriceBreakdown = (
   hasGiftBox: boolean,
   designData?: DesignData,
 ) => {
-  const formItem = forms[form as FormKey] ?? forms.shoulder;
-  const materialItem = materials[material as MaterialKey] ?? materials["da-pebble"];
-  const colorItem = colors[color as ColorKey] ?? colors["trang-be"];
-  const materialAdjustedPrice = formItem.basePrice * materialItem.priceMultiplier;
-  const materialDelta = materialAdjustedPrice - formItem.basePrice;
-  const bagPrice = materialAdjustedPrice + colorItem.priceAdjust;
+  const formItem = getProduct(form);
+  const subOption = getSubOption(form, material);
+  const colorOption = getColorOption(form, material, color);
+  const materialDelta = subOption.basePrice - formItem.basePrice;
+  const bagPrice = subOption.basePrice + colorOption.priceAdjust;
   const giftBoxFee = hasGiftBox ? prices.giftBoxFee : 0;
   const customizationFee = calculateCustomizationFee(designData);
 
   return {
     basePrice: formItem.basePrice,
     materialDelta,
-    colorAdjust: colorItem.priceAdjust,
+    colorAdjust: colorOption.priceAdjust,
     bagPrice,
     customizationFee,
     giftBoxFee,
@@ -128,6 +133,8 @@ export const getDisplayName = (
   key: string,
 ): string => {
   if (type === "form") return forms[key as FormKey]?.name ?? key;
-  if (type === "material") return materials[key as MaterialKey]?.name ?? key;
-  return colors[key as ColorKey]?.name ?? key;
+  if (type === "material") {
+    return findSubOptionById(key)?.name ?? materials[key as MaterialKey]?.name ?? key;
+  }
+  return findColorOptionById(key)?.id !== undefined ? (resolveColorData(key)?.name ?? key) : key;
 };

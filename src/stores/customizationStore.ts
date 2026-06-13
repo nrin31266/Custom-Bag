@@ -91,7 +91,7 @@ export const EMPTY_DESIGN_DATA: DesignData = {
 };
 
 export const formTypeAtom = atomWithStorage("lenth_form", "shoulder");
-export const materialAtom = atomWithStorage("lenth_material", "da-pebble");
+export const materialAtom = atomWithStorage("lenth_material", "shoulder-pebble");
 export const colorAtom = atomWithStorage("lenth_color", "trang-be");
 export const designDataAtom = atomWithStorage<DesignData>(
   "lenth_design",
