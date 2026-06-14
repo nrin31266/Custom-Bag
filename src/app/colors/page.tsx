@@ -28,9 +28,8 @@ export default function ColorsPage() {
 
           <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8">
             {allColors.map(([key, color]) => (
-              <Link
+              <div
                 key={key}
-                href={`/step1-form?fresh=1&filterColor=${key}`}
                 className="group flex flex-col items-center gap-3"
               >
                 <div
@@ -67,7 +66,7 @@ export default function ColorsPage() {
                     {color.hex}
                   </span>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
 

@@ -5,8 +5,8 @@
     "icon": "ShoppingBag",
     "basePrice": 1890000,
     "description": "Form rộng, tiện đi học, đi làm và mang nhiều đồ mỗi ngày.",
-    "imageUrl": "https://picsum.photos/seed/form-tote/500/500",
-    "homeImageUrl": "https://picsum.photos/seed/form-tote-home/500/500",
+    "imageUrl": "/images/forms/tote/i-1781461369745.jpg",
+    "homeImageUrl": "/images/forms/tote/home.jpg",
     "subOptions": [
       {
         "id": "tote-pebble",
@@ -14,17 +14,17 @@
         "materialKey": "da-pebble",
         "description": "Vân nổi nhẹ, ít lộ xước, hợp dùng hằng ngày",
         "basePrice": 2190000,
-        "imageUrl": "https://picsum.photos/seed/sub-tote-pebble/500/500",
+        "imageUrl": "/images/forms/tote/subs/tote-pebble-1781461840851.jpg",
         "colors": [
           {
             "id": "cream",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-tote-pebble-cream/500/500"
+            "imageUrl": "/images/forms/tote/subs/tote-pebble-cream-1781461847755.jpg"
           },
           {
             "id": "caramel",
             "priceAdjust": 50000,
-            "imageUrl": "https://picsum.photos/seed/col-tote-pebble-caramel/500/500"
+            "imageUrl": "/images/forms/tote/subs/tote-pebble-caramel-1781461851035.jpg"
           },
           {
             "id": "espresso",
@@ -54,12 +54,12 @@
           {
             "id": "natural",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-tote-canvas-natural/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Linen_canvas.jpg?width=500"
           },
           {
             "id": "olive",
             "priceAdjust": 30000,
-            "imageUrl": ""
+            "imageUrl": "https://picsum.photos/seed/col-tote-canvas-olive/500/500"
           },
           {
             "id": "navy",
@@ -84,7 +84,7 @@
           {
             "id": "charcoal",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-tote-nylon-charcoal/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/RipStop.jpg?width=500"
           },
           {
             "id": "sand",
@@ -114,7 +114,7 @@
           {
             "id": "milk-tea",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-tote-pu-milk-tea/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ecopiel.JPG?width=500"
           },
           {
             "id": "matcha",
@@ -141,8 +141,8 @@
     "icon": "Briefcase",
     "basePrice": 2690000,
     "description": "Dáng đeo vai nữ tính, gọn và sang cho đi làm hoặc hẹn hò.",
-    "imageUrl": "https://picsum.photos/seed/form-shoulder/500/500",
-    "homeImageUrl": "https://picsum.photos/seed/form-shoulder-home/500/500",
+    "imageUrl": "/images/forms/shoulder/i.jpg",
+    "homeImageUrl": "/images/forms/shoulder/i.jpg",
     "subOptions": [
       {
         "id": "shoulder-pebble",
@@ -150,17 +150,17 @@
         "materialKey": "da-pebble",
         "description": "Bản bán chạy, vân da mềm và đứng form vừa phải",
         "basePrice": 2690000,
-        "imageUrl": "",
+        "imageUrl": "/images/forms/shoulder/subs/1.jpg",
         "colors": [
           {
             "id": "trang-be",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-pebble-trang-be/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/LeatherTexture.jpg?width=500"
           },
           {
             "id": "nau-latte",
             "priceAdjust": 50000,
-            "imageUrl": ""
+            "imageUrl": "https://picsum.photos/seed/col-shoulder-pebble-nau-latte/500/500"
           },
           {
             "id": "black",
@@ -185,12 +185,12 @@
         "materialKey": "da-saffiano",
         "description": "Vân chéo sang, cứng cáp hơn và chống xước tốt",
         "basePrice": 2990000,
-        "imageUrl": "https://picsum.photos/seed/sub-shoulder-saffiano/500/500",
+        "imageUrl": "/images/forms/shoulder/subs/2.jpg",
         "colors": [
           {
             "id": "black-gold",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-saffiano-black-gold/500/500"
+            "imageUrl": "https://szoneierleather.com/wp-content/uploads/2025/05/What-is-Saffiano-Leather.jpg"
           },
           {
             "id": "wine",
@@ -220,7 +220,7 @@
           {
             "id": "mocha",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-suede-mocha/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Suede%20Jacket.jpg?width=500"
           },
           {
             "id": "cocoa",
@@ -250,7 +250,7 @@
           {
             "id": "cream",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-pu-cream/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ecopiel.JPG?width=500"
           },
           {
             "id": "nau-latte",
@@ -291,7 +291,7 @@
           {
             "id": "milk-tea",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-crossbody-pu-milk-tea/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ecopiel.JPG?width=500"
           },
           {
             "id": "matcha",
@@ -321,7 +321,7 @@
           {
             "id": "tan",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-crossbody-pebble-tan/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/LeatherTexture.jpg?width=500"
           },
           {
             "id": "dark-brown",
@@ -351,7 +351,7 @@
           {
             "id": "black-gold",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-crossbody-saffiano-black-gold/500/500"
+            "imageUrl": "https://szoneierleather.com/wp-content/uploads/2025/05/What-is-Saffiano-Leather.jpg"
           },
           {
             "id": "wine",
@@ -381,7 +381,7 @@
           {
             "id": "natural",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-crossbody-canvas-natural/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Linen_canvas.jpg?width=500"
           },
           {
             "id": "olive",
@@ -422,7 +422,7 @@
           {
             "id": "pearl",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-mini-pearl-pu-pearl/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ecopiel.JPG?width=500"
           },
           {
             "id": "pastel-yellow",
@@ -452,7 +452,7 @@
           {
             "id": "black",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-mini-saffiano-black/500/500"
+            "imageUrl": "https://szoneierleather.com/wp-content/uploads/2025/05/What-is-Saffiano-Leather.jpg"
           },
           {
             "id": "cream",
@@ -477,7 +477,7 @@
           {
             "id": "caramel",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-mini-pebble-caramel/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/LeatherTexture.jpg?width=500"
           },
           {
             "id": "black",
@@ -507,7 +507,7 @@
           {
             "id": "mocha",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-mini-suede-mocha/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Suede%20Jacket.jpg?width=500"
           },
           {
             "id": "cocoa",
@@ -548,7 +548,7 @@
           {
             "id": "camel",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-bucket-suede-camel/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Suede%20Jacket.jpg?width=500"
           },
           {
             "id": "coffee",
@@ -578,7 +578,7 @@
           {
             "id": "natural",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-bucket-canvas-natural/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Linen_canvas.jpg?width=500"
           },
           {
             "id": "black",
@@ -603,7 +603,7 @@
           {
             "id": "tan",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-bucket-pebble-tan/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/LeatherTexture.jpg?width=500"
           },
           {
             "id": "dark-brown",
@@ -633,7 +633,7 @@
           {
             "id": "charcoal",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-bucket-nylon-charcoal/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/RipStop.jpg?width=500"
           },
           {
             "id": "sand",
@@ -669,7 +669,7 @@
           {
             "id": "champagne",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-clutch-satin-champagne/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Crepe_satin_(Rico_Cilliers_and_colormass_via_Poly_Haven).png?width=500"
           },
           {
             "id": "midnight",
@@ -694,7 +694,7 @@
           {
             "id": "black",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-clutch-saffiano-black/500/500"
+            "imageUrl": "https://szoneierleather.com/wp-content/uploads/2025/05/What-is-Saffiano-Leather.jpg"
           },
           {
             "id": "burgundy",
@@ -724,7 +724,7 @@
           {
             "id": "silver",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-clutch-pu-silver/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ecopiel.JPG?width=500"
           },
           {
             "id": "black-gold",
@@ -749,7 +749,7 @@
           {
             "id": "black",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-clutch-pebble-black/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/LeatherTexture.jpg?width=500"
           },
           {
             "id": "ivory",
@@ -785,7 +785,7 @@
           {
             "id": "cream-gold",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-handbag-saffiano-cream-gold/500/500"
+            "imageUrl": "https://szoneierleather.com/wp-content/uploads/2025/05/What-is-Saffiano-Leather.jpg"
           },
           {
             "id": "black-gold",
@@ -815,7 +815,7 @@
           {
             "id": "latte",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-handbag-pebble-latte/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/LeatherTexture.jpg?width=500"
           },
           {
             "id": "almond",
@@ -845,7 +845,7 @@
           {
             "id": "mocha",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-handbag-suede-mocha/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Suede%20Jacket.jpg?width=500"
           },
           {
             "id": "cocoa",
@@ -875,7 +875,7 @@
           {
             "id": "cream",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-handbag-pu-cream/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ecopiel.JPG?width=500"
           },
           {
             "id": "black",
@@ -911,7 +911,7 @@
           {
             "id": "cream",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-hobo-pebble-cream/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/LeatherTexture.jpg?width=500"
           },
           {
             "id": "chocolate",
@@ -941,7 +941,7 @@
           {
             "id": "black",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-hobo-nylon-black/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/RipStop.jpg?width=500"
           },
           {
             "id": "silver-gray",
@@ -966,7 +966,7 @@
           {
             "id": "mocha",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-hobo-suede-mocha/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Suede%20Jacket.jpg?width=500"
           },
           {
             "id": "camel",
@@ -991,7 +991,7 @@
           {
             "id": "natural",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-hobo-canvas-natural/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Linen_canvas.jpg?width=500"
           },
           {
             "id": "olive",
@@ -1027,7 +1027,7 @@
           {
             "id": "black",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-backpack-nylon-black/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/RipStop.jpg?width=500"
           },
           {
             "id": "cream",
@@ -1057,7 +1057,7 @@
           {
             "id": "natural",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-backpack-canvas-natural/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Linen_canvas.jpg?width=500"
           },
           {
             "id": "olive",
@@ -1087,7 +1087,7 @@
           {
             "id": "black",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-backpack-pu-black/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ecopiel.JPG?width=500"
           },
           {
             "id": "cream",
@@ -1112,7 +1112,7 @@
           {
             "id": "tan",
             "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-backpack-pebble-tan/500/500"
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/LeatherTexture.jpg?width=500"
           },
           {
             "id": "dark-brown",

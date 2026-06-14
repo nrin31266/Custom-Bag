@@ -4,6 +4,7 @@ import forms from "@/data/forms.json";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { formatPrice } from "@/lib/utils";
+import { getDefaultSelectionForForm } from "@/lib/productCatalog";
 
 const highlights = [
   { icon: Palette, title: "Bạn chọn, bạn quyết", text: "Từ dáng túi, chất liệu cho đến màu sắc và chữ thêu — tất cả do bạn tự tay chọn lựa theo gu riêng." },
@@ -45,7 +46,7 @@ export default function Home() {
             <div className="absolute -inset-4 rounded-full bg-[#c6a43f]/15 blur-3xl" />
             <div className="absolute left-1/4 top-1/4"><div className="animate-sparkle size-2 rounded-full bg-[#c6a43f]" /></div>
             <div className="absolute right-1/4 top-2/3" style={{ animationDelay: "0.8s" }}><div className="animate-sparkle size-1.5 rounded-full bg-[#c6a43f]" style={{ animationDelay: "0.8s" }} /></div>
-            <ProductImage form="shoulder" material="da-pebble" color="trang-be" className="relative drop-shadow-2xl" priority />
+            <ProductImage mode="form" form="shoulder" material="da-pebble" color="trang-be" className="relative drop-shadow-2xl" priority />
           </div>
         </div>
       </section>
@@ -101,15 +102,18 @@ export default function Home() {
           <Link href="/step1-form?fresh=1" className="hidden text-sm font-semibold text-[#432719] underline underline-offset-4 hover:text-[#7d4f2d] sm:block">Xem tất cả &rarr;</Link>
         </div>
         <div className="animate-enter-stagger grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {Object.entries(forms).slice(0, 4).map(([key, item]) => (
+          {Object.entries(forms).slice(0, 4).map(([key, item]) => {
+            const defaults = getDefaultSelectionForForm(key);
+            return (
             <Link key={key} href="/step1-form?fresh=1" className="card-shine group rounded-2xl border border-[#eadfd6] bg-[#fffdfb] p-4 transition duration-300 hover:-translate-y-1 hover:border-[#c6a43f] hover:shadow-xl">
-              <ProductImage form={key} material="da-pebble" color="trang-be" />
+              <ProductImage form={key} material={defaults.material} color={defaults.color} mode="form" />
               <div className="mt-4 flex items-center justify-between px-1 pb-1">
                 <span className="font-serif text-lg font-semibold">{item.name}</span>
                 <span className="text-sm text-[#7a675b]">{formatPrice(item.basePrice)}</span>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
     </main>

@@ -12,7 +12,8 @@ import { useAtom, useAtomValue } from "jotai";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { CANVAS_DEFAULT_CONFIG } from "@/lib/constants";
-import { getDataImageUrl, getTempImageUrl } from "@/lib/imageUtils";
+import { getDataImageUrl } from "@/lib/imageUtils";
+import { PLACEHOLDER_IMAGE_URL } from "@/lib/constants";
 import {
   calculateCustomizationFee,
   cn,
@@ -158,7 +159,7 @@ export function CanvasEditor() {
         backgroundColor: CANVAS_DEFAULT_CONFIG.backgroundColor, preserveObjectStacking: true, selection: true,
       });
       canvasRef.current = canvas;
-      const bg = getDataImageUrl(form, material, color) ?? getTempImageUrl(form, material, color);
+      const bg = getDataImageUrl(form, material, color) ?? PLACEHOLDER_IMAGE_URL;
       try {
         const img = await fabric.FabricImage.fromURL(bg, { crossOrigin: "anonymous" });
         const s = Math.min(CANVAS_DEFAULT_CONFIG.width / (img.width || 500), CANVAS_DEFAULT_CONFIG.height / (img.height || 500));

@@ -2,6 +2,7 @@
 
 import { useAtom } from "jotai";
 import { useEffect } from "react";
+import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ProductImage } from "@/components/ui/ProductImage";
@@ -14,6 +15,7 @@ import {
   getSubOption,
   isColorValidForSelection,
   resolveColorData,
+  getAllColors,
 } from "@/lib/productCatalog";
 import {
   colorAtom,
@@ -32,6 +34,10 @@ export default function Step3ColorPage() {
   const product = getProduct(form);
   const subOption = getSubOption(form, material);
   const colorOptions = getColorOptions(form, material);
+  
+  // Lấy tất cả màu để có imageUrl
+  const allColors = getAllColors();
+  const colorsMap = Object.fromEntries(allColors);
 
   useEffect(() => {
     if (isColorValidForSelection(form, material, color)) return;
@@ -79,8 +85,10 @@ export default function Step3ColorPage() {
                 const key = item.id;
                 const selected = color === key;
                 const colorData = resolveColorData(key);
+                const fullColorData = colorsMap[key];
                 const displayName = colorData?.name ?? key;
                 const displayHex = colorData?.hex ?? "#888";
+                const colorImageUrl = fullColorData?.imageUrl;
 
                 return (
                   <button
@@ -100,17 +108,27 @@ export default function Step3ColorPage() {
                           "ring-4 ring-[#c6a43f] ring-offset-4 ring-offset-[#fbf8f5]",
                       )}
                       style={{
-                        backgroundColor: displayHex,
+                        backgroundColor: colorImageUrl ? undefined : displayHex,
                       }}
                     >
-                      <span
-                        className="absolute inset-0 rounded-full"
-                        style={{
-                          backgroundImage:
-                            "radial-gradient(circle at 35% 28%, rgba(255,255,255,.3), transparent 30%), radial-gradient(circle at 65% 72%, rgba(0,0,0,.08), transparent 34%), repeating-linear-gradient(45deg, rgba(255,255,255,.12) 0 1px, transparent 1px 5px), radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px)",
-                          backgroundSize: "100% 100%, 100% 100%, 5px 5px, 5px 5px",
-                        }}
-                      />
+                      {colorImageUrl ? (
+                        <Image
+                          src={colorImageUrl}
+                          alt={displayName}
+                          fill
+                          sizes="(max-width: 768px) 140px, 160px"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <span
+                          className="absolute inset-0 rounded-full"
+                          style={{
+                            backgroundImage:
+                              "radial-gradient(circle at 35% 28%, rgba(255,255,255,.3), transparent 30%), radial-gradient(circle at 65% 72%, rgba(0,0,0,.08), transparent 34%), repeating-linear-gradient(45deg, rgba(255,255,255,.12) 0 1px, transparent 1px 5px), radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px)",
+                            backgroundSize: "100% 100%, 100% 100%, 5px 5px, 5px 5px",
+                          }}
+                        />
+                      )}
                     </span>
                     <span className="font-serif text-xl">{displayName}</span>
                     <span className="rounded-full bg-[#f7f1eb] px-3 py-2 text-sm font-semibold text-[#432719]">

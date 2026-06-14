@@ -1,14 +1,31 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { getProductImageFallbacks } from "@/lib/imageUtils";
+import {
+  getFormCardImageFallbacks,
+  getMaterialImageFallbacks,
+  getProductImageFallbacks,
+} from "@/lib/imageUtils";
 
-export function useProductImage(form: string, material: string, color: string) {
-  const fallbacks = useMemo(
-    () => getProductImageFallbacks(form, material, color),
-    [form, material, color],
-  );
-  const fallbackKey = `${form}-${material}-${color}`;
+export type ProductImageMode = "detail" | "form" | "material";
+
+export function useProductImage(
+  form: string,
+  material: string,
+  color: string,
+  mode: ProductImageMode = "detail",
+) {
+  const fallbacks = useMemo(() => {
+    if (mode === "form") return getFormCardImageFallbacks(form);
+    if (mode === "material") return getMaterialImageFallbacks(form, material);
+    return getProductImageFallbacks(form, material, color);
+  }, [form, material, color, mode]);
+  const fallbackKey =
+    mode === "form"
+      ? `form-${form}`
+      : mode === "material"
+        ? `material-${form}-${material}`
+        : `${form}-${material}-${color}`;
   const [fallbackState, setFallbackState] = useState({
     key: fallbackKey,
     index: 0,

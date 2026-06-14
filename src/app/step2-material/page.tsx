@@ -2,6 +2,7 @@
 
 import { useAtom } from "jotai";
 import { useEffect } from "react";
+import Image from "next/image";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ProductImage } from "@/components/ui/ProductImage";
@@ -16,6 +17,7 @@ import {
   getProduct,
   getSubOptions,
   isSubOptionValidForForm,
+  getAllMaterials,
 } from "@/lib/productCatalog";
 import {
   colorAtom,
@@ -44,6 +46,7 @@ export default function Step2MaterialPage() {
   const [, setDesignData] = useAtom(designDataAtom);
   const product = getProduct(form);
   const subOptions = getSubOptions(form);
+  const allMaterials = getAllMaterials(); // Map materials để lấy ảnh tấm da
 
   useEffect(() => {
     if (isSubOptionValidForForm(form, material)) return;
@@ -81,6 +84,7 @@ export default function Step2MaterialPage() {
               form={form}
               material={material}
               color={color}
+              mode="material"
               className="aspect-square w-full rounded-2xl border border-[#e7ded6] shadow-[0_20px_55px_rgba(67,39,25,0.14)]"
               priority
             />
@@ -101,6 +105,10 @@ export default function Step2MaterialPage() {
                 const materialDescription =
                   getMaterialDescription(item.materialKey) || item.description;
 
+                // Lấy ảnh tấm chất liệu từ materials object
+                const materialData = allMaterials.find(([key]) => key === item.materialKey)?.[1];
+                const materialImageUrl = materialData?.imageUrl;
+
                 return (
                   <button
                     key={key}
@@ -120,12 +128,23 @@ export default function Step2MaterialPage() {
                       </span>
                     )}
                     <div className="relative h-40 overflow-hidden">
-                      <div
-                        className={cn(
-                          "absolute inset-0 transition duration-500 group-hover:scale-105",
-                          materialTextures[item.materialKey],
-                        )}
-                      />
+                      {/* Ảnh tấm chất liệu (da/vải) - ưu tiên dùng nếu có */}
+                      {materialImageUrl ? (
+                        <Image
+                          src={materialImageUrl}
+                          alt={item.name}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 300px"
+                          className="object-cover transition duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div
+                          className={cn(
+                            "absolute inset-0 transition duration-500 group-hover:scale-105",
+                            materialTextures[item.materialKey],
+                          )}
+                        />
+                      )}
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_18%,rgba(255,255,255,.42),transparent_28%),linear-gradient(180deg,transparent,rgba(67,39,25,.18))]" />
                       <div className="absolute inset-x-0 bottom-0 h-px bg-white/60" />
                     </div>

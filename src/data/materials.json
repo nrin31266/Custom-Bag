@@ -3,14 +3,14 @@
     "name": "Da thật",
     "priceMultiplier": 1,
     "description": "Cao cấp, bền bỉ theo thời gian, bề mặt tự nhiên sang trọng",
-    "imageUrl": ""
+    "imageUrl": "/images/materials/da-that-1781461449025.jpg"
   },
   "da-pebble": {
     "name": "Da Pebble",
     "parent": "da-that",
     "priceMultiplier": 1,
     "description": "Vân nổi nhẹ, ít lộ xước, mềm tay và bền đẹp",
-    "imageUrl": ""
+    "imageUrl": "/images/materials/1.jpg"
   },
   "da-saffiano": {
     "name": "Da Saffiano",

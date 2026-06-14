@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import type { ProductImageMode } from "@/hooks/useProductImage";
 import { useProductImage } from "@/hooks/useProductImage";
 import { cn, getDisplayName } from "@/lib/utils";
 
@@ -11,6 +12,8 @@ type ProductImageProps = {
   color: string;
   className?: string;
   priority?: boolean;
+  /** detail = ảnh theo màu, material = ảnh chất liệu/sub, form = ảnh đại diện form */
+  mode?: ProductImageMode;
 };
 
 export function ProductImage({
@@ -19,9 +22,10 @@ export function ProductImage({
   color,
   className,
   priority,
+  mode = "detail",
 }: ProductImageProps) {
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
-  const { src, handleError } = useProductImage(form, material, color);
+  const { src, handleError } = useProductImage(form, material, color, mode);
   const isLoading = loadedSrc !== src;
 
   return (
