@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { ArrowRight, Clock, Download, History, Pencil, ShoppingBag, Trash2 } from "lucide-react";
+import { ArrowRight, Clock, Download, History, Pencil, ShoppingBag, Trash2, Wrench } from "lucide-react";
 import giftbox from "@/data/giftbox.json";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { SiteHeader } from "@/components/ui/SiteHeader";
@@ -103,10 +103,26 @@ export default function CartPage() {
           <h1 className="mt-2 font-serif text-4xl font-bold">
             Túi đã chọn, đơn đã mua và đơn đã hủy
           </h1>
-          <p className="mt-3 max-w-2xl text-[#5c473a]">
-            Bạn có thể giữ nhiều mẫu túi trong giỏ, xóa từng mẫu khỏi giỏ.
-            Nhấn Chỉnh sửa để thay đổi thiết kế của mẫu đó.
-          </p>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <p className="max-w-2xl text-[#5c473a]">
+              Bạn có thể giữ nhiều mẫu túi trong giỏ, xóa từng mẫu khỏi giỏ.
+              Nhấn Chỉnh sửa để thay đổi thiết kế của mẫu đó.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                if (!window.confirm("Xóa toàn bộ dữ liệu local (giỏ, đơn, thiết kế)?\n\nThao tác này không hoàn tác.")) return;
+                const keysToRemove = Object.keys(window.localStorage).filter((k) => k.startsWith("lenth_"));
+                keysToRemove.forEach((k) => window.localStorage.removeItem(k));
+                window.location.reload();
+              }}
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-red-300 bg-white px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 transition"
+              title="Xóa toàn bộ dữ liệu localStorage nếu gặp lỗi"
+            >
+              <Wrench size={14} />
+              Xóa dữ liệu
+            </button>
+          </div>
         </div>
 
         <div className="mb-6 inline-grid rounded-full border border-[#eadfd6] bg-[#fffdfb] p-1 shadow-sm sm:grid-cols-3">
