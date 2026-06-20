@@ -161,18 +161,14 @@ export default function Step5PreviewPage() {
                   <span>Chữ & icon</span>
                   <strong>+{formatPrice(breakdown.customizationFee.total)}</strong>
                 </div>
-                <div className="flex justify-between gap-4">
-                  <span>Phí vận chuyển</span>
-                  <strong>{formatPrice(breakdown.shippingFee)}</strong>
-                </div>
                 <div className="flex justify-between border-t border-[#eadfd6] pt-4 text-lg font-bold">
-                  <span>Tổng</span>
-                  <span>{formatPrice(breakdown.total)}</span>
+                  <span>Tổng (chưa ship)</span>
+                  <span>{formatPrice(breakdown.bagPrice + breakdown.customizationFee.total)}</span>
                 </div>
               </div>
               <p className="mt-3 flex gap-2 rounded-md bg-[#f7f1eb] p-3 text-xs text-[#6d5b50]">
                 <ImageIcon size={16} className="shrink-0" />
-                Box quà sẽ chọn ở bước tiếp theo.
+                Box quà & phí vận chuyển sẽ chọn ở các bước tiếp theo.
               </p>
             </div>
           </aside>

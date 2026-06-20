@@ -129,7 +129,7 @@ export function MaterialPreview({ id, material }: { id: string; material?: Mater
         <div className="truncate text-sm font-semibold">{material?.name ?? "Không tìm thấy chất liệu"}</div>
         <div className="truncate text-xs text-[#7a675b]">
           {id || "no-id"}
-          {material ? ` · x${material.priceMultiplier}` : ""}
+          {material ? ` · ${material.name}` : ""}
         </div>
       </div>
     </div>

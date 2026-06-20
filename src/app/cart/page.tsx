@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useAtom, useAtomValue } from "jotai";
 import { ArrowRight, Clock, Download, History, Pencil, ShoppingBag, Trash2 } from "lucide-react";
-import prices from "@/data/prices.json";
+import giftbox from "@/data/giftbox.json";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { Button } from "@/components/ui/Button";
@@ -218,7 +218,7 @@ export default function CartPage() {
                             <dt className="font-bold">Box quà</dt>
                             <dd>
                               {item.giftBox
-                                ? `Có (+${formatPrice(prices.giftBoxFee)})`
+                                ? `Có (+${formatPrice(giftbox.fee)})`
                                 : "Không"}
                             </dd>
                           </div>

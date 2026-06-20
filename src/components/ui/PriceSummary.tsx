@@ -93,7 +93,7 @@ export function PriceSummary({
           </span>
         </div>
         <p className="mt-2 text-xs text-[#7a675b]">
-          Giá cập nhật theo từng lựa chọn, chưa bao gồm thay đổi phát sinh ngoài mẫu.
+          Giá cập nhật theo từng lựa chọn. Phí vận chuyển sẽ tính khi chọn tỉnh/thành tại bước thanh toán.
         </p>
       </div>
     </aside>

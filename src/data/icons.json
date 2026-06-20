@@ -1,0 +1,64 @@
+{
+  "icons": [
+    {
+      "src": "/icons/gau.svg",
+      "label": "Gấu"
+    },
+    {
+      "src": "/icons/ho.svg",
+      "label": "Hổ"
+    },
+    {
+      "src": "/icons/koala.svg",
+      "label": "Koala"
+    },
+    {
+      "src": "/icons/bow.svg",
+      "label": "Nơ"
+    },
+    {
+      "src": "/icons/heart.svg",
+      "label": "Tim"
+    },
+    {
+      "src": "/icons/star.svg",
+      "label": "Sao"
+    },
+    {
+      "src": "/icons/sparkle.svg",
+      "label": "Lấp lánh"
+    },
+    {
+      "src": "/icons/flower.svg",
+      "label": "Hoa"
+    },
+    {
+      "src": "/icons/crown.svg",
+      "label": "Vương miện"
+    },
+    {
+      "src": "/icons/diamond.svg",
+      "label": "Kim cương"
+    },
+    {
+      "src": "/icons/moon.svg",
+      "label": "Trăng"
+    },
+    {
+      "src": "/icons/cupcake.svg",
+      "label": "Bánh"
+    },
+    {
+      "src": "/icons/cloud.svg",
+      "label": "Mây"
+    },
+    {
+      "src": "/icons/key.svg",
+      "label": "Chìa khóa"
+    },
+    {
+      "src": "/icons/smile.svg",
+      "label": "Vui"
+    }
+  ]
+}

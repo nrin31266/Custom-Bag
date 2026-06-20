@@ -1,11 +1,9 @@
 import { mkdir, readFile, unlink, writeFile } from "fs/promises";
 import path from "path";
-
 type CatalogScope = "materials" | "colors" | "forms";
 
 type MaterialRecord = {
   name: string;
-  priceMultiplier: number;
   description: string;
   imageUrl: string;
   parent?: string;
@@ -40,7 +38,6 @@ type ProductFormRecord = {
   basePrice: number;
   description: string;
   imageUrl: string;
-  homeImageUrl: string;
   subOptions: ProductSubOption[];
 };
 
@@ -170,10 +167,8 @@ async function readCatalog(): Promise<CatalogData> {
 }
 
 function normalizeMaterial(entry: Partial<MaterialRecord>): MaterialRecord {
-  const priceMultiplier = Number(entry.priceMultiplier);
   return {
     name: String(entry.name ?? "").trim(),
-    priceMultiplier: Number.isFinite(priceMultiplier) ? priceMultiplier : 1,
     description: String(entry.description ?? "").trim(),
     imageUrl: String(entry.imageUrl ?? "").trim(),
     ...(String(entry.parent ?? "").trim() ? { parent: String(entry.parent).trim() } : {}),
@@ -224,7 +219,6 @@ function getExistingImagePath(
 
   const form = record as ProductFormRecord;
   if (target === "form") return form.imageUrl;
-  if (target === "home") return form.homeImageUrl;
 
   const sub = form.subOptions.find((item) => item.id === subId);
   if (target === "sub") return sub?.imageUrl ?? "";
@@ -263,7 +257,6 @@ function normalizeProductForm(
     basePrice,
     description: String(entry.description ?? "").trim(),
     imageUrl: String(entry.imageUrl ?? "").trim(),
-    homeImageUrl: String(entry.homeImageUrl ?? "").trim(),
     subOptions: subOptions.map((sub, subIndex) => {
       const subId = sanitizeId(sub.id);
       const subBasePrice = Number(sub.basePrice);
@@ -338,9 +331,6 @@ export async function POST(request: Request) {
     const data = await readJsonFile<Record<string, MaterialRecord | ColorRecord | ProductFormRecord>>(filePath);
 
     if (body.action === "delete") {
-      if (scope === "forms" && originalId === "shoulder") {
-        return Response.json({ error: "Không được xóa form shoulder vì app đang dùng làm fallback." }, { status: 400 });
-      }
       delete data[originalId];
       await writeCatalogFile(scope, data);
       return Response.json(await readCatalog());
@@ -348,10 +338,6 @@ export async function POST(request: Request) {
 
     if (body.action !== "upsert") {
       return Response.json({ error: "Action không hợp lệ." }, { status: 400 });
-    }
-
-    if (scope === "forms" && originalId === "shoulder" && id !== "shoulder") {
-      return Response.json({ error: "Không được đổi mã form shoulder vì app đang dùng làm fallback." }, { status: 400 });
     }
 
     const normalized = await (async () => {
@@ -433,7 +419,6 @@ function getFormUploadPath(
 ) {
   const ext = getImageExtension(originalFileName);
   if (target === "form") return { folder: "", fileName: `i-${uploadToken}${ext}` };
-  if (target === "home") return { folder: "", fileName: `home-${uploadToken}${ext}` };
   if (target === "sub") {
     if (!subId) failValidation("Thiếu subId khi upload ảnh subOption.");
     return { folder: "subs", fileName: `${subId}-${uploadToken}${ext}` };
@@ -452,7 +437,7 @@ function assertUploadTargetExists(
   subId: string,
   colorId: string,
 ) {
-  if (scope !== "forms" || target === "form" || target === "home") return;
+  if (scope !== "forms" || target === "form") return;
 
   const form = record as ProductFormRecord;
   const sub = form.subOptions.find((item) => item.id === subId);
@@ -475,7 +460,6 @@ function applyUploadedImagePath(
 
   const form = record as ProductFormRecord;
   if (target === "form") return { ...form, imageUrl: publicPath };
-  if (target === "home") return { ...form, homeImageUrl: publicPath };
 
   return {
     ...form,

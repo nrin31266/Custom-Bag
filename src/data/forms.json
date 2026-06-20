@@ -6,7 +6,6 @@
     "basePrice": 1890000,
     "description": "Form rộng, tiện đi học, đi làm và mang nhiều đồ mỗi ngày.",
     "imageUrl": "/images/forms/tote/i-1781461369745.jpg",
-    "homeImageUrl": "/images/forms/tote/home.jpg",
     "subOptions": [
       {
         "id": "tote-pebble",
@@ -135,142 +134,6 @@
       }
     ]
   },
-  "shoulder": {
-    "name": "Túi Shoulder",
-    "shortName": "Shoulder",
-    "icon": "Briefcase",
-    "basePrice": 2690000,
-    "description": "Dáng đeo vai nữ tính, gọn và sang cho đi làm hoặc hẹn hò.",
-    "imageUrl": "/images/forms/shoulder/i.jpg",
-    "homeImageUrl": "/images/forms/shoulder/i.jpg",
-    "subOptions": [
-      {
-        "id": "shoulder-pebble",
-        "name": "Da Pebble cao cấp",
-        "materialKey": "da-pebble",
-        "description": "Bản bán chạy, vân da mềm và đứng form vừa phải",
-        "basePrice": 2690000,
-        "imageUrl": "/images/forms/shoulder/subs/1.jpg",
-        "colors": [
-          {
-            "id": "trang-be",
-            "priceAdjust": 0,
-            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/LeatherTexture.jpg?width=500"
-          },
-          {
-            "id": "nau-latte",
-            "priceAdjust": 50000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-pebble-nau-latte/500/500"
-          },
-          {
-            "id": "black",
-            "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-pebble-black/500/500"
-          },
-          {
-            "id": "hong-phan",
-            "priceAdjust": 70000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-pebble-hong-phan/500/500"
-          },
-          {
-            "id": "xanh-khoi",
-            "priceAdjust": 90000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-pebble-xanh-khoi/500/500"
-          }
-        ]
-      },
-      {
-        "id": "shoulder-saffiano",
-        "name": "Da Saffiano",
-        "materialKey": "da-saffiano",
-        "description": "Vân chéo sang, cứng cáp hơn và chống xước tốt",
-        "basePrice": 2990000,
-        "imageUrl": "/images/forms/shoulder/subs/2.jpg",
-        "colors": [
-          {
-            "id": "black-gold",
-            "priceAdjust": 0,
-            "imageUrl": "https://szoneierleather.com/wp-content/uploads/2025/05/What-is-Saffiano-Leather.jpg"
-          },
-          {
-            "id": "wine",
-            "priceAdjust": 120000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-saffiano-wine/500/500"
-          },
-          {
-            "id": "ivory",
-            "priceAdjust": 70000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-saffiano-ivory/500/500"
-          },
-          {
-            "id": "taupe",
-            "priceAdjust": 90000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-saffiano-taupe/500/500"
-          }
-        ]
-      },
-      {
-        "id": "shoulder-suede",
-        "name": "Da lộn mềm",
-        "materialKey": "da-lon",
-        "description": "Chất lỳ, mềm mại, hợp phong cách vintage",
-        "basePrice": 2490000,
-        "imageUrl": "https://picsum.photos/seed/sub-shoulder-suede/500/500",
-        "colors": [
-          {
-            "id": "mocha",
-            "priceAdjust": 0,
-            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Suede%20Jacket.jpg?width=500"
-          },
-          {
-            "id": "cocoa",
-            "priceAdjust": 50000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-suede-cocoa/500/500"
-          },
-          {
-            "id": "dusty-pink",
-            "priceAdjust": 70000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-suede-dusty-pink/500/500"
-          },
-          {
-            "id": "taupe",
-            "priceAdjust": 80000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-suede-taupe/500/500"
-          }
-        ]
-      },
-      {
-        "id": "shoulder-pu",
-        "name": "Da PU thanh lịch",
-        "materialKey": "da-pu",
-        "description": "Mịn màng, màu lên đẹp, giá tốt cho người mới bắt đầu",
-        "basePrice": 1990000,
-        "imageUrl": "https://picsum.photos/seed/sub-shoulder-pu/500/500",
-        "colors": [
-          {
-            "id": "cream",
-            "priceAdjust": 0,
-            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ecopiel.JPG?width=500"
-          },
-          {
-            "id": "nau-latte",
-            "priceAdjust": 50000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-pu-nau-latte/500/500"
-          },
-          {
-            "id": "black",
-            "priceAdjust": 0,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-pu-black/500/500"
-          },
-          {
-            "id": "wine",
-            "priceAdjust": 90000,
-            "imageUrl": "https://picsum.photos/seed/col-shoulder-pu-wine/500/500"
-          }
-        ]
-      }
-    ]
-  },
   "crossbody": {
     "name": "Túi Crossbody",
     "shortName": "Crossbody",
@@ -278,7 +141,6 @@
     "basePrice": 1990000,
     "description": "Đeo chéo linh hoạt, gọn người và dễ dùng cả ngày.",
     "imageUrl": "https://picsum.photos/seed/form-crossbody/500/500",
-    "homeImageUrl": "https://picsum.photos/seed/form-crossbody-home/500/500",
     "subOptions": [
       {
         "id": "crossbody-pu",
@@ -409,7 +271,6 @@
     "basePrice": 1290000,
     "description": "Nhỏ xinh, hợp đi tiệc nhẹ hoặc mang điện thoại son ví.",
     "imageUrl": "https://picsum.photos/seed/form-mini/500/500",
-    "homeImageUrl": "https://picsum.photos/seed/form-mini-home/500/500",
     "subOptions": [
       {
         "id": "mini-pearl-pu",
@@ -535,7 +396,6 @@
     "basePrice": 1590000,
     "description": "Dáng rút dây cá tính, chứa đồ tốt nhưng vẫn mềm mại.",
     "imageUrl": "https://picsum.photos/seed/form-bucket/500/500",
-    "homeImageUrl": "https://picsum.photos/seed/form-bucket-home/500/500",
     "subOptions": [
       {
         "id": "bucket-suede",
@@ -656,7 +516,6 @@
     "basePrice": 990000,
     "description": "Dáng cầm tay gọn, hợp đi tiệc và phối váy.",
     "imageUrl": "https://picsum.photos/seed/form-clutch/500/500",
-    "homeImageUrl": "https://picsum.photos/seed/form-clutch-home/500/500",
     "subOptions": [
       {
         "id": "clutch-satin",
@@ -772,7 +631,6 @@
     "basePrice": 2390000,
     "description": "Dáng xách tay chỉn chu, hợp công sở và sự kiện.",
     "imageUrl": "https://picsum.photos/seed/form-handbag/500/500",
-    "homeImageUrl": "https://picsum.photos/seed/form-handbag-home/500/500",
     "subOptions": [
       {
         "id": "handbag-saffiano",
@@ -898,7 +756,6 @@
     "basePrice": 2190000,
     "description": "Dáng mềm ôm vai, thoải mái và thời trang.",
     "imageUrl": "https://picsum.photos/seed/form-hobo/500/500",
-    "homeImageUrl": "https://picsum.photos/seed/form-hobo-home/500/500",
     "subOptions": [
       {
         "id": "hobo-pebble",
@@ -1014,7 +871,6 @@
     "basePrice": 1890000,
     "description": "Balo nhỏ tiện đi học, du lịch ngắn ngày hoặc dạo phố.",
     "imageUrl": "https://picsum.photos/seed/form-backpack/500/500",
-    "homeImageUrl": "https://picsum.photos/seed/form-backpack-home/500/500",
     "subOptions": [
       {
         "id": "backpack-nylon",

@@ -25,24 +25,9 @@ import {
   formTypeAtom,
   materialAtom,
 } from "@/stores/customizationStore";
+import iconsData from "@/data/icons.json";
 
-const iconOptions = [
-  { src: "/icons/gau.svg", label: "Gấu" },
-  { src: "/icons/ho.svg", label: "Hổ" },
-  { src: "/icons/koala.svg", label: "Koala" },
-  { src: "/icons/bow.svg", label: "Nơ" },
-  { src: "/icons/heart.svg", label: "Tim" },
-  { src: "/icons/star.svg", label: "Sao" },
-  { src: "/icons/sparkle.svg", label: "Lấp lánh" },
-  { src: "/icons/flower.svg", label: "Hoa" },
-  { src: "/icons/crown.svg", label: "Vương miện" },
-  { src: "/icons/diamond.svg", label: "Kim cương" },
-  { src: "/icons/moon.svg", label: "Trăng" },
-  { src: "/icons/cupcake.svg", label: "Bánh" },
-  { src: "/icons/cloud.svg", label: "Mây" },
-  { src: "/icons/key.svg", label: "Chìa khóa" },
-  { src: "/icons/smile.svg", label: "Vui" },
-];
+const iconOptions = iconsData.icons;
 
 const MAX_TEXT_OBJECTS = 3;
 const MAX_ICON_OBJECTS = 3;
@@ -236,7 +221,7 @@ export function CanvasEditor() {
         <h2 className="text-center text-lg font-bold uppercase text-[#7d4f2d]">Công cụ thiết kế</h2>
 
         {/* Text input */}
-        <input value={text} onChange={(e) => { setText(e.target.value); if (canvasRef.current?.getActiveObject()?.type === "textbox") applyStyle({ text: e.target.value }); }} placeholder="Nhập chữ muốn thêu" className="h-11 w-full rounded-lg border border-[#d8c9bc] bg-white px-3 text-center text-sm outline-none focus:border-[#c6a43f]" />
+        <textarea value={text} onChange={(e) => { setText(e.target.value); if (canvasRef.current?.getActiveObject()?.type === "textbox") applyStyle({ text: e.target.value }); }} placeholder="Nhập chữ muốn thêu" rows={3} className="w-full rounded-lg border border-[#d8c9bc] bg-white px-3 py-3 text-center text-base outline-none focus:border-[#c6a43f] resize-none" />
 
         {/* Font selection */}
         <div>

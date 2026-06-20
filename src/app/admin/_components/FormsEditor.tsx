@@ -46,7 +46,7 @@ export function FormsEditor({
   onUpdateColor: (subIndex: number, colorIndex: number, patch: Partial<ProductColorOption>) => void;
   onRemoveColor: (subIndex: number, colorIndex: number) => void;
   onUpload: (
-    target: "form" | "home" | "sub" | "color",
+    target: "form" | "sub" | "color",
     subId?: string,
     colorId?: string,
   ) => (event: ChangeEvent<HTMLInputElement>) => Promise<void>;
@@ -61,12 +61,10 @@ export function FormsEditor({
           <TextInput label="Icon lucide" value={draft.icon} onChange={(value) => updateDraft("icon", value)} />
           <TextInput label="Base price" type="number" value={String(draft.basePrice)} onChange={(value) => updateDraft("basePrice", Number(value))} />
           <TextInput label="Ảnh form" value={draft.imageUrl} onChange={(value) => updateDraft("imageUrl", value)} />
-          <TextInput label="Ảnh home" value={draft.homeImageUrl} onChange={(value) => updateDraft("homeImageUrl", value)} />
           <label className="block">
-            <span className="text-xs font-bold uppercase text-[#7a675b]">Upload form/home</span>
-            <span className="mt-1 grid grid-cols-2 gap-2">
+            <span className="text-xs font-bold uppercase text-[#7a675b]">Upload ảnh form</span>
+            <span className="mt-1 grid gap-2">
               <FileButton label="Form" disabled={busy || !draft.originalId} onChange={onUpload("form")} />
-              <FileButton label="Home" disabled={busy || !draft.originalId} onChange={onUpload("home")} />
             </span>
           </label>
           <label className="block md:col-span-2 xl:col-span-4">
@@ -89,7 +87,7 @@ export function FormsEditor({
             <Plus size={18} />
             Thêm chất liệu con
           </Button>
-          <Button type="button" variant="secondary" onClick={onDelete} disabled={busy || !draft.originalId || draft.originalId === "shoulder"}>
+          <Button type="button" variant="secondary" onClick={onDelete} disabled={busy || !draft.originalId}>
             <Trash2 size={18} />
             Xóa form
           </Button>

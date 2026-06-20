@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, Palette, ShoppingBag, Sparkles } from "lucide-react";
 import forms from "@/data/forms.json";
+import common from "@/data/common.json";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { formatPrice } from "@/lib/utils";
@@ -46,7 +48,13 @@ export default function Home() {
             <div className="absolute -inset-4 rounded-full bg-[#c6a43f]/15 blur-3xl" />
             <div className="absolute left-1/4 top-1/4"><div className="animate-sparkle size-2 rounded-full bg-[#c6a43f]" /></div>
             <div className="absolute right-1/4 top-2/3" style={{ animationDelay: "0.8s" }}><div className="animate-sparkle size-1.5 rounded-full bg-[#c6a43f]" style={{ animationDelay: "0.8s" }} /></div>
-            <ProductImage mode="form" form="shoulder" material="da-pebble" color="trang-be" className="relative drop-shadow-2xl" priority />
+            {common.heroImageUrl ? (
+              <div className="relative aspect-square">
+                <Image src={common.heroImageUrl} alt="Hero bag" fill sizes="600px" className="object-contain p-6 drop-shadow-2xl" priority unoptimized={common.heroImageUrl.startsWith("https://")} />
+              </div>
+            ) : (
+              <div className="relative aspect-square rounded-md bg-[#eee9e3] drop-shadow-2xl" />
+            )}
           </div>
         </div>
       </section>

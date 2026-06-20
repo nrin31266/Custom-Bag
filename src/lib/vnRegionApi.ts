@@ -1,17 +1,28 @@
 export type Province = {
-  code: string;
+  code: number;
   name: string;
-  type?: string;
+  division_type?: string;
+  codename?: string;
+  phone_code?: number;
 };
 
 export type Ward = {
-  code: string;
+  code: number;
   name: string;
-  district_code?: string;
-  province_code: string;
+  division_type?: string;
+  codename?: string;
+  province_code: number;
 };
 
-const API_BASE = "https://huynhminhvangit.github.io/vn-region-api";
+export type ShippingFee = {
+  name: string;
+  code: number;
+  shipping_fee: number;
+};
+
+import shippingFeesData from "@/data/mock-shipping-fees.json";
+
+const OPEN_API_BASE = "https://provinces.open-api.vn/api/v2";
 
 function tryParsePreJson<T>(html: string): T | null {
   const match = html.match(/<pre[^>]*>([\s\S]*?)<\/pre>/i);
@@ -31,7 +42,7 @@ function tryParsePreJson<T>(html: string): T | null {
 }
 
 export async function fetchVietnamProvinces(): Promise<Province[]> {
-  const response = await fetch(`${API_BASE}/data/provinces.json`, {
+  const response = await fetch(`${OPEN_API_BASE}/p/`, {
     cache: "force-cache",
   });
 
@@ -42,26 +53,33 @@ export async function fetchVietnamProvinces(): Promise<Province[]> {
   return (await response.json()) as Province[];
 }
 
-export async function fetchVietnamWards(provinceCode: string): Promise<Ward[]> {
-  const apiResponse = await fetch(
-    `${API_BASE}/api/wards.html?province_code=${encodeURIComponent(provinceCode)}`,
+export async function fetchVietnamWards(provinceCode: string | number): Promise<Ward[]> {
+  const response = await fetch(
+    `${OPEN_API_BASE}/w/?province=${encodeURIComponent(provinceCode.toString())}`,
     { cache: "force-cache" },
   );
 
-  if (apiResponse.ok) {
-    const parsed = tryParsePreJson<Ward[]>(await apiResponse.text());
-    if (parsed) return parsed;
+  if (!response.ok) {
+    throw new Error(`Không tải được danh sách xã/phường cho tỉnh ${provinceCode}`);
   }
 
-  const dataResponse = await fetch(`${API_BASE}/data/wards.json`, {
-    cache: "force-cache",
+  return (await response.json()) as Ward[];
+}
+
+/**
+ * Get shipping fee by province code from mock data
+ */
+export function getShippingFeeByProvinceCode(
+  provinceCode: string | number,
+): Promise<number | null> {
+  return Promise.resolve().then(() => {
+    try {
+      const fees = shippingFeesData as ShippingFee[];
+      const codeNum = typeof provinceCode === "string" ? parseInt(provinceCode, 10) : provinceCode;
+      const fee = fees.find((f) => f.code === codeNum);
+      return fee?.shipping_fee ?? null;
+    } catch {
+      return null;
+    }
   });
-
-  if (!dataResponse.ok) {
-    throw new Error("Không tải được danh sách phường/xã");
-  }
-
-  const wards = (await dataResponse.json()) as Ward[];
-
-  return wards.filter((ward) => ward.province_code === provinceCode);
 }

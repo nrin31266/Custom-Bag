@@ -90,14 +90,16 @@ export const EMPTY_DESIGN_DATA: DesignData = {
   updatedAt: null,
 };
 
-export const formTypeAtom = atomWithStorage("lenth_form", "shoulder");
-export const materialAtom = atomWithStorage("lenth_material", "shoulder-pebble");
-export const colorAtom = atomWithStorage("lenth_color", "trang-be");
+export const formTypeAtom = atomWithStorage("lenth_form", "");
+export const materialAtom = atomWithStorage("lenth_material", "");
+export const colorAtom = atomWithStorage("lenth_color", "");
 export const designDataAtom = atomWithStorage<DesignData>(
   "lenth_design",
   EMPTY_DESIGN_DATA,
 );
 export const giftBoxAtom = atomWithStorage("lenth_giftbox", false);
+export const shippingProvinceCodeAtom = atomWithStorage("lenth_shipping_province", "");
+export const shippingFeeAtom = atomWithStorage("lenth_shipping_fee", 0);
 export const customerInfoAtom = atomWithStorage<CustomerInfo>("lenth_customer", {
   fullName: "",
   address: "",

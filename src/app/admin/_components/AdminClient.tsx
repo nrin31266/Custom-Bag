@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { ChangeEvent, FormEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
-import { Loader2, Package, Palette, Plus, Search, ShoppingBag } from "lucide-react";
+import { Home, ImageIcon, Loader2, Package, Palette, Plus, Search, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import {
@@ -29,11 +31,16 @@ import type {
   Scope,
 } from "../_types";
 import { FormsEditor } from "./FormsEditor";
+import { IconsEditor } from "./IconsEditor";
 import { ScopeButton } from "./SharedControls";
 import { SimpleEditor } from "./SimpleEditor";
 
 export function AdminClient() {
-  const [scope, setScope] = useState<Scope>("materials");
+  const router = useRouter();
+  const rawParams = useSearchParams();
+  const urlScope = (rawParams.get("tab") ?? "") as Scope;
+  const initialScope: Scope = ["materials", "colors", "forms", "icons"].includes(urlScope) ? urlScope : "materials";
+  const [scope, setScope] = useState<Scope>(initialScope);
   const [data, setData] = useState<CatalogData | null>(null);
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [formDraft, setFormDraft] = useState<FormDraft>(emptyFormDraft);
@@ -41,18 +48,26 @@ export function AdminClient() {
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState("Đang tải dữ liệu...");
   const [busy, setBusy] = useState(true);
+  const [icons, setIcons] = useState<Array<{ src: string; label: string }>>([]);
 
   const entries = useMemo(() => {
-    if (!data) return [];
+    if (!data || scope === "icons") return [];
+    const catalogScope = scope as "materials" | "colors" | "forms";
     const needle = query.trim().toLowerCase();
-    return Object.entries(data[scope]).filter(([id, record]) => {
+    return Object.entries(data[catalogScope]).filter(([id, record]) => {
       if (!needle) return true;
       return `${id} ${record.name}`.toLowerCase().includes(needle);
     });
   }, [data, query, scope]);
 
-  const activeId = scope === "forms" ? formDraft.originalId || formDraft.id : draft.originalId || draft.id;
-  const selectedUsage = getUsageLabel(scope, activeId, data);
+  const filteredIcons = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return icons;
+    return icons.filter((icon) => icon.label.toLowerCase().includes(needle));
+  }, [icons, query]);
+
+  const activeId = scope === "forms" ? formDraft.originalId || formDraft.id : scope === "icons" ? "" : draft.originalId || draft.id;
+  const selectedUsage = scope === "icons" ? "" : getUsageLabel(scope as "materials" | "colors" | "forms", activeId, data);
 
   useEffect(() => {
     let mounted = true;
@@ -84,14 +99,27 @@ export function AdminClient() {
     };
   }, []);
 
+  const fetchIcons = async () => {
+    try {
+      const response = await fetch("/api/admin/icons", { cache: "no-store" });
+      if (response.ok) {
+        const data = await response.json() as { icons: Array<{ src: string; label: string }> };
+        setIcons(data.icons);
+      }
+    } catch { /* ignore */ }
+  };
+
   const switchScope = (nextScope: Scope) => {
     setScope(nextScope);
+    router.replace(`/admin?tab=${nextScope}`, { scroll: false });
     setQuery("");
     setFile(null);
-    if (nextScope === "forms") {
+    if (nextScope === "icons") {
+      fetchIcons();
+    } else if (nextScope === "forms") {
       setFormDraft(getInitialFormDraft(data));
     } else {
-      setDraft(getInitialDraft(nextScope, data));
+      setDraft(getInitialDraft(nextScope === "materials" || nextScope === "colors" ? nextScope : "materials", data));
     }
   };
 
@@ -146,7 +174,7 @@ export function AdminClient() {
   };
 
   const handleFormFileChange =
-    (target: "form" | "home" | "sub" | "color", subId = "", colorId = "") =>
+    (target: "form" | "sub" | "color", subId = "", colorId = "") =>
     async (event: ChangeEvent<HTMLInputElement>) => {
       const selected = event.target.files?.[0];
       event.target.value = "";
@@ -171,10 +199,8 @@ export function AdminClient() {
       scope === "materials"
         ? {
             name: draft.name.trim(),
-            priceMultiplier: Number(draft.priceMultiplier),
             description: draft.description.trim(),
             imageUrl: draft.imageUrl.trim(),
-            ...(draft.parent.trim() ? { parent: draft.parent.trim() } : {}),
           }
         : {
             name: draft.name.trim(),
@@ -212,7 +238,7 @@ export function AdminClient() {
       }
 
       setData(nextData as CatalogData);
-      const saved = (nextData as CatalogData)[scope][id] as MaterialRecord | ColorRecord;
+      const saved = (nextData as CatalogData)[scope as "materials" | "colors" | "forms"][id] as MaterialRecord | ColorRecord;
       setDraft(draftFromRecord(scope, id, saved));
       setFile(null);
       setStatus(`Đã lưu ${id}.`);
@@ -244,7 +270,6 @@ export function AdminClient() {
     basePrice: Number(currentDraft.basePrice),
     description: currentDraft.description.trim(),
     imageUrl: currentDraft.imageUrl.trim(),
-    homeImageUrl: currentDraft.homeImageUrl.trim(),
     subOptions: currentDraft.subOptions.map((sub) => ({
       ...sub,
       id: slugify(sub.id),
@@ -279,7 +304,7 @@ export function AdminClient() {
   };
 
   const uploadFormImage = async (
-    target: "form" | "home" | "sub" | "color",
+    target: "form" | "sub" | "color",
     selectedFile: File,
     subId = "",
     colorId = "",
@@ -315,17 +340,16 @@ export function AdminClient() {
     }
   };
 
-  const getUploadTargetLabel = (target: "form" | "home" | "sub" | "color") => {
+  const getUploadTargetLabel = (target: "form" | "sub" | "color") => {
     if (target === "sub") return "chất liệu con";
     if (target === "color") return "màu";
-    if (target === "home") return "home";
     return "form";
   };
 
   const deleteDraft = async () => {
     const id = scope === "forms" ? formDraft.originalId || formDraft.id : draft.originalId || draft.id;
     if (!id) return;
-    if (!window.confirm(`Xóa ${id}? Dữ liệu đang tham chiếu sẽ không tự đổi.`)) return;
+    if (!window.confirm(`Xóa ${id}? Một số item có thể không được xóa nếu đang được app dùng. Hãy kiểm tra thông báo lỗi.`)) return;
 
     setBusy(true);
     try {
@@ -339,13 +363,51 @@ export function AdminClient() {
       setData(nextData as CatalogData);
       if (scope === "forms") {
         setFormDraft(getInitialFormDraft(nextData as CatalogData));
-      } else {
+      } else if (scope !== "icons") {
         setDraft(getInitialDraft(scope, nextData as CatalogData));
       }
       setFile(null);
       setStatus(`Đã xóa ${id}.`);
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Không xóa được dữ liệu.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleIconUpload = async (label: string, file: File) => {
+    setBusy(true);
+    try {
+      const formData = new FormData();
+      formData.set("action", "add");
+      formData.set("label", label);
+      formData.set("file", file);
+      const response = await fetch("/api/admin/icons", { method: "POST", body: formData });
+      const data = await response.json() as { icons: Array<{ src: string; label: string }>; error?: string };
+      if (!response.ok) throw new Error(data.error ?? "Không upload được icon.");
+      setIcons(data.icons);
+      setStatus(`Đã thêm icon "${label}".`);
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Không upload được icon.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleIconDelete = async (src: string) => {
+    if (!window.confirm(`Xóa icon ${src}?`)) return;
+    setBusy(true);
+    try {
+      const formData = new FormData();
+      formData.set("action", "delete");
+      formData.set("src", src);
+      const response = await fetch("/api/admin/icons", { method: "POST", body: formData });
+      const data = await response.json() as { icons: Array<{ src: string; label: string }>; error?: string };
+      if (!response.ok) throw new Error(data.error ?? "Không xóa được icon.");
+      setIcons(data.icons);
+      setStatus(`Đã xóa icon.`);
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Không xóa được icon.");
     } finally {
       setBusy(false);
     }
@@ -435,18 +497,22 @@ export function AdminClient() {
     }));
   };
 
-  const listTitle = scope === "materials" ? "Chất liệu" : scope === "colors" ? "Màu sắc" : "Forms";
+  const listTitle = scope === "icons" ? "Icons" : scope === "materials" ? "Chất liệu" : scope === "colors" ? "Màu sắc" : "Forms";
   const imageSrc = scope === "forms" ? formDraft.imageUrl : draft.imageUrl;
 
   return (
     <main className="min-h-screen bg-[#f4efe9] text-[#28180f]">
-      <section className="mx-auto flex min-h-screen max-w-[1500px] flex-col px-4 py-5 sm:px-6">
+      <section className="flex min-h-screen flex-col px-6 py-5">
         <header className="mb-5 flex flex-col gap-4 border-b border-[#dacdc0] pb-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-xs font-bold uppercase text-[#9a6b36]">Local admin</p>
             <h1 className="mt-1 font-serif text-3xl font-bold uppercase">Quản lý catalog</h1>
           </div>
           <div className="flex flex-wrap items-center gap-2">
+            <Link href="/" className="inline-flex min-h-10 items-center gap-2 rounded-md border border-[#dacdc0] bg-white px-3 text-sm font-semibold text-[#7d4f2d] transition hover:bg-[#f7f1eb]">
+              <Home size={16} />
+              Về trang chủ
+            </Link>
             <ScopeButton active={scope === "materials"} onClick={() => switchScope("materials")} icon={<Package size={18} />}>
               Chất liệu
             </ScopeButton>
@@ -456,110 +522,125 @@ export function AdminClient() {
             <ScopeButton active={scope === "forms"} onClick={() => switchScope("forms")} icon={<ShoppingBag size={18} />}>
               Forms
             </ScopeButton>
-            <Button variant="secondary" onClick={startNew}>
-              <Plus size={18} />
-              Tạo mới
-            </Button>
+            <ScopeButton active={scope === "icons"} onClick={() => switchScope("icons")} icon={<ImageIcon size={18} />}>
+              Icons
+            </ScopeButton>
+            {scope !== "icons" && (
+              <Button variant="secondary" onClick={startNew}>
+                <Plus size={18} />
+                Tạo mới
+              </Button>
+            )}
           </div>
         </header>
 
-        <div className="grid flex-1 gap-5 lg:grid-cols-[390px_1fr]">
-          <aside className="min-h-0 border border-[#dacdc0] bg-white">
-            <div className="border-b border-[#eadfd6] p-4">
-              <div className="flex items-center justify-between gap-3">
-                <h2 className="font-serif text-xl font-bold">{listTitle}</h2>
-                {busy && <Loader2 className="animate-spin text-[#7d4f2d]" size={20} />}
+        {scope === "icons" ? (
+          <IconsEditor
+            icons={filteredIcons}
+            busy={busy}
+            status={status}
+            onUpload={handleIconUpload}
+            onDelete={handleIconDelete}
+          />
+        ) : (
+          <div className="grid flex-1 gap-5 lg:grid-cols-[390px_1fr]">
+            <aside className="min-h-0 border border-[#dacdc0] bg-white">
+              <div className="border-b border-[#eadfd6] p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <h2 className="font-serif text-xl font-bold">{listTitle}</h2>
+                  {busy && <Loader2 className="animate-spin text-[#7d4f2d]" size={20} />}
+                </div>
+                <label className="mt-3 flex min-h-11 items-center gap-2 rounded-md border border-[#dacdc0] bg-[#fffdfb] px-3">
+                  <Search size={18} className="text-[#8a786c]" />
+                  <input
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder="Tìm theo mã hoặc tên"
+                    className="w-full bg-transparent text-sm outline-none"
+                  />
+                </label>
               </div>
-              <label className="mt-3 flex min-h-11 items-center gap-2 rounded-md border border-[#dacdc0] bg-[#fffdfb] px-3">
-                <Search size={18} className="text-[#8a786c]" />
-                <input
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Tìm theo mã hoặc tên"
-                  className="w-full bg-transparent text-sm outline-none"
-                />
-              </label>
-            </div>
-            <div className="max-h-[calc(100vh-190px)] overflow-auto">
-              {entries.map(([id, record]) => {
-                const active = activeId === id;
-                const imageUrl = getImageUrl(record);
-                const swatch = scope === "colors" ? (record as ColorRecord).hex : undefined;
-                return (
-                  <button
-                    key={id}
-                    type="button"
-                    onClick={() => selectItem(id, record)}
-                    className={cn(
-                      "grid w-full grid-cols-[58px_1fr_auto] items-center gap-3 border-b border-[#f0e7df] px-4 py-3 text-left transition hover:bg-[#fbf8f5]",
-                      active && "bg-[#f7f1eb]",
-                    )}
-                  >
-                    <span
-                      className="relative block size-14 overflow-hidden rounded-md border border-[#dacdc0] bg-[#f7f1eb]"
-                      style={{ backgroundColor: swatch }}
-                    >
-                      {imageUrl && (
-                        <Image
-                          src={imageUrl}
-                          alt={record.name}
-                          fill
-                          sizes="56px"
-                          className="object-cover"
-                          unoptimized={imageUrl.startsWith("https://")}
-                        />
+              <div className="max-h-[calc(100vh-190px)] overflow-auto">
+                {entries.map(([id, record]) => {
+                  const active = activeId === id;
+                  const imageUrl = getImageUrl(record);
+                  const swatch = scope === "colors" ? (record as ColorRecord).hex : undefined;
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => selectItem(id, record)}
+                      className={cn(
+                        "grid w-full grid-cols-[58px_1fr_auto] items-center gap-3 border-b border-[#f0e7df] px-4 py-3 text-left transition hover:bg-[#fbf8f5]",
+                        active && "bg-[#f7f1eb]",
                       )}
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block truncate font-semibold">{record.name}</span>
-                      <span className="block truncate text-xs text-[#7a675b]">{id}</span>
-                    </span>
-                    <span className="rounded-full bg-[#efe6dd] px-2 py-1 text-xs font-bold text-[#7d4f2d]">
-                      {getUsageLabel(scope, id, data)}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </aside>
+                    >
+                      <span
+                        className="relative block size-14 overflow-hidden rounded-md border border-[#dacdc0] bg-[#f7f1eb]"
+                        style={{ backgroundColor: swatch }}
+                      >
+                        {imageUrl && (
+                          <Image
+                            src={imageUrl}
+                            alt={record.name}
+                            fill
+                            sizes="56px"
+                            className="object-cover"
+                            unoptimized={imageUrl.startsWith("https://")}
+                          />
+                        )}
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block truncate font-semibold">{record.name}</span>
+                        <span className="block truncate text-xs text-[#7a675b]">{id}</span>
+                      </span>
+                      <span className="rounded-full bg-[#efe6dd] px-2 py-1 text-xs font-bold text-[#7d4f2d]">
+                        {getUsageLabel(scope, id, data)}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </aside>
 
-          <form onSubmit={saveDraft} className="min-h-0 border border-[#dacdc0] bg-[#fffdfb]">
-            {scope === "forms" ? (
-              <FormsEditor
-                data={data}
-                draft={formDraft}
-                busy={busy}
-                status={status}
-                selectedUsage={selectedUsage}
-                updateDraft={updateFormDraft}
-                onNameChange={handleFormNameChange}
-                onDelete={deleteDraft}
-                onAddSub={addSubOption}
-                onUpdateSub={updateSubOption}
-                onRemoveSub={removeSubOption}
-                onAddColor={addColorToSub}
-                onUpdateColor={updateSubColor}
-                onRemoveColor={removeSubColor}
-                onUpload={handleFormFileChange}
-              />
-            ) : (
-              <SimpleEditor
-                scope={scope}
-                data={data}
-                draft={draft}
-                file={file}
-                busy={busy}
-                imageSrc={imageSrc}
-                status={status}
-                selectedUsage={selectedUsage}
-                updateDraft={updateDraft}
-                onNameChange={handleNameChange}
-                onFileChange={handleFileChange}
-                onDelete={deleteDraft}
-              />
-            )}
-          </form>
-        </div>
+            <form onSubmit={saveDraft} className="min-h-0 border border-[#dacdc0] bg-[#fffdfb]">
+              {scope === "forms" ? (
+                <FormsEditor
+                  data={data}
+                  draft={formDraft}
+                  busy={busy}
+                  status={status}
+                  selectedUsage={selectedUsage}
+                  updateDraft={updateFormDraft}
+                  onNameChange={handleFormNameChange}
+                  onDelete={deleteDraft}
+                  onAddSub={addSubOption}
+                  onUpdateSub={updateSubOption}
+                  onRemoveSub={removeSubOption}
+                  onAddColor={addColorToSub}
+                  onUpdateColor={updateSubColor}
+                  onRemoveColor={removeSubColor}
+                  onUpload={handleFormFileChange}
+                />
+              ) : (
+                <SimpleEditor
+                  scope={scope}
+                  data={data}
+                  draft={draft}
+                  file={file}
+                  busy={busy}
+                  imageSrc={imageSrc}
+                  status={status}
+                  selectedUsage={selectedUsage}
+                  updateDraft={updateDraft}
+                  onNameChange={handleNameChange}
+                  onFileChange={handleFileChange}
+                  onDelete={deleteDraft}
+                />
+              )}
+            </form>
+          </div>
+        )}
       </section>
     </main>
   );

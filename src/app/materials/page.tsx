@@ -93,10 +93,7 @@ export default function MaterialsPage() {
                     <p className="mt-3 leading-relaxed text-[#6d5b50]">
                       {mat.description}
                     </p>
-                    <div className="mt-5 flex items-center justify-between border-t border-[#f3e9de] pt-4">
-                      <span className="text-sm text-[#9a8a7d]">
-                        Hệ số giá: {mat.priceMultiplier}x
-                      </span>
+                    <div className="mt-5 border-t border-[#f3e9de] pt-4">
                       <Link
                         href={`/step1-form?fresh=1&filterMaterial=${key}`}
                         className="text-sm font-semibold text-[#7d4f2d] underline underline-offset-4 transition hover:text-[#9a6b36]"

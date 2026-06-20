@@ -1,11 +1,9 @@
-export type Scope = "materials" | "colors" | "forms";
+export type Scope = "materials" | "colors" | "forms" | "icons";
 
 export type MaterialRecord = {
   name: string;
-  priceMultiplier: number;
   description: string;
   imageUrl: string;
-  parent?: string;
 };
 
 export type ColorRecord = {
@@ -37,7 +35,6 @@ export type ProductFormRecord = {
   basePrice: number;
   description: string;
   imageUrl: string;
-  homeImageUrl: string;
   subOptions: ProductSubOption[];
 };
 
@@ -57,9 +54,7 @@ export type Draft = {
   originalId: string;
   name: string;
   imageUrl: string;
-  priceMultiplier: string;
   description: string;
-  parent: string;
   hex: string;
 };
 

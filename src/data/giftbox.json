@@ -1,0 +1,19 @@
+{
+  "fee": 50000,
+  "options": [
+    {
+      "value": false,
+      "title": "Không thêm box quà",
+      "description": "Tiết kiệm chi phí",
+      "badge": "Miễn phí",
+      "image": "/images/giftbox/no-box.jpg"
+    },
+    {
+      "value": true,
+      "title": "Thêm box quà",
+      "description": "Hộp quà cao cấp, túi vải và thiệp",
+      "badge": "+51.000đ",
+      "image": "/images/giftbox/yes-box.jpg"
+    }
+  ]
+}

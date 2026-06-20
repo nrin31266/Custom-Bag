@@ -20,7 +20,6 @@ export type ProductItem = {
   basePrice: number;
   description: string;
   imageUrl: string;
-  homeImageUrl: string;
   subOptions: ProductSubOption[];
 };
 
@@ -44,9 +43,19 @@ export type ProductColorOption = {
 
 // ---------- Helpers ----------
 
+export function getFirstFormKey(): FormKey {
+  const keys = Object.keys(forms);
+  if (keys.length === 0) throw new Error("forms.json rỗng — cần ít nhất 1 form.");
+  return keys[0] as FormKey;
+}
+
+function getFirstForm(): ProductItem {
+  return forms[getFirstFormKey()] as ProductItem;
+}
+
 export function getProduct(form: string): ProductItem {
   const data = forms[form as FormKey];
-  if (!data) return forms.shoulder as ProductItem;
+  if (!data) return getFirstForm();
   return data as ProductItem;
 }
 
@@ -60,7 +69,7 @@ export function getSubOptions(form: string): ProductSubOption[] {
 
 export function getDefaultSubOption(form: string): ProductSubOption {
   const subs = getSubOptions(form);
-  return subs[0] ?? (forms.shoulder as ProductItem).subOptions[0] as ProductSubOption;
+  return subs[0] ?? getFirstForm().subOptions[0];
 }
 
 export function getSubOption(form: string, material: string): ProductSubOption {

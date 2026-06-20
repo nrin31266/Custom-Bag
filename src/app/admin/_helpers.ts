@@ -13,9 +13,7 @@ export const emptyDraft: Draft = {
   originalId: "",
   name: "",
   imageUrl: "",
-  priceMultiplier: "1",
   description: "",
-  parent: "",
   hex: "#111111",
 };
 
@@ -28,7 +26,6 @@ export const emptyFormDraft: FormDraft = {
   basePrice: 0,
   description: "",
   imageUrl: "",
-  homeImageUrl: "",
   subOptions: [],
 };
 
@@ -53,9 +50,7 @@ export function draftFromRecord(
       originalId: id,
       name: material.name,
       imageUrl: material.imageUrl ?? "",
-      priceMultiplier: String(material.priceMultiplier ?? 1),
       description: material.description ?? "",
-      parent: material.parent ?? "",
       hex: "#111111",
     };
   }
@@ -81,7 +76,6 @@ export function formDraftFromRecord(id: string, form: ProductFormRecord): FormDr
     basePrice: form.basePrice,
     description: form.description,
     imageUrl: form.imageUrl ?? "",
-    homeImageUrl: form.homeImageUrl ?? "",
     subOptions: form.subOptions.map((sub) => ({
       ...sub,
       colors: sub.colors.map((color) => ({ ...color })),
@@ -89,7 +83,7 @@ export function formDraftFromRecord(id: string, form: ProductFormRecord): FormDr
   };
 }
 
-export function getInitialDraft(scope: Exclude<Scope, "forms">, data: CatalogData | null): Draft {
+export function getInitialDraft(scope: "materials" | "colors", data: CatalogData | null): Draft {
   const entries = data ? Object.entries(data[scope]) : [];
   const first = entries[0];
   return first ? draftFromRecord(scope, first[0], first[1]) : emptyDraft;
@@ -106,6 +100,7 @@ export function getImageUrl(record: MaterialRecord | ColorRecord | ProductFormRe
 
 export function getUsageLabel(scope: Scope, id: string, data: CatalogData | null) {
   if (!data) return "0";
+  if (scope === "icons") return "";
   if (scope === "forms") {
     const usage = data.usage.forms[id];
     return usage ? `${usage.subOptions}/${usage.colors}` : "0/0";

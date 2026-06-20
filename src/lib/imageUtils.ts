@@ -96,7 +96,7 @@ export function getMaterialImageFallbacks(form: string, material: string): strin
  * this puts form.imageUrl first — suitable for form selection pages
  * where we want to show the form's representative image.
  *
- * Chain: form.imageUrl → form.homeImageUrl → first subOption.imageUrl → PLACEHOLDER
+ * Chain: form.imageUrl → first subOption.imageUrl → PLACEHOLDER
  */
 export function getFormCardImageFallbacks(form: string): string[] {
   const product = getProduct(form);
@@ -104,7 +104,6 @@ export function getFormCardImageFallbacks(form: string): string[] {
   const firstSubImage = subOptions[0]?.imageUrl ?? null;
   return [
     product.imageUrl,
-    product.homeImageUrl,
     firstSubImage,
     PLACEHOLDER_IMAGE_URL,
   ].filter((src): src is string => Boolean(src));

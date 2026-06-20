@@ -45,27 +45,8 @@ export function SimpleEditor({
         </div>
 
         {scope === "materials" ? (
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
-            <TextInput label="Hệ số giá" type="number" step="0.01" value={draft.priceMultiplier} onChange={(value) => updateDraft("priceMultiplier", value)} />
+          <div className="mt-4">
             <label className="block">
-              <span className="text-xs font-bold uppercase text-[#7a675b]">Parent</span>
-              <select
-                value={draft.parent}
-                onChange={(event) => updateDraft("parent", event.target.value)}
-                className="mt-1 min-h-12 w-full rounded-md border border-[#d8c9bc] bg-white px-3 outline-none focus:border-[#432719]"
-              >
-                <option value="">Không có</option>
-                {data &&
-                  Object.entries(data.materials)
-                    .filter(([id]) => id !== draft.id)
-                    .map(([id, item]) => (
-                      <option key={id} value={id}>
-                        {item.name} ({id})
-                      </option>
-                    ))}
-              </select>
-            </label>
-            <label className="block md:col-span-2">
               <span className="text-xs font-bold uppercase text-[#7a675b]">Mô tả</span>
               <textarea
                 value={draft.description}

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useForm, useWatch } from "react-hook-form";
 import prices from "@/data/prices.json";
+import giftbox from "@/data/giftbox.json";
 import { Button } from "@/components/ui/Button";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { StepIndicator } from "@/components/ui/StepIndicator";
@@ -30,6 +31,7 @@ import {
 import {
   fetchVietnamProvinces,
   fetchVietnamWards,
+  getShippingFeeByProvinceCode,
   type Province,
   type Ward,
 } from "@/lib/vnRegionApi";
@@ -43,6 +45,8 @@ import {
   lastOrderAtom,
   materialAtom,
   paymentMethodAtom,
+  shippingFeeAtom,
+  shippingProvinceCodeAtom,
   purchasedOrdersAtom,
 } from "@/stores/customizationStore";
 
@@ -91,6 +95,8 @@ export default function Step7CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useAtom(paymentMethodAtom);
   const [, setLastOrder] = useAtom(lastOrderAtom);
   const [, setPurchasedOrders] = useAtom(purchasedOrdersAtom);
+  const [shippingProvinceCode, setShippingProvinceCode] = useAtom(shippingProvinceCodeAtom);
+  const [shippingFee, setShippingFee] = useAtom(shippingFeeAtom);
   const [provinces, setProvinces] = useState<Province[]>([]);
   const [wardResult, setWardResult] = useState<{
     provinceCode: string;
@@ -99,6 +105,7 @@ export default function Step7CheckoutPage() {
   const [regionError, setRegionError] = useState("");
   const [loadingProvinces, setLoadingProvinces] = useState(true);
   const [loadingWards, setLoadingWards] = useState(Boolean(customerInfo.provinceCode));
+  const [loadingShippingFee, setLoadingShippingFee] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const bagPrice = calculateBagPrice(formType, material, color);
   const currentTotal = calculateTotal(
@@ -109,7 +116,7 @@ export default function Step7CheckoutPage() {
     designData,
   );
   const customizationFee = calculateCustomizationFee(designData);
-  const checkoutTotal = cartItems.length > 0 ? getCartItemsTotal(cartItems) : currentTotal;
+  const checkoutTotal = cartItems.length > 0 ? getCartItemsTotal(cartItems) + shippingFee : currentTotal + shippingFee;
   const summaryItems =
     cartItems.length > 0
       ? cartItems
@@ -151,6 +158,41 @@ export default function Step7CheckoutPage() {
     wardResult.provinceCode === selectedProvinceCode ? wardResult.items : [];
   const useManualWardInput =
     Boolean(selectedProvinceCode) && !loadingWards && wards.length === 0;
+
+  useEffect(() => {
+    let active = true;
+
+    if (!selectedProvinceCode) {
+      if (active) {
+        setShippingFee(0);
+        setShippingProvinceCode("");
+      }
+      return () => {
+        active = false;
+      };
+    }
+
+    setLoadingShippingFee(true);
+    getShippingFeeByProvinceCode(selectedProvinceCode)
+      .then((fee) => {
+        if (!active) return;
+        const shippingAmount = fee ?? 0;
+        setShippingFee(shippingAmount);
+        setShippingProvinceCode(selectedProvinceCode);
+      })
+      .catch(() => {
+        if (!active) return;
+        setShippingFee(0);
+        setShippingProvinceCode("");
+      })
+      .finally(() => {
+        if (active) setLoadingShippingFee(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [selectedProvinceCode, setShippingFee, setShippingProvinceCode]);
 
   useEffect(() => {
     let active = true;
@@ -208,10 +250,12 @@ export default function Step7CheckoutPage() {
 
   const onSubmit = async (values: CheckoutForm) => {
     setSubmitError("");
+    const provinceCodeNum = Number(values.provinceCode);
+    const wardCodeNum = Number(values.wardCode);
     const selectedProvince = provinces.find(
-      (province) => province.code === values.provinceCode,
+      (province) => province.code === provinceCodeNum,
     );
-    const selectedWard = wards.find((ward) => ward.code === values.wardCode);
+    const selectedWard = wards.find((ward) => ward.code === wardCodeNum);
     const wardName = selectedWard?.name ?? values.wardName.trim();
     const normalizedCustomer = {
       fullName: values.fullName,
@@ -222,7 +266,7 @@ export default function Step7CheckoutPage() {
       provinceCode: values.provinceCode,
       district: "",
       ward: wardName,
-      wardCode: selectedWard?.code ?? "",
+      wardCode: selectedWard?.code.toString() ?? "",
       note: values.note,
     };
     setCustomerInfo(normalizedCustomer);
@@ -256,8 +300,8 @@ export default function Step7CheckoutPage() {
       design: designData,
       pricing: {
         bagPrice,
-        shippingFee: prices.shippingFee,
-        giftBoxFee: giftBox ? prices.giftBoxFee : 0,
+        shippingFee: shippingFee,
+        giftBoxFee: giftBox ? giftbox.fee : 0,
         customizationFee: customizationFee.total,
         total,
       },
@@ -372,19 +416,6 @@ export default function Step7CheckoutPage() {
                   <span className="text-sm text-red-600">{errors.email.message}</span>
                 )}
               </label>
-              <label className="space-y-2 sm:col-span-2">
-                <span className="font-medium">Địa chỉ nhận hàng *</span>
-                <input
-                  className="h-11 w-full rounded-md border border-[#ddd0c8] px-3 outline-none focus:border-[#c6a43f]"
-                  placeholder="Nhập địa chỉ nhận hàng"
-                  {...register("address", { required: "Vui lòng nhập địa chỉ" })}
-                />
-                {errors.address && (
-                  <span className="text-sm text-red-600">
-                    {errors.address.message}
-                  </span>
-                )}
-              </label>
               <label className="space-y-2">
                 <span className="font-medium">Tỉnh / Thành phố *</span>
                 <select
@@ -460,11 +491,20 @@ export default function Step7CheckoutPage() {
                   )}
                 </label>
               )}
-              <label className="space-y-2">
-                <span className="font-medium">Ghi chú</span>
+              <label className="space-y-2 sm:col-span-2">
+                <span className="font-medium">Địa chỉ nhận hàng (số nhà, tên đường)</span>
                 <input
                   className="h-11 w-full rounded-md border border-[#ddd0c8] px-3 outline-none focus:border-[#c6a43f]"
+                  placeholder="Nhập địa chỉ nhận hàng"
+                  {...register("address")}
+                />
+              </label>
+              <label className="space-y-2 sm:col-span-2">
+                <span className="font-medium">Ghi chú</span>
+                <textarea
+                  className="w-full rounded-md border border-[#ddd0c8] px-3 py-3 outline-none focus:border-[#c6a43f] resize-none"
                   placeholder="Nhập ghi chú nếu có"
+                  rows={3}
                   {...register("note")}
                 />
               </label>
@@ -613,11 +653,21 @@ export default function Step7CheckoutPage() {
                   </div>
                   <div className="flex justify-between">
                     <span>Box quà</span>
-                    <span>{giftBox ? `+${formatPrice(prices.giftBoxFee)}` : "0đ"}</span>
+                    <span>{giftBox ? `+${formatPrice(giftbox.fee)}` : "0đ"}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Phí vận chuyển</span>
-                    <span>{formatPrice(prices.shippingFee)}</span>
+                    <span>
+                      {shippingProvinceCode ? (
+                        loadingShippingFee ? (
+                          <span className="text-sm text-[#9a6b36]">Đang tính...</span>
+                        ) : (
+                          formatPrice(shippingFee)
+                        )
+                      ) : (
+                        <span className="text-sm text-[#9a6b36]">Chọn tỉnh để tính phí</span>
+                      )}
+                    </span>
                   </div>
                 </>
               )}

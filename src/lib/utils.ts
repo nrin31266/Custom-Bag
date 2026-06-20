@@ -2,6 +2,7 @@ import colors from "@/data/colors.json";
 import forms from "@/data/forms.json";
 import materials from "@/data/materials.json";
 import prices from "@/data/prices.json";
+import giftbox from "@/data/giftbox.json";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import type {
@@ -39,7 +40,7 @@ export const calculateTotal = (
 ): number => {
   const subOption = getSubOption(form, material);
   const colorOption = getColorOption(form, material, color);
-  const giftBoxFee = hasGiftBox ? prices.giftBoxFee : 0;
+  const giftBoxFee = hasGiftBox ? giftbox.fee : 0;
 
   return (
     subOption.basePrice +
@@ -73,7 +74,7 @@ export const getPriceBreakdown = (
   const colorOption = getColorOption(form, material, color);
   const materialDelta = subOption.basePrice - formItem.basePrice;
   const bagPrice = subOption.basePrice + colorOption.priceAdjust;
-  const giftBoxFee = hasGiftBox ? prices.giftBoxFee : 0;
+  const giftBoxFee = hasGiftBox ? giftbox.fee : 0;
   const customizationFee = calculateCustomizationFee(designData);
 
   return {

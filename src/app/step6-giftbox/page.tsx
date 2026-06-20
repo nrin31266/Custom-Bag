@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useAtom, useAtomValue } from "jotai";
 import { ArrowLeft, ArrowRight, Check, Gift, ShoppingBag } from "lucide-react";
-import prices from "@/data/prices.json";
+import giftboxConfig from "@/data/giftbox.json";
 import { Button } from "@/components/ui/Button";
 import { StepIndicator } from "@/components/ui/StepIndicator";
 import { useStepNavigation } from "@/hooks/useStepNavigation";
@@ -18,22 +18,10 @@ import {
   materialAtom,
 } from "@/stores/customizationStore";
 
-const options = [
-  {
-    value: false,
-    title: "Không thêm box quà",
-    description: "Tiết kiệm chi phí",
-    badge: "Miễn phí",
-    image: "https://picsum.photos/id/42/700/420",
-  },
-  {
-    value: true,
-    title: "Thêm box quà",
-    description: "Hộp quà cao cấp, túi vải và thiệp",
-    badge: `+${formatPrice(prices.giftBoxFee)}`,
-    image: "https://picsum.photos/id/48/700/420",
-  },
-];
+const options = giftboxConfig.options.map((opt) => ({
+  ...opt,
+  badge: opt.value ? `+${formatPrice(giftboxConfig.fee)}` : opt.badge,
+}));
 
 export default function Step6GiftBoxPage() {
   const navigation = useStepNavigation();
@@ -142,7 +130,7 @@ export default function Step6GiftBoxPage() {
               <Gift className="mt-1 shrink-0" />
               <p>
                 <strong>Box quà bao gồm:</strong> hộp cứng, túi vải Lenth và thiệp.
-                Nếu chọn box, đơn cộng thêm {formatPrice(prices.giftBoxFee)}.
+                Nếu chọn box, đơn cộng thêm {formatPrice(giftboxConfig.fee)}.
               </p>
             </div>
             <div className="rounded-lg border border-[#c6a43f]/50 bg-[#fffdfb] p-5 shadow-sm">

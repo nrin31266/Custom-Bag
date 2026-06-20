@@ -40,16 +40,10 @@ export default function Step1FormPage() {
     freshHandled.current = true;
     const params = new URLSearchParams(window.location.search);
     if (params.get("fresh") !== "1") return;
-    const defaults = getDefaultSelectionForForm("shoulder");
-    const urlFilterMaterial = params.get("filterMaterial");
-    if (urlFilterMaterial) setFilterMaterials(new Set(urlFilterMaterial.split(",")));
-    setFormType("shoulder");
-    setMaterial(defaults.material);
-    setColor(defaults.color);
     setGiftBox(false);
     setDesignData(EMPTY_DESIGN_DATA);
     window.history.replaceState(null, "", "/step1-form");
-  }, [setColor, setDesignData, setFormType, setGiftBox, setMaterial]);
+  }, [setDesignData, setGiftBox]);
 
   const selectForm = (key: string) => {
     const defaults = getDefaultSelectionForForm(key);
@@ -121,7 +115,7 @@ export default function Step1FormPage() {
                   const subOptions = getSubOptions(key);
                   return (
                     <button key={key} type="button" onClick={() => selectForm(key)} className={cn("rounded-lg border bg-[#fffdfb] p-3 text-center transition hover:-translate-y-1 hover:border-[#c6a43f] hover:shadow-xl", formType === key ? "scale-[1.02] border-[#432719] shadow-[0_14px_38px_rgba(67,39,25,0.18),0_0_0_3px_rgba(198,164,63,0.25)]" : "border-[#eadfd6]")}>
-                      <ProductImage form={key} material={formType === key ? material : defaults.material} color={formType === key ? color : defaults.color} className="mb-3" priority={key === "shoulder"} mode="form" />
+                      <ProductImage form={key} material={formType === key ? material : defaults.material} color={formType === key ? color : defaults.color} className="mb-3" mode="form" />
                       <div className="font-serif text-xl">{form.name}</div>
                       <p className="mx-auto mt-2 min-h-10 max-w-xs text-sm text-[#6d5b50]">{form.description}</p>
                       <div className="mt-1 text-sm text-[#7a675b]">Từ {formatPrice(form.basePrice)}</div>
