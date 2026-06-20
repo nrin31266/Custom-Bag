@@ -1,4 +1,4 @@
-import { calculateBagPrice, calculateTotal, createLocalId } from "@/lib/utils";
+import { calculateBagPrice, calculateTotal, createLocalId, getPriceBreakdown } from "@/lib/utils";
 import type { CartItem, DesignData } from "@/stores/customizationStore";
 
 type CreateCartItemInput = {
@@ -7,6 +7,8 @@ type CreateCartItemInput = {
   color: string;
   giftBox: string;
   designData: DesignData;
+  /** Preserve this ID (e.g. when editing), otherwise auto-generate */
+  id?: string;
 };
 
 export function createCartItem({
@@ -15,17 +17,21 @@ export function createCartItem({
   color,
   giftBox,
   designData,
+  id,
 }: CreateCartItemInput): CartItem {
   const bagPrice = calculateBagPrice(form, material, color);
+  const breakdown = getPriceBreakdown(form, material, color, giftBox, designData);
 
   return {
-    id: createLocalId("cart"),
+    id: id ?? createLocalId("cart"),
     form,
     material,
     color,
     giftBox,
     designData,
     bagPrice,
+    materialDelta: breakdown.materialDelta,
+    colorAdjust: breakdown.colorAdjust,
     total: calculateTotal(form, material, color, giftBox, designData),
     createdAt: new Date().toISOString(),
   };

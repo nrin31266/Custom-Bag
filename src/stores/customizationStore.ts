@@ -47,6 +47,8 @@ export type CartItem = {
   giftBox: string;
   designData: DesignData;
   bagPrice: number;
+  materialDelta: number;
+  colorAdjust: number;
   total: number;
   createdAt: string;
 };
@@ -122,4 +124,10 @@ export const purchasedOrdersAtom = atomWithStorage<PurchasedOrder[]>(
 export const canceledOrdersAtom = atomWithStorage<CanceledOrder[]>(
   "lenth_canceled_orders",
   [],
+);
+
+/** ID of the cart item currently being edited, or null for fresh custom */
+export const editingCartItemIdAtom = atomWithStorage<string | null>(
+  "lenth_editing_cart_item",
+  null,
 );

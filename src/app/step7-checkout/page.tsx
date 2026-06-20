@@ -9,7 +9,6 @@ import {
   Banknote,
   CreditCard,
   ShieldCheck,
-  ShoppingBag,
   Wallet,
 } from "lucide-react";
 import { useForm, useWatch } from "react-hook-form";
@@ -41,6 +40,7 @@ import {
   colorAtom,
   customerInfoAtom,
   designDataAtom,
+  editingCartItemIdAtom,
   formTypeAtom,
   giftBoxAtom,
   lastOrderAtom,
@@ -50,7 +50,6 @@ import {
   shippingProvinceCodeAtom,
   purchasedOrdersAtom,
 } from "@/stores/customizationStore";
-import Link from "next/link";
 
 type CheckoutForm = {
   fullName: string;
@@ -93,18 +92,12 @@ export default function Step7CheckoutPage() {
   const giftBox = useAtomValue(giftBoxAtom);
   const designData = useAtomValue(designDataAtom);
   const [cartItems, setCartItems] = useAtom(cartItemsAtom);
+  const [editingId, setEditingId] = useAtom(editingCartItemIdAtom);
   const setForm = useSetAtom(formTypeAtom);
   const setMaterial = useSetAtom(materialAtom);
   const setColor = useSetAtom(colorAtom);
   const setGiftBox = useSetAtom(giftBoxAtom);
   const setDesignData = useSetAtom(designDataAtom);
-
-  const addToCartAndBack = () => {
-    setCartItems((items) => [
-      createCartItem({ form: formType, material, color, giftBox, designData }),
-      ...items,
-    ]);
-  };
   const [customerInfo, setCustomerInfo] = useAtom(customerInfoAtom);
   const [paymentMethod, setPaymentMethod] = useAtom(paymentMethodAtom);
   const [, setLastOrder] = useAtom(lastOrderAtom);
@@ -130,21 +123,28 @@ export default function Step7CheckoutPage() {
     designData,
   );
   const customizationFee = calculateCustomizationFee(designData);
-  const checkoutTotal = cartItems.length > 0 ? getCartItemsTotal(cartItems) + shippingFee : currentTotal + shippingFee;
-  const summaryItems =
-    cartItems.length > 0
-      ? cartItems
-      : [
-          {
-            id: "current-design",
-            form: formType,
-            material,
-            color,
-            giftBox,
-            designData,
-            total: currentTotal,
-          },
-        ];
+
+  // Build checkout items: cart items + current design if not in cart
+  const checkoutItems = (() => {
+    if (cartItems.length > 0) {
+      // If editing an existing item, update that item in the list preserving ID
+      if (editingId) {
+        return cartItems.map((item) =>
+          item.id === editingId
+            ? createCartItem({ form: formType, material, color, giftBox, designData, id: editingId })
+            : item,
+        );
+      }
+      return cartItems;
+    }
+    // No cart items: use current design as single item
+    return [
+      createCartItem({ form: formType, material, color, giftBox, designData }),
+    ];
+  })();
+
+  const checkoutTotal = getCartItemsTotal(checkoutItems) + shippingFee;
+
   const {
     register,
     handleSubmit,
@@ -284,18 +284,7 @@ export default function Step7CheckoutPage() {
       note: values.note,
     };
     setCustomerInfo(normalizedCustomer);
-    const checkoutItems =
-      cartItems.length > 0
-        ? cartItems
-        : [
-            createCartItem({
-              form: formType,
-              material,
-              color,
-              giftBox,
-              designData,
-            }),
-          ];
+
     const total = getCartItemsTotal(checkoutItems);
 
     const orderId = createLocalId("order");
@@ -353,6 +342,20 @@ export default function Step7CheckoutPage() {
       if (cartItems.length > 0) {
         setCartItems([]);
       }
+      setEditingId(null);
+      // Reset design state
+      setForm("");
+      setMaterial("");
+      setColor("");
+      setGiftBox("none");
+      setDesignData({
+        texts: [],
+        icons: [],
+        pricing: { textCount: 0, iconCount: 0, characterCount: 0, textFee: 0, iconFee: 0, total: 0 },
+        canvasJSON: null,
+        previewDataUrl: null,
+        updatedAt: null,
+      });
 
       router.push(`/success?orderId=${encodeURIComponent(orderId)}`);
     } catch {
@@ -564,142 +567,118 @@ export default function Step7CheckoutPage() {
             </div>
           </section>
 
-          <aside className="rounded-lg border border-[#eadfd6] bg-[#fffdfb] p-5 shadow-[0_18px_50px_rgba(67,39,25,0.12)] sm:p-6 lg:order-1 lg:sticky lg:top-6 lg:h-fit">
+          <aside className="rounded-lg border border-[#eadfd6] bg-[#fffdfb] p-5 shadow-[0_18px_50px_rgba(67,39,25,0.12)] sm:p-6 lg:order-1 lg:sticky lg:top-6 lg:h-fit lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
             <h2 className="mb-5 text-lg font-bold uppercase">Tóm tắt đơn hàng</h2>
-            <div className="flex gap-4">
-              {cartItems.length > 0 && cartItems[0]?.designData.previewDataUrl ? (
-                <div
-                  className="size-32 shrink-0 rounded-md bg-[#eee9e3] bg-cover bg-center bg-no-repeat"
-                  style={{
-                    backgroundImage: `url(${cartItems[0].designData.previewDataUrl})`,
-                  }}
-                />
-              ) : designData.previewDataUrl ? (
-                <div
-                  className="size-32 shrink-0 rounded-md bg-[#eee9e3] bg-cover bg-center bg-no-repeat"
-                  style={{ backgroundImage: `url(${designData.previewDataUrl})` }}
-                />
-              ) : (
-                <ProductImage
-                  form={formType}
-                  material={material}
-                  color={color}
-                  className="size-32 shrink-0"
-                />
-              )}
-              <div className="pt-2">
-                <div className="font-semibold">
-                  {cartItems.length > 0
-                    ? `${cartItems.length} mẫu túi trong giỏ`
-                    : getDisplayName("form", formType)}
-                </div>
-                <div className="mt-2 text-sm text-[#4a392f]">
-                  {cartItems.length > 0
-                    ? "Đặt hàng ngay toàn bộ giỏ hàng"
-                    : `${getDisplayName("material", material)} - ${getDisplayName("color", color)}`}
-                </div>
-                <div className="mt-2 text-sm text-[#4a392f]">
-                  {cartItems.length > 0
-                    ? "Sau khi đặt, giỏ sẽ được chuyển sang tab Đã mua"
-                    : `${designData.texts.length} cụm chữ, ${designData.icons.length} icon`}
-                </div>
-              </div>
-            </div>
 
-            <div className="mt-5 space-y-3 rounded-lg bg-[#f7f1eb] p-4">
-              <h3 className="font-bold uppercase">Chi tiết custom</h3>
-              {summaryItems.map((item, index) => (
-                <div
-                  key={item.id}
-                  className="rounded-md border border-[#eadfd6] bg-[#fffdfb] p-3 text-sm"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <div className="font-bold">
-                        {cartItems.length > 0
-                          ? `Mẫu ${index + 1}: ${getDisplayName("form", item.form)}`
-                          : getDisplayName("form", item.form)}
-                      </div>
-                      <div className="mt-1 text-[#5c473a]">
-                        {getDisplayName("material", item.material)} -{" "}
-                        {getDisplayName("color", item.color)}
-                      </div>
-                    </div>
-                    <div className="font-bold">{formatPrice(item.total)}</div>
-                  </div>
-                  <dl className="mt-3 grid grid-cols-2 gap-2 text-[#4a392f]">
-                    <div className="col-span-2">
-                      <dt className="font-semibold">Chữ thêu</dt>
-                      <dd>
-                        {item.designData.texts.length
-                          ? item.designData.texts
-                              .map(
-                                (text) =>
-                                  `${text.text} (${text.fontLabel ?? text.font})`,
-                              )
-                              .join(", ")
-                          : "Chưa thêm"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="font-semibold">Icon</dt>
-                      <dd>{item.designData.icons.length} icon</dd>
-                    </div>
-                    <div>
-                      <dt className="font-semibold">Box quà</dt>
-                      <dd>{item.giftBox ? "Có" : "Không"}</dd>
-                    </div>
-                  </dl>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6 space-y-4 border-t border-[#eadfd6] pt-5">
-              <div className="flex justify-between">
-                <span>{cartItems.length > 0 ? "Tổng các mẫu trong giỏ" : "Giá túi"}</span>
-                <span>{formatPrice(cartItems.length > 0 ? checkoutTotal : bagPrice)}</span>
-              </div>
-              {cartItems.length === 0 && (
-                <>
-                  <div className="flex justify-between">
-                    <span>Chữ & icon</span>
-                    <span>+{formatPrice(customizationFee.total)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Box quà</span>
-                    <span>{giftBox ? `+${formatPrice(giftbox.fee)}` : "0đ"}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Phí vận chuyển</span>
-                    <span>
-                      {shippingProvinceCode ? (
-                        loadingShippingFee ? (
-                          <span className="text-sm text-[#9a6b36]">Đang tính...</span>
-                        ) : (
-                          formatPrice(shippingFee)
-                        )
+            {/* Per-item cards with preview + pricing */}
+            <div className="space-y-4">
+              {checkoutItems.map((item, index) => {
+                const itemCustomFee = calculateCustomizationFee(item.designData);
+                const itemGiftFee = item.giftBox && item.giftBox !== "none" ? giftbox.fee : 0;
+                return (
+                  <div
+                    key={item.id ?? index}
+                    className="rounded-md border border-[#eadfd6] bg-[#fffdfb] p-3"
+                  >
+                    {/* Preview + title */}
+                    <div className="flex gap-3">
+                      {item.designData.previewDataUrl ? (
+                        <div
+                          className="size-20 shrink-0 rounded-md bg-[#eee9e3] bg-cover bg-center bg-no-repeat"
+                          style={{
+                            backgroundImage: `url(${item.designData.previewDataUrl})`,
+                          }}
+                        />
                       ) : (
-                        <span className="text-sm text-[#9a6b36]">Chọn tỉnh để tính phí</span>
+                        <ProductImage
+                          form={item.form}
+                          material={item.material}
+                          color={item.color}
+                          className="size-20 shrink-0"
+                        />
                       )}
-                    </span>
+                      <div className="min-w-0 flex-1">
+                        <div className="font-bold text-sm">
+                          Mẫu {index + 1}: {getDisplayName("form", item.form)}
+                        </div>
+                        <div className="mt-0.5 text-xs text-[#5c473a]">
+                          {getDisplayName("material", item.material)} -{" "}
+                          {getDisplayName("color", item.color)}
+                        </div>
+                        {item.designData.texts.length > 0 && (
+                          <div className="mt-0.5 text-xs text-[#6d5b50] truncate">
+                            {item.designData.texts.map((t) => t.text).join(", ")}
+                          </div>
+                        )}
+                        {item.designData.icons.length > 0 && (
+                          <div className="mt-0.5 text-xs text-[#6d5b50]">
+                            {item.designData.icons.length} icon
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Itemized pricing */}
+                    <div className="mt-3 space-y-1.5 border-t border-[#eadfd6] pt-3 text-sm text-[#4a392f]">
+                      <div className="flex justify-between">
+                        <span>Form túi</span>
+                        <span className="font-medium">{formatPrice(item.bagPrice - item.materialDelta - item.colorAdjust)}</span>
+                      </div>
+                      {item.materialDelta !== 0 && (
+                        <div className="flex justify-between">
+                          <span>{getDisplayName("material", item.material)}</span>
+                          <span className="font-medium">{item.materialDelta > 0 ? `+${formatPrice(item.materialDelta)}` : formatPrice(item.materialDelta)}</span>
+                        </div>
+                      )}
+                      {item.colorAdjust !== 0 && (
+                        <div className="flex justify-between">
+                          <span>Màu {getDisplayName("color", item.color)}</span>
+                          <span className="font-medium">{item.colorAdjust > 0 ? `+${formatPrice(item.colorAdjust)}` : formatPrice(item.colorAdjust)}</span>
+                        </div>
+                      )}
+                      {itemCustomFee.total > 0 && (
+                        <div className="flex justify-between">
+                          <span>Chữ & icon</span>
+                          <span className="font-medium">+{formatPrice(itemCustomFee.total)}</span>
+                        </div>
+                      )}
+                      {itemGiftFee > 0 && (
+                        <div className="flex justify-between">
+                          <span>Box quà</span>
+                          <span className="font-medium">+{formatPrice(itemGiftFee)}</span>
+                        </div>
+                      )}
+                      <div className="flex justify-between border-t border-[#eadfd6] pt-1.5 font-bold text-base">
+                        <span>Giá mẫu {index + 1}</span>
+                        <span>{formatPrice(item.total)}</span>
+                      </div>
+                    </div>
                   </div>
-                </>
-              )}
-              <div className="flex justify-between">
+                );
+              })}
+            </div>
+
+            {/* Grand total */}
+            <div className="mt-5 space-y-3 border-t border-[#eadfd6] pt-5">
+              <div className="flex justify-between text-sm">
+                <span>Tổng {checkoutItems.length} mẫu</span>
+                <span className="font-bold">{formatPrice(getCartItemsTotal(checkoutItems))}</span>
+              </div>
+              <div className="flex justify-between text-sm">
                 <span>Phí vận chuyển</span>
                 <span>
                   {shippingProvinceCode ? (
                     loadingShippingFee ? (
-                      <span className="text-sm text-[#9a6b36]">Đang tính...</span>
+                      <span className="text-xs text-[#9a6b36]">Đang tính...</span>
                     ) : (
                       formatPrice(shippingFee)
                     )
                   ) : (
-                    <span className="text-sm text-[#9a6b36]">Chọn tỉnh để tính phí</span>
+                    <span className="text-xs text-[#9a6b36]">Chọn tỉnh để tính phí</span>
                   )}
                 </span>
               </div>
-              <div className="flex justify-between border-t border-[#eadfd6] pt-5 text-xl font-bold">
+              <div className="flex justify-between border-t border-[#eadfd6] pt-4 text-xl font-bold">
                 <span>Tổng cộng</span>
                 <span>{formatPrice(checkoutTotal)}</span>
               </div>
@@ -715,19 +694,11 @@ export default function Step7CheckoutPage() {
           </aside>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Button variant="secondary" onClick={navigation.goBack}>
             <ArrowLeft size={22} />
             Quay lại
           </Button>
-          <Link
-            href="/cart"
-            onClick={addToCartAndBack}
-            className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#432719]/60 bg-white px-6 py-3 text-sm font-semibold uppercase text-[#432719] transition hover:-translate-y-0.5 hover:bg-[#f5eee7]"
-          >
-            <ShoppingBag size={22} />
-            Thêm vào giỏ & mua sau
-          </Link>
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Đang xác nhận..." : "Đặt hàng ngay"}
             <ArrowRight size={22} />

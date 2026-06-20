@@ -7,10 +7,13 @@ import giftboxConfig from "@/data/giftbox.json";
 import { Button } from "@/components/ui/Button";
 import { StepIndicator } from "@/components/ui/StepIndicator";
 import { useStepNavigation } from "@/hooks/useStepNavigation";
+import { createCartItem } from "@/lib/cartUtils";
 import { calculateTotal, cn, formatPrice } from "@/lib/utils";
 import {
+  cartItemsAtom,
   colorAtom,
   designDataAtom,
+  editingCartItemIdAtom,
   formTypeAtom,
   giftBoxAtom,
   materialAtom,
@@ -23,7 +26,31 @@ export default function Step6GiftBoxPage() {
   const material = useAtomValue(materialAtom);
   const color = useAtomValue(colorAtom);
   const designData = useAtomValue(designDataAtom);
+  const [cartItems, setCartItems] = useAtom(cartItemsAtom);
+  const editingId = useAtomValue(editingCartItemIdAtom);
   const totalWithCurrentBox = calculateTotal(form, material, color, giftBox, designData);
+
+  const goNextAndAddToCart = () => {
+    let newItems: typeof cartItems;
+    if (editingId) {
+      // Update the editing item preserving its original ID
+      newItems = cartItems.map((item) =>
+        item.id === editingId
+          ? createCartItem({ form, material, color, giftBox, designData, id: editingId })
+          : item,
+      );
+    } else {
+      // New item gets auto-generated ID
+      newItems = [
+        createCartItem({ form, material, color, giftBox, designData }),
+        ...cartItems,
+      ];
+    }
+    // Persist directly to localStorage BEFORE navigating to avoid race
+    try { window.localStorage.setItem("lenth_cart_items", JSON.stringify(newItems)); } catch { /* quota */ }
+    setCartItems(newItems);
+    navigation.goNext();
+  };
 
   return (
     <main>
@@ -121,8 +148,8 @@ export default function Step6GiftBoxPage() {
             <ArrowLeft size={20} />
             Quay lại
           </Button>
-          <Button onClick={navigation.goNext}>
-            Tiếp theo
+          <Button onClick={goNextAndAddToCart}>
+            {editingId ? "Lưu & tiếp theo" : "Thêm vào giỏ & tiếp theo"}
             <ArrowRight size={20} />
           </Button>
         </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useAtomValue } from "jotai";
-import Link from "next/link";
 import { ArrowRight, Gift, Image as ImageIcon, Pencil } from "lucide-react";
 import colors from "@/data/colors.json";
 import { Button } from "@/components/ui/Button";

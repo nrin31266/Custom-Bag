@@ -15,6 +15,7 @@ import {
   cartItemsAtom,
   colorAtom,
   designDataAtom,
+  editingCartItemIdAtom,
   formTypeAtom,
   giftBoxAtom,
   materialAtom,
@@ -38,6 +39,7 @@ export default function CartPage() {
   const [cartItems, setCartItems] = useAtom(cartItemsAtom);
   const [purchasedOrders, setPurchasedOrders] = useAtom(purchasedOrdersAtom);
   const [canceledOrders, setCanceledOrders] = useAtom(canceledOrdersAtom);
+  const [, setEditingId] = useAtom(editingCartItemIdAtom);
   const [activeTab, setActiveTab] = useState<CartTab>("cart");
   const cartTotal = getCartItemsTotal(cartItems);
 
@@ -47,13 +49,8 @@ export default function CartPage() {
     setColor(item.color);
     setGiftBox(item.giftBox);
     setDesignData(item.designData);
-  };
-
-  const addCurrentDesign = () => {
-    setCartItems((items) => [
-      createCartItem({ form, material, color, giftBox, designData }),
-      ...items,
-    ]);
+    setEditingId(item.id);
+    // Item stays in cart; step4 will remove it when loading ?edit=ID
   };
 
   const removeCartItem = (id: string) => {
@@ -107,8 +104,8 @@ export default function CartPage() {
             Túi đã chọn, đơn đã mua và đơn đã hủy
           </h1>
           <p className="mt-3 max-w-2xl text-[#5c473a]">
-            Bạn có thể giữ nhiều mẫu túi trong giỏ, xóa từng mẫu khỏi giỏ mà không
-            làm mất thiết kế đang chỉnh. Đơn đã hủy được tách riêng để bạn kiểm tra lại.
+            Bạn có thể giữ nhiều mẫu túi trong giỏ, xóa từng mẫu khỏi giỏ.
+            Nhấn Chỉnh sửa để thay đổi thiết kế của mẫu đó.
           </p>
         </div>
 
@@ -154,17 +151,13 @@ export default function CartPage() {
                   <ShoppingBag className="mx-auto mb-4 text-[#9a6b36]" size={42} />
                   <h2 className="font-serif text-2xl font-bold">Giỏ hàng đang trống</h2>
                   <p className="mx-auto mt-3 max-w-xl text-[#5c473a]">
-                    Nếu bạn vừa thiết kế xong, hãy thêm mẫu hiện tại vào giỏ để
-                    giữ lại như một lựa chọn mua hàng riêng.
+                    Thiết kế túi từ đầu và thêm vào giỏ ở bước Gói quà để giữ lại
+                    như một lựa chọn mua hàng riêng.
                   </p>
-                  <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-                    <Button onClick={addCurrentDesign}>
-                      <ShoppingBag size={20} />
-                      Thêm mẫu hiện tại
-                    </Button>
+                  <div className="mt-6 flex justify-center">
                     <Link
                       href="/step1-form?fresh=1"
-                      className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#432719]/60 bg-white px-6 py-3 font-semibold uppercase text-[#432719] transition hover:-translate-y-0.5 hover:bg-[#f5eee7]"
+                      className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-[#432719] px-6 py-3 font-semibold uppercase text-white transition hover:-translate-y-0.5 hover:bg-[#573522] hover:shadow-lg"
                     >
                       Custom mẫu mới
                       <ArrowRight size={20} />
@@ -203,6 +196,9 @@ export default function CartPage() {
                               {getSubOption(item.form, item.material).name} -{" "}
                               {getColorName(item.color)}
                             </p>
+                            <p className="mt-1 text-xs font-mono text-[#9a6b36]">
+                              #{item.id.slice(0, 8)}
+                            </p>
                           </div>
                           <span className="rounded-full bg-[#f4eee8] px-4 py-2 font-bold">
                             {formatPrice(item.total)}
@@ -230,7 +226,7 @@ export default function CartPage() {
                           <div>
                             <dt className="font-bold">Box quà</dt>
                             <dd>
-                              {item.giftBox
+                              {item.giftBox && item.giftBox !== "none"
                                 ? `Có (+${formatPrice(giftbox.fee)})`
                                 : "Không"}
                             </dd>
@@ -243,7 +239,7 @@ export default function CartPage() {
 
                         <div className="mt-6 flex flex-wrap gap-3">
                           <Link
-                            href="/step4-design"
+                            href={`/step4-design?edit=${encodeURIComponent(item.id)}`}
                             onClick={() => editCartItem(item)}
                             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-[#432719]/60 bg-white px-4 py-2 text-sm font-semibold uppercase text-[#432719] transition hover:-translate-y-0.5 hover:bg-[#f5eee7]"
                           >
@@ -295,10 +291,6 @@ export default function CartPage() {
                 Thanh toán giỏ hàng
                 <ArrowRight size={21} />
               </Link>
-              <Button onClick={addCurrentDesign} variant="secondary" className="mt-3 w-full">
-                <ShoppingBag size={20} />
-                Thêm mẫu hiện tại
-              </Button>
             </aside>
           </div>
         ) : activeTab === "purchased" ? (
