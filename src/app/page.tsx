@@ -13,14 +13,35 @@ const highlights = [
   { icon: Sparkles, title: "Chỉnh sửa không giới hạn", text: "Thích đổi ý? Thoải mái quay lại chỉnh sửa mẫu của bạn bất cứ lúc nào trước khi đặt hàng." },
   { icon: BadgeCheck, title: "Đặt hàng dễ như đi chợ", text: "Xem trước túi, chọn hộp quà xinh, biết tổng tiền ngay và hoàn tất chỉ trong vài phút." },
 ];
-
+const testimonials = [
+  {
+    name: "Ngọc Anh",
+    text: "Mình tự phối màu túi và kết quả đẹp hơn mong đợi. Chất liệu rất xịn.",
+  },
+  {
+    name: "Minh Trang",
+    text: "Giao diện dễ dùng, xem trước sản phẩm rất trực quan.",
+  },
+  {
+    name: "Hoàng Nam",
+    text: "Đặt làm quà tặng người yêu, nhận hàng ai cũng khen đẹp.",
+  },
+  {
+    name: "Thu Hà",
+    text: "Thêu tên lên túi cực kỳ dễ thương, đúng ý mình luôn.",
+  },
+  {
+    name: "Khánh Vy",
+    text: "Màu sắc thực tế giống hệt ảnh xem trước trên website.",
+  },
+];
 export default function Home() {
   return (
     <main>
       <SiteHeader />
       {/* Hero */}
       <section className="hero-sheen relative overflow-hidden border-b border-[#eadfd6]">
-        <div className="mx-auto grid min-h-[calc(100vh-80px)] max-w-[1600px] items-center gap-12 px-6 py-14 sm:px-8 lg:grid-cols-[1fr_1.2fr]">
+        <div className="mx-auto grid min-h-[calc(100vh-64px)] max-w-[1600px] items-center gap-12 px-6 py-14 sm:px-8 lg:grid-cols-[1fr_1.2fr]">
           <div className="animate-slide-in-left">
             <div className="mb-4 inline-flex items-center rounded-full border border-[#c6a43f]/50 bg-[#fef9f0] px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#9a6b36]">
               Lenth Custom Bag
@@ -44,7 +65,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="animate-float relative mx-auto w-full max-w-2xl">
+          <div className="animate-float relative mx-auto w-full max-w-5xl">
             <div className="absolute -inset-4 rounded-full bg-[#c6a43f]/15 blur-3xl" />
             <div className="absolute left-1/4 top-1/4"><div className="animate-sparkle size-2 rounded-full bg-[#c6a43f]" /></div>
             <div className="absolute right-1/4 top-2/3" style={{ animationDelay: "0.8s" }}><div className="animate-sparkle size-1.5 rounded-full bg-[#c6a43f]" style={{ animationDelay: "0.8s" }} /></div>
@@ -58,7 +79,56 @@ export default function Home() {
           </div>
         </div>
       </section>
+<section className="mx-auto max-w-[1600px] px-6 pb-20 sm:px-8">
+  <div className="mb-10 text-center">
+    <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#9a6b36]">
+      Đánh giá khách hàng
+    </span>
 
+    <h2 className="mt-3 font-serif text-3xl font-bold text-[#2b1a12] sm:text-4xl">
+      Mọi người nói gì về Lenth?
+    </h2>
+
+    <p className="mx-auto mt-4 max-w-2xl text-[#5c473a]">
+      Những chia sẻ từ khách hàng đã tự tay thiết kế chiếc túi của riêng mình.
+    </p>
+  </div>
+
+  <div className="review-marquee-wrapper">
+    <div className="review-marquee-track">
+      {[...testimonials, ...testimonials].map((item, index) => (
+        <div
+          key={index}
+          className="review-card"
+        >
+          <div className="mb-5 flex items-center gap-4">
+            <div className="grid h-12 w-12 place-items-center rounded-full bg-[#432719] text-sm font-bold text-white">
+              {item.name.charAt(0)}
+            </div>
+
+            <div>
+              <p className="font-semibold text-[#2b1a12]">
+                {item.name}
+              </p>
+
+              <p className="text-xs text-[#9a6b36]">
+                Khách hàng đã mua
+              </p>
+            </div>
+          </div>
+
+          <div className="mb-4 text-[#c6a43f]">
+            ★★★★★
+          </div>
+
+          <p className="leading-7 text-[#5c473a]">
+            "{item.text}"
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
       {/* Highlights */}
       <section className="mx-auto max-w-[1600px] px-6 py-16 sm:px-8">
         <div className="mb-10 text-center">
@@ -113,17 +183,75 @@ export default function Home() {
           {Object.entries(forms).slice(0, 4).map(([key, item]) => {
             const defaults = getDefaultSelectionForForm(key);
             return (
-            <Link key={key} href="/step1-form?fresh=1" className="card-shine group rounded-2xl border border-[#eadfd6] bg-[#fffdfb] p-4 transition duration-300 hover:-translate-y-1 hover:border-[#c6a43f] hover:shadow-xl">
-              <ProductImage form={key} material={defaults.material} color={defaults.color} mode="form" />
-              <div className="mt-4 flex items-center justify-between px-1 pb-1">
-                <span className="font-serif text-lg font-semibold">{item.name}</span>
-                <span className="text-sm text-[#7a675b]">{formatPrice(item.basePrice)}</span>
-              </div>
-            </Link>
+              <Link key={key} href="/step1-form?fresh=1" className="card-shine group rounded-2xl border border-[#eadfd6] bg-[#fffdfb] p-4 transition duration-300 hover:-translate-y-1 hover:border-[#c6a43f] hover:shadow-xl">
+                <ProductImage form={key} material={defaults.material} color={defaults.color} mode="form" />
+                <div className="mt-4 flex items-center justify-between px-1 pb-1">
+                  <span className="font-serif text-lg font-semibold">{item.name}</span>
+                  <span className="text-sm text-[#7a675b]">{formatPrice(item.basePrice)}</span>
+                </div>
+              </Link>
             );
           })}
         </div>
       </section>
+      <footer className="border-t border-[#eadfd6] bg-[#fffaf5]">
+        <div className="mx-auto max-w-[1600px] px-6 py-14 sm:px-8">
+          <div className="grid gap-10 lg:grid-cols-[2fr_1fr_1fr]">
+
+            {/* Brand */}
+            <div>
+              <h3 className="font-serif text-3xl font-bold text-[#2b1a12]">
+                Lenth Custom Bag
+              </h3>
+
+              <p className="mt-4 max-w-lg leading-7 text-[#5c473a]">
+                Thiết kế chiếc túi mang phong cách riêng của bạn.
+                Từ kiểu dáng, chất liệu đến màu sắc và thêu tên —
+                tất cả đều được cá nhân hóa theo sở thích.
+              </p>
+            </div>
+
+            {/* Menu */}
+            <div>
+              <h4 className="mb-4 font-semibold uppercase tracking-wider text-[#432719]">
+                Khám phá
+              </h4>
+
+              <div className="flex flex-col gap-3 text-[#5c473a]">
+                <Link href="/step1-form?fresh=1">Thiết kế túi</Link>
+                <Link href="/cart">Giỏ hàng</Link>
+                <Link href="/orders">Đơn hàng</Link>
+              </div>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="mb-4 font-semibold uppercase tracking-wider text-[#432719]">
+                Liên hệ
+              </h4>
+
+              <div className="space-y-3 text-[#5c473a]">
+                <p>support@lenth.vn</p>
+                <p>0900 000 000</p>
+                <p>08:00 - 22:00</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 border-t border-[#eadfd6] pt-6">
+            <div className="flex flex-col items-center justify-between gap-4 text-sm text-[#7a675b] md:flex-row">
+              <span>
+                © {new Date().getFullYear()} Lenth Custom Bag
+              </span>
+
+              <div className="flex gap-6">
+                <Link href="#">Chính sách bảo mật</Link>
+                <Link href="#">Điều khoản sử dụng</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
