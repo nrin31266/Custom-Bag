@@ -99,6 +99,14 @@ export function AdminClient() {
     };
   }, []);
 
+  // Fetch icons on initial load if scope is icons
+  useEffect(() => {
+    if (initialScope === "icons") {
+      fetchIcons();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const fetchIcons = async () => {
     try {
       const response = await fetch("/api/admin/icons", { cache: "no-store" });
@@ -114,6 +122,7 @@ export function AdminClient() {
     router.replace(`/admin?tab=${nextScope}`, { scroll: false });
     setQuery("");
     setFile(null);
+    setStatus("Sẵn sàng chỉnh sửa.");
     if (nextScope === "icons") {
       fetchIcons();
     } else if (nextScope === "forms") {

@@ -39,6 +39,7 @@ function SuccessContent() {
   const orderItems = matchedOrder?.items ?? [];
   const isMultiItem = orderItems.length > 1;
   const totalAmount = lastOrder?.total ?? matchedOrder?.total ?? 0;
+  const firstItem = orderItems[0];
 
   return (
     <main>
@@ -98,8 +99,11 @@ function SuccessContent() {
             <div className="animate-enter-stagger grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {orderItems.map((item) => (
                 <div key={item.id} className="card-shine rounded-2xl border border-[#eadfd6] bg-white p-4 transition hover:shadow-lg">
-                  {item.designData.previewDataUrl ? (
-                    <img src={item.designData.previewDataUrl} alt={getDisplayName("form", item.form)} className="aspect-square w-full rounded-xl border border-[#e7ded6] object-contain bg-[#eee9e3]" />
+                      {item.designData.previewDataUrl ? (
+                    <div
+                      className="aspect-square w-full rounded-xl border border-[#e7ded6] bg-[#eee9e3] bg-cover bg-center bg-no-repeat"
+                      style={{ backgroundImage: `url(${item.designData.previewDataUrl})` }}
+                    />
                   ) : (
                     <ProductImage form={item.form} material={item.material} color={item.color} className="aspect-square w-full rounded-xl" />
                   )}
@@ -168,7 +172,7 @@ function SuccessContent() {
                 <div className="card-shine rounded-xl border border-[#eadfd6] bg-white p-5">
                   <ShoppingBag className="mb-3 text-[#9a6b36]" size={24} />
                   <div className="text-sm text-[#5c473a]">Kiểu túi</div>
-                  <div className="mt-1 text-lg font-bold text-[#2b1a12]">{getDisplayName("form", form)}</div>
+                  <div className="mt-1 text-lg font-bold text-[#2b1a12]">{getDisplayName("form", firstItem?.form ?? form)}</div>
                 </div>
               </div>
 
@@ -192,10 +196,13 @@ function SuccessContent() {
               </div>
               <div className="absolute left-1/3 top-1/4"><div className="animate-sparkle size-2 rounded-full bg-[#c6a43f]" /></div>
               <div className="absolute right-1/3 bottom-1/4" style={{ animationDelay: "1s" }}><div className="animate-sparkle size-1.5 rounded-full bg-[#c6a43f]" style={{ animationDelay: "1s" }} /></div>
-              {designData.previewDataUrl ? (
-                <img src={designData.previewDataUrl} alt="Ảnh túi đã thiết kế" className="relative aspect-square w-full rounded-2xl border border-[#eadfd6] object-contain shadow-2xl" />
+              {firstItem?.designData.previewDataUrl ? (
+                <div
+                  className="relative aspect-square w-full rounded-2xl border border-[#eadfd6] bg-[#eee9e3] bg-cover bg-center bg-no-repeat shadow-2xl"
+                  style={{ backgroundImage: `url(${firstItem.designData.previewDataUrl})` }}
+                />
               ) : (
-                <ProductImage form={form} material={material} color={color} className="relative drop-shadow-2xl rounded-2xl" priority />
+                <ProductImage form={firstItem?.form ?? form} material={firstItem?.material ?? material} color={firstItem?.color ?? color} className="relative drop-shadow-2xl rounded-2xl" priority />
               )}
             </div>
           </div>
