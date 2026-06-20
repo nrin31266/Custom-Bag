@@ -518,10 +518,7 @@ export function AdminClient() {
             <h1 className="mt-1 font-serif text-3xl font-bold uppercase">Quản lý catalog</h1>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <Link href="/" className="inline-flex min-h-10 items-center gap-2 rounded-md border border-[#dacdc0] bg-white px-3 text-sm font-semibold text-[#7d4f2d] transition hover:bg-[#f7f1eb]">
-              <Home size={16} />
-              Về trang chủ
-            </Link>
+           
             <ScopeButton active={scope === "materials"} onClick={() => switchScope("materials")} icon={<Package size={18} />}>
               Chất liệu
             </ScopeButton>
