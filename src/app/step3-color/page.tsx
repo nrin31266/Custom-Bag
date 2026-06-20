@@ -96,16 +96,16 @@ export default function Step3ColorPage() {
                     type="button"
                     onClick={() => selectColor(key)}
                     className={cn(
-                      "flex flex-col items-center gap-4 rounded-xl border border-transparent p-4 transition duration-300 hover:-translate-y-1 hover:bg-[#fffdfb] hover:shadow-lg",
-                      selected &&
-                        "border-[#432719] bg-[#fffdfb] shadow-[0_14px_34px_rgba(67,39,25,0.16)]",
+                      "flex flex-col items-center gap-4 rounded-xl border bg-[#fffdfb] p-4 transition hover:-translate-y-1 hover:shadow-lg",
+                      selected
+                        ? "border-[#432719] ring-2 ring-[#432719]/20"
+                        : "border-[#eadfd6]",
                     )}
                   >
                     <span
                       className={cn(
-                        "relative grid size-32 place-items-center overflow-hidden rounded-full border border-[#d8c9bc] shadow-[inset_0_6px_12px_rgba(255,255,255,.22),inset_0_-8px_12px_rgba(0,0,0,.06),0_4px_12px_rgba(67,39,25,.04)] transition sm:size-36",
-                        selected &&
-                          "ring-4 ring-[#c6a43f] ring-offset-4 ring-offset-[#fbf8f5]",
+                        "relative size-32 overflow-hidden rounded-xl shadow-[inset_0_6px_12px_rgba(255,255,255,.15),inset_0_-8px_12px_rgba(0,0,0,.04),0_4px_12px_rgba(67,39,25,.04)] transition sm:size-36",
+                        selected && "ring-2 ring-[#c6a43f]",
                       )}
                       style={{
                         backgroundColor: colorImageUrl ? undefined : displayHex,
@@ -121,7 +121,7 @@ export default function Step3ColorPage() {
                         />
                       ) : (
                         <span
-                          className="absolute inset-0 rounded-full"
+                          className="absolute inset-0 rounded-xl"
                           style={{
                             backgroundImage:
                               "radial-gradient(circle at 35% 28%, rgba(255,255,255,.3), transparent 30%), radial-gradient(circle at 65% 72%, rgba(0,0,0,.08), transparent 34%), repeating-linear-gradient(45deg, rgba(255,255,255,.12) 0 1px, transparent 1px 5px), radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px)",

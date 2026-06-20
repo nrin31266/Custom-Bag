@@ -5,7 +5,7 @@ type CreateCartItemInput = {
   form: string;
   material: string;
   color: string;
-  giftBox: boolean;
+  giftBox: string;
   designData: DesignData;
 };
 
@@ -42,7 +42,6 @@ export function stripHeavyDesignData(item: CartItem): CartItem {
     designData: {
       ...item.designData,
       canvasJSON: null,
-      previewDataUrl: null,
     },
   };
 }

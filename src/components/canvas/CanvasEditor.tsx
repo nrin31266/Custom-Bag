@@ -83,7 +83,11 @@ export function CanvasEditor() {
   const canvasElRef = useRef<HTMLCanvasElement | null>(null);
   const canvasRef = useRef<import("fabric").Canvas | null>(null);
   const fabricRef = useRef<typeof import("fabric") | null>(null);
-  const initialCanvasJSONRef = useRef(designData.canvasJSON);
+  const currentCanvasJSON = designData.canvasJSON;
+  const initialCanvasJSONRef = useRef(currentCanvasJSON);
+  useEffect(() => {
+    initialCanvasJSONRef.current = currentCanvasJSON;
+  }, [currentCanvasJSON]);
   const [text, setText] = useState("Lenth");
   const [selectedFontLabel, setSelectedFontLabel] = useState(fontOptions[0].label);
   const [threadColor, setThreadColor] = useState(threadColors[1]);
@@ -151,7 +155,8 @@ export function CanvasEditor() {
         img.set({ left: CANVAS_DEFAULT_CONFIG.width / 2, top: CANVAS_DEFAULT_CONFIG.height / 2, originX: "center", originY: "center", selectable: false, evented: false, scaleX: s * 0.96, scaleY: s * 0.96 });
         canvas.backgroundImage = img; canvas.requestRenderAll();
       } catch { setStatus("Không tải được ảnh nền"); }
-      if (initialCanvasJSONRef.current) { try { await canvas.loadFromJSON(initialCanvasJSONRef.current); canvas.requestRenderAll(); } catch { setStatus("Dữ liệu cũ không hợp lệ"); } }
+      const jsonToLoad = initialCanvasJSONRef.current;
+      if (jsonToLoad) { try { await canvas.loadFromJSON(jsonToLoad); canvas.requestRenderAll(); } catch { setStatus("Dữ liệu cũ không hợp lệ"); } }
       canvas.on("object:modified", saveCanvas);
       canvas.on("object:added", () => { syncObjectCounts(); saveCanvas(); });
       canvas.on("object:removed", () => { syncObjectCounts(); saveCanvas(); });
@@ -221,7 +226,7 @@ export function CanvasEditor() {
         <h2 className="text-center text-lg font-bold uppercase text-[#7d4f2d]">Công cụ thiết kế</h2>
 
         {/* Text input */}
-        <textarea value={text} onChange={(e) => { setText(e.target.value); if (canvasRef.current?.getActiveObject()?.type === "textbox") applyStyle({ text: e.target.value }); }} placeholder="Nhập chữ muốn thêu" rows={3} className="w-full rounded-lg border border-[#d8c9bc] bg-white px-3 py-3 text-center text-base outline-none focus:border-[#c6a43f] resize-none" />
+        <input value={text} onChange={(e) => { setText(e.target.value); if (canvasRef.current?.getActiveObject()?.type === "textbox") applyStyle({ text: e.target.value }); }} placeholder="Nhập chữ muốn thêu" className=" w-full rounded-lg border border-[#d8c9bc] bg-white px-3 text-center text-base outline-none focus:border-[#c6a43f]" />
 
         {/* Font selection */}
         <div>

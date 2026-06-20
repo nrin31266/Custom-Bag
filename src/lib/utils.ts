@@ -35,19 +35,18 @@ export const calculateTotal = (
   form: string,
   material: string,
   color: string,
-  hasGiftBox: boolean,
+  giftBoxKey: string,
   designData?: DesignData,
 ): number => {
   const subOption = getSubOption(form, material);
   const colorOption = getColorOption(form, material, color);
-  const giftBoxFee = hasGiftBox ? giftbox.fee : 0;
+  const giftBoxFee = giftBoxKey !== "none" ? giftbox.fee : 0;
 
   return (
     subOption.basePrice +
     colorOption.priceAdjust +
     calculateCustomizationFee(designData).total +
-    giftBoxFee +
-    prices.shippingFee
+    giftBoxFee
   );
 };
 
@@ -66,7 +65,7 @@ export const getPriceBreakdown = (
   form: string,
   material: string,
   color: string,
-  hasGiftBox: boolean,
+  giftBoxKey: string,
   designData?: DesignData,
 ) => {
   const formItem = getProduct(form);
@@ -74,7 +73,7 @@ export const getPriceBreakdown = (
   const colorOption = getColorOption(form, material, color);
   const materialDelta = subOption.basePrice - formItem.basePrice;
   const bagPrice = subOption.basePrice + colorOption.priceAdjust;
-  const giftBoxFee = hasGiftBox ? giftbox.fee : 0;
+  const giftBoxFee = giftBoxKey !== "none" ? giftbox.fee : 0;
   const customizationFee = calculateCustomizationFee(designData);
 
   return {
@@ -85,7 +84,7 @@ export const getPriceBreakdown = (
     customizationFee,
     giftBoxFee,
     shippingFee: prices.shippingFee,
-    total: bagPrice + customizationFee.total + giftBoxFee + prices.shippingFee,
+    total: bagPrice + customizationFee.total + giftBoxFee,
   };
 };
 

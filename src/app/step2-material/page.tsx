@@ -115,15 +115,15 @@ export default function Step2MaterialPage() {
                     type="button"
                     onClick={() => selectMaterial(key)}
                     className={cn(
-                      "group relative overflow-hidden rounded-xl border bg-[#fffdfb] text-center transition duration-300 hover:-translate-y-1 hover:border-[#c6a43f] hover:shadow-xl",
+                      "group relative overflow-hidden rounded-xl border bg-[#fffdfb] text-center transition hover:-translate-y-1 hover:border-[#c6a43f] hover:shadow-lg",
                       selected
-                        ? "scale-[1.02] border-[#432719] shadow-[0_16px_40px_rgba(67,39,25,0.2),0_0_0_4px_rgba(198,164,63,0.28)]"
+                        ? "border-[#432719] ring-2 ring-[#432719]/20"
                         : "border-[#eadfd6]",
                     )}
                   >
                     {selected && (
-                      <span className="absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full bg-[#432719] px-3 py-1 text-xs font-bold uppercase text-white shadow-lg">
-                        <Check size={14} />
+                      <span className="absolute right-2 top-2 z-10 inline-flex items-center gap-1 rounded-full bg-[#432719] px-2.5 py-0.5 text-[10px] font-bold uppercase text-white shadow-md">
+                        <Check size={12} />
                         Đã chọn
                       </span>
                     )}

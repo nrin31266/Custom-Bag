@@ -1,13 +1,13 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { ArrowRight, SlidersHorizontal, X } from "lucide-react";
+import { ArrowRight, Check, SlidersHorizontal, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { StepIndicator } from "@/components/ui/StepIndicator";
 import { useStepNavigation } from "@/hooks/useStepNavigation";
-import { calculateBagPrice, cn, formatPrice } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import {
   getAllMaterials,
   getDefaultSelectionForForm,
@@ -40,7 +40,7 @@ export default function Step1FormPage() {
     freshHandled.current = true;
     const params = new URLSearchParams(window.location.search);
     if (params.get("fresh") !== "1") return;
-    setGiftBox(false);
+    setGiftBox("none");
     setDesignData(EMPTY_DESIGN_DATA);
     window.history.replaceState(null, "", "/step1-form");
   }, [setDesignData, setGiftBox]);
@@ -114,13 +114,21 @@ export default function Step1FormPage() {
                   const defaults = getDefaultSelectionForForm(key);
                   const subOptions = getSubOptions(key);
                   return (
-                    <button key={key} type="button" onClick={() => selectForm(key)} className={cn("rounded-lg border bg-[#fffdfb] p-3 text-center transition hover:-translate-y-1 hover:border-[#c6a43f] hover:shadow-xl", formType === key ? "scale-[1.02] border-[#432719] shadow-[0_14px_38px_rgba(67,39,25,0.18),0_0_0_3px_rgba(198,164,63,0.25)]" : "border-[#eadfd6]")}>
-                      <ProductImage form={key} material={formType === key ? material : defaults.material} color={formType === key ? color : defaults.color} className="mb-3" mode="form" />
-                      <div className="font-serif text-xl">{form.name}</div>
-                      <p className="mx-auto mt-2 min-h-10 max-w-xs text-sm text-[#6d5b50]">{form.description}</p>
-                      <div className="mt-1 text-sm text-[#7a675b]">Từ {formatPrice(form.basePrice)}</div>
-                      <div className="mt-2 text-xs font-semibold uppercase text-[#9a6b36]">{subOptions.length} phiên bản</div>
-                      <div className="mt-2 rounded-full bg-[#f7f1eb] px-3 py-2 text-sm font-bold text-[#432719]">Giá mẫu đang xem: {formatPrice(calculateBagPrice(key, formType === key ? material : defaults.material, formType === key ? color : defaults.color))}</div>
+                    <button key={key} type="button" onClick={() => selectForm(key)} className={cn("group relative rounded-xl border bg-[#fffdfb] p-2 text-center transition hover:-translate-y-1 hover:border-[#c6a43f] hover:shadow-lg", formType === key ? "border-[#432719] ring-2 ring-[#432719]/20" : "border-[#eadfd6]")}>
+                      <ProductImage form={key} material={formType === key ? material : defaults.material} color={formType === key ? color : defaults.color} mode="form" />
+                      {formType === key && (
+                        <span className="absolute right-2 top-2 z-10 inline-flex items-center gap-1 rounded-full bg-[#432719] px-2.5 py-0.5 text-[10px] font-bold uppercase text-white shadow-md">
+                          <Check size={12} />
+                          Đã chọn
+                        </span>
+                      )}
+                      <div className="mt-2 font-serif text-lg font-bold">{form.name}</div>
+                      <div className="mt-1 text-sm font-semibold text-[#432719]">Từ {formatPrice(form.basePrice)}</div>
+                      <div className="mt-1 text-xs text-[#9a6b36]">{subOptions.length} chất liệu</div>
+                      {/* Tooltip on hover */}
+                      <div className="pointer-events-none absolute inset-x-2 bottom-full z-10 mb-1 rounded-lg bg-[#2b1a12] px-3 py-2 text-left text-xs text-white opacity-0 shadow-xl transition group-hover:opacity-100">
+                        {form.description}
+                      </div>
                     </button>
                   );
                 })}

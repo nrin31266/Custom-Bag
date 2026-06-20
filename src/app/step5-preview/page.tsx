@@ -28,7 +28,7 @@ export default function Step5PreviewPage() {
   const color = useAtomValue(colorAtom);
   const designData = useAtomValue(designDataAtom);
   const colorHex = colors[color as keyof typeof colors]?.hex ?? "#f5f5dc";
-  const breakdown = getPriceBreakdown(form, material, color, false, designData);
+  const breakdown = getPriceBreakdown(form, material, color, "none", designData);
 
   return (
     <main>

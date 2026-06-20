@@ -9,7 +9,7 @@ type PriceSummaryProps = {
   form: string;
   material: string;
   color: string;
-  giftBox?: boolean;
+  giftBox?: string;
   previewDataUrl?: string | null;
   designData?: DesignData;
   className?: string;
@@ -19,7 +19,7 @@ export function PriceSummary({
   form,
   material,
   color,
-  giftBox = false,
+  giftBox = "none",
   previewDataUrl,
   designData,
   className,

@@ -45,7 +45,7 @@ export function ProductImage({
         fill
         sizes="(max-width: 768px) 90vw, 500px"
         className={cn(
-          "object-contain p-6 transition-opacity duration-200",
+          "object-contain transition-opacity duration-200",
           isLoading ? "opacity-0" : "opacity-100",
         )}
         priority={priority}

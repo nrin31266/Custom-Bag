@@ -555,14 +555,14 @@ export default function Step7CheckoutPage() {
             <div className="flex gap-4">
               {cartItems.length > 0 && cartItems[0]?.designData.previewDataUrl ? (
                 <div
-                  className="size-32 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
+                  className="aspect-[3/2] h-32 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
                   style={{
                     backgroundImage: `url(${cartItems[0].designData.previewDataUrl})`,
                   }}
                 />
               ) : designData.previewDataUrl ? (
                 <div
-                  className="size-32 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
+                  className="aspect-[3/2] h-32 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
                   style={{ backgroundImage: `url(${designData.previewDataUrl})` }}
                 />
               ) : (
@@ -671,12 +671,20 @@ export default function Step7CheckoutPage() {
                   </div>
                 </>
               )}
-              {cartItems.length > 0 && (
-                <p className="rounded-md bg-[#f7f1eb] p-3 text-sm text-[#5c473a]">
-                  Mỗi mẫu trong giỏ đã bao gồm giá túi, box đã chọn và phí vận chuyển
-                  riêng của mẫu đó.
-                </p>
-              )}
+              <div className="flex justify-between">
+                <span>Phí vận chuyển</span>
+                <span>
+                  {shippingProvinceCode ? (
+                    loadingShippingFee ? (
+                      <span className="text-sm text-[#9a6b36]">Đang tính...</span>
+                    ) : (
+                      formatPrice(shippingFee)
+                    )
+                  ) : (
+                    <span className="text-sm text-[#9a6b36]">Chọn tỉnh để tính phí</span>
+                  )}
+                </span>
+              </div>
               <div className="flex justify-between border-t border-[#eadfd6] pt-5 text-xl font-bold">
                 <span>Tổng cộng</span>
                 <span>{formatPrice(checkoutTotal)}</span>

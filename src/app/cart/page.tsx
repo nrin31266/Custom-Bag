@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { ArrowRight, Clock, Download, History, Pencil, ShoppingBag, Trash2 } from "lucide-react";
 import giftbox from "@/data/giftbox.json";
 import { ProductImage } from "@/components/ui/ProductImage";
@@ -30,11 +30,24 @@ export default function CartPage() {
   const color = useAtomValue(colorAtom);
   const giftBox = useAtomValue(giftBoxAtom);
   const designData = useAtomValue(designDataAtom);
+  const setForm = useSetAtom(formTypeAtom);
+  const setMaterial = useSetAtom(materialAtom);
+  const setColor = useSetAtom(colorAtom);
+  const setGiftBox = useSetAtom(giftBoxAtom);
+  const setDesignData = useSetAtom(designDataAtom);
   const [cartItems, setCartItems] = useAtom(cartItemsAtom);
   const [purchasedOrders, setPurchasedOrders] = useAtom(purchasedOrdersAtom);
   const [canceledOrders, setCanceledOrders] = useAtom(canceledOrdersAtom);
   const [activeTab, setActiveTab] = useState<CartTab>("cart");
   const cartTotal = getCartItemsTotal(cartItems);
+
+  const editCartItem = (item: typeof cartItems[number]) => {
+    setForm(item.form);
+    setMaterial(item.material);
+    setColor(item.color);
+    setGiftBox(item.giftBox);
+    setDesignData(item.designData);
+  };
 
   const addCurrentDesign = () => {
     setCartItems((items) => [
@@ -167,7 +180,7 @@ export default function CartPage() {
                     <div className="grid gap-5 sm:grid-cols-[180px_1fr]">
                       {item.designData.previewDataUrl ? (
                         <div
-                          className="aspect-square rounded-lg bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
+                          className="aspect-[3/2] w-full rounded-lg bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
                           style={{
                             backgroundImage: `url(${item.designData.previewDataUrl})`,
                           }}
@@ -231,10 +244,11 @@ export default function CartPage() {
                         <div className="mt-6 flex flex-wrap gap-3">
                           <Link
                             href="/step4-design"
+                            onClick={() => editCartItem(item)}
                             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-[#432719]/60 bg-white px-4 py-2 text-sm font-semibold uppercase text-[#432719] transition hover:-translate-y-0.5 hover:bg-[#f5eee7]"
                           >
                             <Pencil size={18} />
-                            Chỉnh mẫu đang mở
+                            Chỉnh mẫu này
                           </Link>
                           <Button
                             variant="ghost"
@@ -261,7 +275,7 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between">
                   <span>Phí vận chuyển</span>
-                  <span>Đã tính trong từng mẫu</span>
+                  <span className="text-sm text-[#9a6b36]">Tính khi thanh toán</span>
                 </div>
                 <div className="flex justify-between border-t border-[#eadfd6] pt-5 text-2xl font-bold">
                   <span>Tổng</span>
@@ -327,7 +341,7 @@ export default function CartPage() {
                         <div className="flex gap-3">
                           {item.designData.previewDataUrl ? (
                             <div
-                              className="size-20 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
+                              className="aspect-[3/2] h-20 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
                               style={{
                                 backgroundImage: `url(${item.designData.previewDataUrl})`,
                               }}
@@ -428,7 +442,7 @@ export default function CartPage() {
                         <div className="flex gap-3">
                           {item.designData.previewDataUrl ? (
                             <div
-                              className="size-20 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
+                              className="aspect-[3/2] h-20 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
                               style={{
                                 backgroundImage: `url(${item.designData.previewDataUrl})`,
                               }}

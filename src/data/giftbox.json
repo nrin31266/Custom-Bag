@@ -1,19 +1,20 @@
 {
   "fee": 50000,
+  "defaultKey": "none",
   "options": [
     {
-      "value": false,
-      "title": "Không thêm box quà",
-      "description": "Tiết kiệm chi phí",
-      "badge": "Miễn phí",
-      "image": "/images/giftbox/no-box.jpg"
+      "key": "none",
+      "title": "Gói cơ bản",
+      "description": "Túi được gói trong bao vải Lenth kèm phiếu cảm ơn",
+      "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&h=400&fit=crop",
+      "contents": ["Bao vải Lenth", "Phiếu cảm ơn"]
     },
     {
-      "value": true,
-      "title": "Thêm box quà",
-      "description": "Hộp quà cao cấp, túi vải và thiệp",
-      "badge": "+51.000đ",
-      "image": "/images/giftbox/yes-box.jpg"
+      "key": "premium",
+      "title": "Gói quà Premium",
+      "description": "Hộp cứng cao cấp, túi vải, thiệp, ruy băng lụa",
+      "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&h=400&fit=crop",
+      "contents": ["Hộp cứng cao cấp", "Túi vải Lenth", "Thiệp chúc mừng", "Ruy băng lụa", "Phiếu cảm ơn"]
     }
   ]
 }

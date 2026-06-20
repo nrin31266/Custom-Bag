@@ -44,7 +44,7 @@ export type CartItem = {
   form: string;
   material: string;
   color: string;
-  giftBox: boolean;
+  giftBox: string;
   designData: DesignData;
   bagPrice: number;
   total: number;
@@ -97,7 +97,7 @@ export const designDataAtom = atomWithStorage<DesignData>(
   "lenth_design",
   EMPTY_DESIGN_DATA,
 );
-export const giftBoxAtom = atomWithStorage("lenth_giftbox", false);
+export const giftBoxAtom = atomWithStorage("lenth_giftbox", "none");
 export const shippingProvinceCodeAtom = atomWithStorage("lenth_shipping_province", "");
 export const shippingFeeAtom = atomWithStorage("lenth_shipping_fee", 0);
 export const customerInfoAtom = atomWithStorage<CustomerInfo>("lenth_customer", {
