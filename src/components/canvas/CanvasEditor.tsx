@@ -124,16 +124,35 @@ export function CanvasEditor() {
   const saveCanvas = useCallback(() => {
     const canvas = canvasRef.current; if (!canvas) return;
     const objs = canvas.getObjects();
-    let pdu: string | null = null;
-    try { pdu = canvas.toDataURL({ format: "png", multiplier: 1 }); } catch { pdu = null; }
     const texts = objs.filter((o) => o.type === "textbox").map((o) => {
       const tb = o as import("fabric").Textbox & { data?: { fontLabel?: string } };
       return { text: tb.text ?? "", font: String(tb.fontFamily ?? "Arial"), fontLabel: String(tb.data?.fontLabel ?? getFontOptionByFamily(String(tb.fontFamily ?? "")).label), color: String(tb.fill ?? "#333"), position: { x: tb.left ?? 0, y: tb.top ?? 0 } };
     });
     const icons = objs.filter((o) => o.type === "image").map((o) => (o as import("fabric").FabricImage).getSrc());
-    setDesignData({ texts, icons, pricing: calculateCustomizationFee({ texts, icons }), canvasJSON: canvas.toJSON(), previewDataUrl: pdu, updatedAt: new Date().toISOString() });
+    // Write update immediately (preview URL may arrive async)
+    setDesignData({ texts, icons, pricing: calculateCustomizationFee({ texts, icons }), canvasJSON: null, previewDataUrl: null, updatedAt: new Date().toISOString() });
     setObjectCounts({ texts: texts.length, icons: icons.length });
-    setStatus(pdu ? "Đã lưu thiết kế và ảnh xem trước" : "Đã lưu thiết kế");
+    setStatus("Đã lưu thiết kế");
+
+    // Persist preview PNG to server and store path instead of base64
+    try {
+      const previewPng = canvas.toDataURL({ format: "png", multiplier: 1 });
+      if (previewPng) {
+        fetch("/api/admin/catalog/preview", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ dataUrl: previewPng }),
+        })
+          .then(async (res) => {
+            const data = await res.json() as { path?: string };
+            if (res.ok && data.path) {
+              setDesignData((prev) => ({ ...prev, previewDataUrl: data.path!, updatedAt: new Date().toISOString() }));
+              setStatus("Đã lưu thiết kế và ảnh xem trước");
+            }
+          })
+          .catch(() => { /* preview save failed, design data already persisted */ });
+      }
+    } catch { /* canvas export failed */ }
   }, [setDesignData]);
 
   useEffect(() => {
