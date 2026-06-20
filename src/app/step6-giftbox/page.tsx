@@ -2,15 +2,13 @@
 
 import Image from "next/image";
 import { useAtom, useAtomValue } from "jotai";
-import { ArrowLeft, ArrowRight, Check, ShoppingBag } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import giftboxConfig from "@/data/giftbox.json";
 import { Button } from "@/components/ui/Button";
 import { StepIndicator } from "@/components/ui/StepIndicator";
 import { useStepNavigation } from "@/hooks/useStepNavigation";
-import { createCartItem } from "@/lib/cartUtils";
 import { calculateTotal, cn, formatPrice } from "@/lib/utils";
 import {
-  cartItemsAtom,
   colorAtom,
   designDataAtom,
   formTypeAtom,
@@ -25,23 +23,7 @@ export default function Step6GiftBoxPage() {
   const material = useAtomValue(materialAtom);
   const color = useAtomValue(colorAtom);
   const designData = useAtomValue(designDataAtom);
-  const [cartItems, setCartItems] = useAtom(cartItemsAtom);
   const totalWithCurrentBox = calculateTotal(form, material, color, giftBox, designData);
-  const currentInCart = cartItems.some(
-    (item) =>
-      item.form === form &&
-      item.material === material &&
-      item.color === color &&
-      item.giftBox === giftBox &&
-      item.designData.updatedAt === designData.updatedAt,
-  );
-
-  const addToCart = () => {
-    setCartItems((items) => [
-      createCartItem({ form, material, color, giftBox, designData }),
-      ...items,
-    ]);
-  };
 
   return (
     <main>
@@ -134,18 +116,10 @@ export default function Step6GiftBoxPage() {
           })}
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <Button variant="secondary" onClick={navigation.goBack}>
             <ArrowLeft size={20} />
             Quay lại
-          </Button>
-          <Button
-            variant={currentInCart ? "secondary" : "primary"}
-            onClick={addToCart}
-            disabled={currentInCart}
-          >
-            {currentInCart ? <Check size={20} /> : <ShoppingBag size={20} />}
-            {currentInCart ? "Đã thêm giỏ" : "Thêm vào giỏ"}
           </Button>
           <Button onClick={navigation.goNext}>
             Tiếp theo

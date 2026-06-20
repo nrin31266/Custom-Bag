@@ -2,171 +2,171 @@
   {
     "name": "Thành phố Hà Nội",
     "code": 1,
-    "shipping_fee": 30000
+    "shipping_fee": 75000
   },
   {
     "name": "Tỉnh Cao Bằng",
     "code": 4,
-    "shipping_fee": 35000
+    "shipping_fee": 95000
   },
   {
     "name": "Tỉnh Tuyên Quang",
     "code": 8,
-    "shipping_fee": 35000
+    "shipping_fee": 90000
   },
   {
     "name": "Tỉnh Điện Biên",
     "code": 11,
-    "shipping_fee": 35000
+    "shipping_fee": 100000
   },
   {
     "name": "Tỉnh Lai Châu",
     "code": 12,
-    "shipping_fee": 35000
+    "shipping_fee": 100000
   },
   {
     "name": "Tỉnh Sơn La",
     "code": 14,
-    "shipping_fee": 35000
+    "shipping_fee": 95000
   },
   {
     "name": "Tỉnh Lào Cai",
     "code": 15,
-    "shipping_fee": 35000
+    "shipping_fee": 95000
   },
   {
     "name": "Tỉnh Thái Nguyên",
     "code": 19,
-    "shipping_fee": 30000
+    "shipping_fee": 70000
   },
   {
     "name": "Tỉnh Lạng Sơn",
     "code": 20,
-    "shipping_fee": 35000
+    "shipping_fee": 90000
   },
   {
     "name": "Tỉnh Quảng Ninh",
     "code": 22,
-    "shipping_fee": 32000
+    "shipping_fee": 85000
   },
   {
     "name": "Tỉnh Bắc Ninh",
     "code": 24,
-    "shipping_fee": 25000
+    "shipping_fee": 65000
   },
   {
     "name": "Tỉnh Phú Thọ",
     "code": 25,
-    "shipping_fee": 30000
+    "shipping_fee": 70000
   },
   {
     "name": "Thành phố Hải Phòng",
     "code": 31,
-    "shipping_fee": 28000
+    "shipping_fee": 68000
   },
   {
     "name": "Tỉnh Hưng Yên",
     "code": 33,
-    "shipping_fee": 25000
+    "shipping_fee": 65000
   },
   {
     "name": "Tỉnh Ninh Bình",
     "code": 37,
-    "shipping_fee": 28000
+    "shipping_fee": 68000
   },
   {
     "name": "Tỉnh Thanh Hóa",
     "code": 38,
-    "shipping_fee": 20000
+    "shipping_fee": 35000
   },
   {
     "name": "Tỉnh Nghệ An",
     "code": 40,
-    "shipping_fee": 20000
+    "shipping_fee": 35000
   },
   {
     "name": "Tỉnh Hà Tĩnh",
     "code": 42,
-    "shipping_fee": 20000
+    "shipping_fee": 35000
   },
   {
     "name": "Tỉnh Quảng Trị",
     "code": 44,
-    "shipping_fee": 20000
+    "shipping_fee": 30000
   },
   {
     "name": "Thành phố Huế",
     "code": 46,
-    "shipping_fee": 15000
+    "shipping_fee": 25000
   },
   {
     "name": "Thành phố Đà Nẵng",
     "code": 48,
-    "shipping_fee": 15000
+    "shipping_fee": 20000
   },
   {
     "name": "Tỉnh Quảng Ngãi",
     "code": 51,
-    "shipping_fee": 20000
+    "shipping_fee": 30000
   },
   {
     "name": "Tỉnh Gia Lai",
     "code": 52,
-    "shipping_fee": 22000
+    "shipping_fee": 40000
   },
   {
     "name": "Tỉnh Khánh Hòa",
     "code": 56,
-    "shipping_fee": 25000
+    "shipping_fee": 45000
   },
   {
     "name": "Tỉnh Đắk Lắk",
     "code": 66,
-    "shipping_fee": 25000
+    "shipping_fee": 45000
   },
   {
     "name": "Tỉnh Lâm Đồng",
     "code": 68,
-    "shipping_fee": 25000
+    "shipping_fee": 45000
   },
   {
     "name": "Tỉnh Đồng Nai",
     "code": 75,
-    "shipping_fee": 35000
+    "shipping_fee": 80000
   },
   {
     "name": "Thành phố Hồ Chí Minh",
     "code": 79,
-    "shipping_fee": 40000
+    "shipping_fee": 85000
   },
   {
     "name": "Tỉnh Tây Ninh",
     "code": 80,
-    "shipping_fee": 35000
+    "shipping_fee": 80000
   },
   {
     "name": "Tỉnh Đồng Tháp",
     "code": 82,
-    "shipping_fee": 35000
+    "shipping_fee": 80000
   },
   {
     "name": "Tỉnh Vĩnh Long",
     "code": 86,
-    "shipping_fee": 35000
+    "shipping_fee": 80000
   },
   {
     "name": "Tỉnh An Giang",
     "code": 91,
-    "shipping_fee": 35000
+    "shipping_fee": 80000
   },
   {
     "name": "Thành phố Cần Thơ",
     "code": 92,
-    "shipping_fee": 35000
+    "shipping_fee": 80000
   },
   {
     "name": "Tỉnh Cà Mau",
     "code": 96,
-    "shipping_fee": 40000
+    "shipping_fee": 90000
   }
 ]

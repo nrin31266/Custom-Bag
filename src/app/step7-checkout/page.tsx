@@ -1,6 +1,6 @@
 "use client";
 
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -9,6 +9,7 @@ import {
   Banknote,
   CreditCard,
   ShieldCheck,
+  ShoppingBag,
   Wallet,
 } from "lucide-react";
 import { useForm, useWatch } from "react-hook-form";
@@ -49,6 +50,7 @@ import {
   shippingProvinceCodeAtom,
   purchasedOrdersAtom,
 } from "@/stores/customizationStore";
+import Link from "next/link";
 
 type CheckoutForm = {
   fullName: string;
@@ -91,6 +93,18 @@ export default function Step7CheckoutPage() {
   const giftBox = useAtomValue(giftBoxAtom);
   const designData = useAtomValue(designDataAtom);
   const [cartItems, setCartItems] = useAtom(cartItemsAtom);
+  const setForm = useSetAtom(formTypeAtom);
+  const setMaterial = useSetAtom(materialAtom);
+  const setColor = useSetAtom(colorAtom);
+  const setGiftBox = useSetAtom(giftBoxAtom);
+  const setDesignData = useSetAtom(designDataAtom);
+
+  const addToCartAndBack = () => {
+    setCartItems((items) => [
+      createCartItem({ form: formType, material, color, giftBox, designData }),
+      ...items,
+    ]);
+  };
   const [customerInfo, setCustomerInfo] = useAtom(customerInfoAtom);
   const [paymentMethod, setPaymentMethod] = useAtom(paymentMethodAtom);
   const [, setLastOrder] = useAtom(lastOrderAtom);
@@ -555,14 +569,14 @@ export default function Step7CheckoutPage() {
             <div className="flex gap-4">
               {cartItems.length > 0 && cartItems[0]?.designData.previewDataUrl ? (
                 <div
-                  className="aspect-[3/2] h-32 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
+                  className="size-32 shrink-0 rounded-md bg-[#eee9e3] bg-cover bg-center bg-no-repeat"
                   style={{
                     backgroundImage: `url(${cartItems[0].designData.previewDataUrl})`,
                   }}
                 />
               ) : designData.previewDataUrl ? (
                 <div
-                  className="aspect-[3/2] h-32 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
+                  className="size-32 shrink-0 rounded-md bg-[#eee9e3] bg-cover bg-center bg-no-repeat"
                   style={{ backgroundImage: `url(${designData.previewDataUrl})` }}
                 />
               ) : (
@@ -701,11 +715,19 @@ export default function Step7CheckoutPage() {
           </aside>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <Button variant="secondary" onClick={navigation.goBack}>
             <ArrowLeft size={22} />
             Quay lại
           </Button>
+          <Link
+            href="/cart"
+            onClick={addToCartAndBack}
+            className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#432719]/60 bg-white px-6 py-3 text-sm font-semibold uppercase text-[#432719] transition hover:-translate-y-0.5 hover:bg-[#f5eee7]"
+          >
+            <ShoppingBag size={22} />
+            Thêm vào giỏ & mua sau
+          </Link>
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Đang xác nhận..." : "Đặt hàng ngay"}
             <ArrowRight size={22} />

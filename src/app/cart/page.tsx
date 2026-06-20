@@ -180,7 +180,7 @@ export default function CartPage() {
                     <div className="grid gap-5 sm:grid-cols-[180px_1fr]">
                       {item.designData.previewDataUrl ? (
                         <div
-                          className="aspect-[3/2] w-full rounded-lg bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
+                          className="aspect-square rounded-lg bg-[#eee9e3] bg-cover bg-center bg-no-repeat"
                           style={{
                             backgroundImage: `url(${item.designData.previewDataUrl})`,
                           }}
@@ -341,7 +341,7 @@ export default function CartPage() {
                         <div className="flex gap-3">
                           {item.designData.previewDataUrl ? (
                             <div
-                              className="aspect-[3/2] h-20 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
+                              className="size-20 shrink-0 rounded-md bg-[#eee9e3] bg-cover bg-center bg-no-repeat"
                               style={{
                                 backgroundImage: `url(${item.designData.previewDataUrl})`,
                               }}
@@ -442,7 +442,7 @@ export default function CartPage() {
                         <div className="flex gap-3">
                           {item.designData.previewDataUrl ? (
                             <div
-                              className="aspect-[3/2] h-20 shrink-0 rounded-md bg-[#eee9e3] bg-contain bg-center bg-no-repeat"
+                              className="size-20 shrink-0 rounded-md bg-[#eee9e3] bg-cover bg-center bg-no-repeat"
                               style={{
                                 backgroundImage: `url(${item.designData.previewDataUrl})`,
                               }}

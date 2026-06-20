@@ -2,7 +2,7 @@
 
 import { useAtomValue } from "jotai";
 import Link from "next/link";
-import { ArrowRight, Gift, Image as ImageIcon, Pencil, ShoppingBag } from "lucide-react";
+import { ArrowRight, Gift, Image as ImageIcon, Pencil } from "lucide-react";
 import colors from "@/data/colors.json";
 import { Button } from "@/components/ui/Button";
 import { ProductImage } from "@/components/ui/ProductImage";
@@ -174,25 +174,16 @@ export default function Step5PreviewPage() {
           </aside>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Button variant="secondary" onClick={() => navigation.goToStep(4)}>
             <Pencil size={22} />
             Thiết kế lại
           </Button>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Link
-              href="/cart"
-              className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#432719]/60 bg-white px-6 py-3 text-sm font-semibold uppercase text-[#432719] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5eee7] hover:shadow-md sm:text-base"
-            >
-              <ShoppingBag size={22} />
-              Giỏ hàng
-            </Link>
-            <Button onClick={navigation.goNext}>
-              <Gift size={22} />
-              Chọn hộp quà xinh
-              <ArrowRight size={22} />
-            </Button>
-          </div>
+          <Button onClick={navigation.goNext}>
+            <Gift size={22} />
+            Chọn hộp quà xinh
+            <ArrowRight size={22} />
+          </Button>
         </div>
       </section>
     </main>
